@@ -31,7 +31,17 @@ public class Person5 {
 	 */
 	private String calc(String input) {
 	  //Person 5 put your implementation here
-	  return null;
+		if(input == null) {
+			throw new java.lang.IllegalArgumentException("input can't be null");
+		}
+			if(input.length() == 1) {
+			return input;
+		}
+		char first = input.charAt(0);
+		char second = input.charAt(1);
+		String newStr = input.substring(2);
+		newStr = newStr + first + second;
+		return newStr;
 	}
 	
 	/**
