@@ -31,7 +31,8 @@ public class Person4 {
      */
     private String calc(String input) {
       //Person 4 put your implementation here
-      return null;
+      String newString = input + 1;
+      return newString;
     }
     
     /**
@@ -47,4 +48,3 @@ public class Person4 {
     }
 
 }
-
