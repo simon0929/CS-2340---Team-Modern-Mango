@@ -60,8 +60,4 @@ public class Person2 {
 
 
 
-	public static void main(String[] args) {
-		Person2 per = new Person2("JOhn");
-		per.calc("apple");
-		System.out.println(per);
-	}
+
