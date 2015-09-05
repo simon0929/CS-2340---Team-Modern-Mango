@@ -61,6 +61,9 @@ public class Person2 {
 
 
 
+<<<<<<< HEAD
+
+=======
 	public static void main(String[] args) {
 		Person2 per = new Person2("JOhn");
 		per.calc("apple");
@@ -68,3 +71,4 @@ public class Person2 {
 	}
 	
 }
+>>>>>>> master
