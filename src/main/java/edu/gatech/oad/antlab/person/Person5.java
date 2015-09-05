@@ -37,6 +37,7 @@ public class Person5 {
 			if(input.length() == 1) {
 			return input;
 		}
+			
 		char first = input.charAt(0);
 		char second = input.charAt(1);
 		String newStr = input.substring(2);
