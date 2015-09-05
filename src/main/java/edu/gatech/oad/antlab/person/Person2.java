@@ -1,5 +1,6 @@
 package edu.gatech.oad.antlab.person;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -55,7 +56,7 @@ public class Person2 {
 	public String toString(String input) {
 	  return name + calc(input);
 	}
-}
+
 
 
 
@@ -64,3 +65,5 @@ public class Person2 {
 		per.calc("apple");
 		System.out.println(per);
 	}
+	
+}
