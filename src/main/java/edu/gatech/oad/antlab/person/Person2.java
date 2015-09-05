@@ -1,5 +1,6 @@
 package edu.gatech.oad.antlab.person;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -56,8 +57,18 @@ public class Person2 {
 	public String toString(String input) {
 	  return name + calc(input);
 	}
+
+
+
+
+<<<<<<< HEAD
+
+=======
+	public static void main(String[] args) {
+		Person2 per = new Person2("JOhn");
+		per.calc("apple");
+		System.out.println(per);
+	}
+	
 }
-
-
-
-
+>>>>>>> master
