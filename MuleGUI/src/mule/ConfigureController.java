@@ -123,5 +123,6 @@ public class ConfigureController {
 		gameStage.setScene(gameScene);
 		gameStage.show();
 	}
+	
 
 }
