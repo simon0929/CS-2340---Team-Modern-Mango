@@ -1,4 +1,6 @@
-/bin/*
-/.idea/*
-/build/*
+bin/*
+.idea/*
+build/*
 *.iml
+*.xml
+out/*
