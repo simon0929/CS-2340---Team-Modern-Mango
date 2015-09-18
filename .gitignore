@@ -1,5 +1,4 @@
-/bin/
-*.lock
-*.bin
-*.xml
-*.class
+/bin/*
+/.idea/*
+/build/*
+*.iml
