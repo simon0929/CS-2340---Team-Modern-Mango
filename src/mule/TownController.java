@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class TownController {
@@ -24,5 +25,9 @@ public class TownController {
 		gameStage.setScene(gameScene);
 		gameStage.show();
 	}
-	
+
+	@FXML
+	private void handleEndTurn(MouseEvent event) throws IOException {
+
+	}
 }
