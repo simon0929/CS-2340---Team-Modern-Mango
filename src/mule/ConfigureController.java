@@ -1,6 +1,7 @@
 package mule;
 
 
+import java.awt.*;
 import java.io.IOException;
 
 import javafx.collections.FXCollections;
@@ -42,7 +43,7 @@ public class ConfigureController {
     @FXML
     private Button startGameButton;
 	
-	
+	private String diff;
 	
 	public ConfigureController() {
 	}
@@ -117,6 +118,33 @@ public class ConfigureController {
 	
 	@FXML
 	private void handleStartGame(ActionEvent event) throws IOException {
+		if (beginDiff.isSelected()) {
+			diff = "beginner";
+		}
+		else if (stndDiff.isSelected()) {
+			diff = "standard";
+		}
+		else {
+			diff = "tournament";
+		}
+
+
+		if (numOfPlayers.getValue() >= 2) {
+			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+
+			if (numOfPlayers.getValue() >= 3) {
+				Player player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+
+				if (numOfPlayers.getValue() == 4) {
+					Player player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
+				}
+			}
+
+		}
+
+
+
 		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("Game.fxml"));
 		Scene gameScene = new Scene(gameScreenParent);
 		Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

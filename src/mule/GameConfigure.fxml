@@ -29,7 +29,7 @@
                               </ContextMenu>
                            </contextMenu>
                         </ChoiceBox>
-                        <Label layoutX="36.0" layoutY="29.0" text="Number of Payers" />
+                        <Label layoutX="36.0" layoutY="29.0" text="Number of Players" />
                         <Label layoutX="66.0" layoutY="122.0" text="Player 1" />
                         <TextField fx:id="p1Name" disable="true" layoutX="22.0" layoutY="150.0" promptText="name" />
                         <ColorPicker fx:id="p1Color" disable="true" layoutX="228.0" layoutY="150.0" />
