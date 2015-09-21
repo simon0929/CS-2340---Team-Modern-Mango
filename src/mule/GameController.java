@@ -17,12 +17,21 @@ public class GameController {
     private Label townLabel;
 
 	@FXML
-	private void handleMap(MouseEvent event) throws IOException {
+	private void handleTown(MouseEvent event) throws IOException {
 		Parent townScreen = FXMLLoader.load(getClass().getResource("Town.fxml"));
 		Scene townScene = new Scene(townScreen);
 		Stage townStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		townStage.setScene(townScene);
 		townStage.show();
 	}
-	
+
+	@FXML
+	private void handleEndTurn(MouseEvent event) throws IOException {
+
+	}
+
+	@FXML
+	private void handleProperty(MouseEvent event) throws IOException {
+
+	}
 }
