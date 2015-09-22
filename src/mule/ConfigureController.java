@@ -3,6 +3,8 @@ package mule;
 
 import java.awt.*;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,7 +46,11 @@ public class ConfigureController {
     private Button startGameButton;
 	
 	private String diff;
-	
+
+	public static ArrayList playerArr;
+
+	public static Player currentPlayer, player1, player2, player3, player4;
+
 	public ConfigureController() {
 	}
 	
@@ -65,6 +71,7 @@ public class ConfigureController {
 		p2Race.setItems(race);
 		p3Race.setItems(race);
 		p4Race.setItems(race);
+		GameController.round = 1;
 	}
 	
 	@FXML
@@ -128,21 +135,24 @@ public class ConfigureController {
 			diff = "tournament";
 		}
 
-
 		if (numOfPlayers.getValue() >= 2) {
-			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+			player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+			player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
 
-			if (numOfPlayers.getValue() >= 3) {
-				Player player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
-
-				if (numOfPlayers.getValue() == 4) {
-					Player player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
-				}
-			}
-
+			playerArr.add(player1);
+			playerArr.add(player2);
+			currentPlayer = player1;
 		}
 
+		if (numOfPlayers.getValue() >= 3) {
+			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+			playerArr.add(player3);
+		}
+
+		if (numOfPlayers.getValue() == 4) {
+			player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
+			playerArr.add(player4);
+		}
 
 
 		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("Game.fxml"));
@@ -152,5 +162,7 @@ public class ConfigureController {
 		gameStage.show();
 	}
 	
-
+	public static ArrayList getPlayerArr() {
+		return playerArr;
+	}
 }
