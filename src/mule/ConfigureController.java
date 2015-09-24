@@ -1,6 +1,5 @@
 package mule;
 
-
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -23,37 +22,41 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 public class ConfigureController {
-	
+
 	@FXML
 	private RadioButton standMap, randomMap, beginDiff, stndDiff, tourDiff;
 
 	@FXML
 	private ToggleGroup mapType, difficultyType;
-	
+
 	@FXML
 	private ChoiceBox<Integer> numOfPlayers;
-	
-    @FXML
-    private TextField p1Name, p2Name, p3Name, p4Name;
-    
-    @FXML
-    private ColorPicker p1Color, p2Color, p3Color, p4Color;
-    
-    @FXML
-    private ChoiceBox<String> p1Race, p2Race, p3Race, p4Race;
-    
-    @FXML
-    private Button startGameButton;
-	
+
+	@FXML
+	private TextField p1Name, p2Name, p3Name, p4Name;
+
+	@FXML
+	private ColorPicker p1Color, p2Color, p3Color, p4Color;
+
+	@FXML
+	private ChoiceBox<String> p1Race, p2Race, p3Race, p4Race;
+
+	@FXML
+	private Button startGameButton;
+
 	private String diff;
 
-	public static ArrayList playerArr;
+	public static Game game;
 
 	public static Player currentPlayer, player1, player2, player3, player4;
 
+	public static Stage gameStage;
+
+	public static Scene gameScene;
+
 	public ConfigureController() {
 	}
-	
+
 	@FXML
 	private void initialize() {
 		final ObservableList<Integer> numPlay = FXCollections.observableArrayList();
@@ -71,9 +74,9 @@ public class ConfigureController {
 		p2Race.setItems(race);
 		p3Race.setItems(race);
 		p4Race.setItems(race);
-		GameController.round = 1;
+		//GameController.round = 1;
 	}
-	
+
 	@FXML
 	private void handleNumSelect() {
 		if (numOfPlayers.getValue() != null) {
@@ -84,8 +87,7 @@ public class ConfigureController {
 				p2Name.setDisable(false);
 				p2Color.setDisable(false);
 				p2Race.setDisable(false);
-			}
-			else if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == 3) {
+			} else if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == 3) {
 				p1Name.setDisable(false);
 				p1Color.setDisable(false);
 				p1Race.setDisable(false);
@@ -95,8 +97,7 @@ public class ConfigureController {
 				p3Name.setDisable(false);
 				p3Color.setDisable(false);
 				p3Race.setDisable(false);
-			}
-			else if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == 4) {
+			} else if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == 4) {
 				p1Name.setDisable(false);
 				p1Color.setDisable(false);
 				p1Race.setDisable(false);
@@ -109,60 +110,57 @@ public class ConfigureController {
 				p4Name.setDisable(false);
 				p4Color.setDisable(false);
 				p4Race.setDisable(false);
-			}		
+			}
 		}
 	}
-	
+
 	@FXML
 	private void handleMapDiff() {
 		if (beginDiff.isSelected() && standMap.isSelected()) {
-	        startGameButton.setDisable(false);
-		}
-		else {
+			startGameButton.setDisable(false);
+		} else {
 			startGameButton.setDisable(true);
 		}
 	}
-	
+
 	@FXML
 	private void handleStartGame(ActionEvent event) throws IOException {
 		if (beginDiff.isSelected()) {
 			diff = "beginner";
-		}
-		else if (stndDiff.isSelected()) {
+		} else if (stndDiff.isSelected()) {
 			diff = "standard";
-		}
-		else {
+		} else {
 			diff = "tournament";
 		}
 
-		if (numOfPlayers.getValue() >= 2) {
-			player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-			player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
-
-			playerArr.add(player1);
-			playerArr.add(player2);
-			currentPlayer = player1;
-		}
-
-		if (numOfPlayers.getValue() >= 3) {
-			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
-			playerArr.add(player3);
-		}
-
 		if (numOfPlayers.getValue() == 4) {
-			player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
-			playerArr.add(player4);
-		}
+			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+			Player player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+			Player player4 = new Player(p4Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+			game = new Game(player1, player2, player3, player4);
+		} else {
+			if (numOfPlayers.getValue() == 3) {
+				Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+				Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+				Player player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+				game = new Game(player1, player2, player3, null);
+			} else {
 
+				if (numOfPlayers.getValue() == 2) {
+					Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+					Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+					game = new Game(player1, player2, null, null);
+				}
+			}
+
+		}
 
 		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("Game.fxml"));
-		Scene gameScene = new Scene(gameScreenParent);
-		Stage gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		gameStage.setScene(gameScene);
-		gameStage.show();
+		this.gameScene = new Scene(gameScreenParent);
+		this.gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		this.gameStage.setScene(gameScene);
+		this.gameStage.show();
 	}
-	
-	public static ArrayList getPlayerArr() {
-		return playerArr;
-	}
+
 }
