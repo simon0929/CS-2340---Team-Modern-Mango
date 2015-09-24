@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.embed.swing.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
@@ -7,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.GameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.GameController">
    <children>
       <AnchorPane prefHeight="136.0" prefWidth="530.0">
          <children>
@@ -17,15 +21,17 @@
             <Label layoutX="11.0" layoutY="45.0" text="Player 2:" />
             <Label layoutX="11.0" layoutY="65.0" text="Player 3:" />
             <Label layoutX="11.0" layoutY="85.0" text="Player 4:" />
-            <Label layoutX="450.0" layoutY="5.0" text="Round " />
-            <Label layoutX="450.0" layoutY="25.0" text="Turn " />
-            <Label layoutX="435.0" layoutY="50.0" text="Turn Time Left" />
-            <Label layoutX="460.0" layoutY="70.0" text="Seconds" />
+            <Label layoutX="419.0" layoutY="17.0" text="Round: " />
+            <Label layoutX="429.0" layoutY="45.0" text="Turn:" />
+            <Label layoutX="380.0" layoutY="74.0" text="Turn Time Left:" />
             <Label layoutX="225.0" layoutY="5.0" text="Resources" />
             <Label layoutX="215.0" layoutY="25.0" text="Food: " />
             <Label layoutX="215.0" layoutY="45.0" text="Money: " />
             <Label layoutX="215.0" layoutY="65.0" text="Energy: " />
             <Label layoutX="215.0" layoutY="85.0" text="Ore: " />
+            <Label fx:id="round" layoutX="470.0" layoutY="17.0" text="1" />
+            <Label fx:id="turn" layoutX="470.0" layoutY="45.0" text="1" />
+            <Label fx:id="timeLeft" layoutX="471.0" layoutY="74.0" text="timeleft#" />
          </children>
       </AnchorPane>
       <GridPane gridLinesVisible="true" layoutX="2.0" layoutY="142.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="530.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="142.0">
@@ -48,16 +54,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-               </children>
-            </Pane>
-            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-               </children>
-            </Pane>
             <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
                   <Label layoutX="20.0" layoutY="36.0" text="M1" />
@@ -271,6 +267,16 @@
             <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="20.0" layoutY="35.0" text="M2" />
+               </children>
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
+               </children>
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
             </Pane>
          </children>

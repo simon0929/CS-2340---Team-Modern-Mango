@@ -9,25 +9,35 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 
 public class GameController {
-	
+
 	@FXML
     private Label townLabel;
 
 	@FXML
-	private Pane pane;
+	private Label round, turn, timeLeft;
 
-	public static int round, turn = 0;
+
+	@FXML
+	private Pane pane;
 
 	public static String phase;
 
-	public static Player currentPlayer = ConfigureController.currentPlayer;
+	public static Game game;
 
 	@FXML
 	private void handleTown(MouseEvent event) throws IOException {
@@ -40,11 +50,20 @@ public class GameController {
 
 	@FXML
 	private void handleEndTurn(MouseEvent event) throws IOException {
-
+		this.game.update();
+		this.round.setText(String.valueOf(this.game.getRound()));
 	}
 
 	@FXML
 	private void handleProperty(MouseEvent event) throws IOException {
-		Color playerColor = currentPlayer.getColor();
+		this.game = ConfigureController.game;
+		if (!this.game.selectedProp()) {
+		Color playerColor = this.game.getCurrPlayer().getColor();
+		Region reg = (Region) event.getSource();
+		reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(8.0))));
+		this.game.setSelectedProp(true);
+		}
 	}
+
+
 }
