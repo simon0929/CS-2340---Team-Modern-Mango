@@ -50,9 +50,13 @@ public class ConfigureController {
 
 	public static Player currentPlayer, player1, player2, player3, player4;
 
+	public static Player[] playerList;
+
 	public static Stage gameStage;
 
 	public static Scene gameScene;
+
+	public static int maxPlayers;
 
 	public ConfigureController() {
 	}
@@ -125,6 +129,8 @@ public class ConfigureController {
 
 	@FXML
 	private void handleStartGame(ActionEvent event) throws IOException {
+		maxPlayers = numOfPlayers.getSelectionModel().getSelectedItem().intValue();
+
 		if (beginDiff.isSelected()) {
 			diff = "beginner";
 		} else if (stndDiff.isSelected()) {
@@ -133,27 +139,31 @@ public class ConfigureController {
 			diff = "tournament";
 		}
 
-		if (numOfPlayers.getValue() == 4) {
-			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
-			Player player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
-			Player player4 = new Player(p4Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+		if (maxPlayers == 4) {
+			player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+			player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+			player4 = new Player(p4Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
 			game = new Game(player1, player2, player3, player4);
-		} else {
-			if (numOfPlayers.getValue() == 3) {
-				Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-				Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
-				Player player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+			playerList = new Player[]{player1, player2, player3, player4};
+		}
+		else {
+			if (maxPlayers == 3) {
+				player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+				player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
 				game = new Game(player1, player2, player3, null);
-			} else {
+				playerList = new Player[]{player1, player2, player3};
+			}
+			else {
 
-				if (numOfPlayers.getValue() == 2) {
-					Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-					Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+				if (maxPlayers == 2) {
+					player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+					player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
 					game = new Game(player1, player2, null, null);
+					playerList = new Player[]{player1, player2};
 				}
 			}
-
 		}
 
 		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("Game.fxml"));
@@ -162,5 +172,4 @@ public class ConfigureController {
 		this.gameStage.setScene(gameScene);
 		this.gameStage.show();
 	}
-
 }
