@@ -1,9 +1,6 @@
-package mule;
+package mule.Controller;
 
-import java.awt.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +17,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import mule.Model.Game;
+import mule.Model.Player;
 
 public class ConfigureController {
 

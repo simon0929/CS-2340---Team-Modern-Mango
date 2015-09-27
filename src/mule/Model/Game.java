@@ -1,4 +1,4 @@
-package mule;
+package mule.Model;
 
 import java.util.ArrayList;
 
