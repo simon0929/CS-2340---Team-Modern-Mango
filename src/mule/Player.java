@@ -9,7 +9,7 @@ public class Player {
 
     private String name, race, diff;
     private Color color;
-    private int food, money, energy, ore, score;
+    private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
     private boolean isCurrent;
 
     public Player(String name, String race, Color color, String diff) {
@@ -18,6 +18,18 @@ public class Player {
         this.color = color;
         this.diff = diff;
         isCurrent = false;
+        numOfProperties = 0;
+        numOfFreeProperties = 2;
+
+        if (race.equals("Flapper")) {
+            money = 1600;
+        }
+        else if (race.equals("Human")) {
+            money = 600;
+        }
+        else {
+            money = 1000;
+        }
     }
 
     public String getName() {
@@ -60,6 +72,10 @@ public class Player {
         return isCurrent;
     }
 
+    public int getNumOfProperties() { return numOfProperties; }
+
+    public int getNumOfFreeProperties() { return numOfFreeProperties; }
+
     public void setFood(int food) {
         this.food = food;
     }
@@ -82,5 +98,17 @@ public class Player {
 
     public void setIsCurrent(boolean isCurrent) {
         this.isCurrent = isCurrent;
+    }
+
+    public void incrementPropertyOwned() {
+        numOfProperties++;
+    }
+
+    public void decrementPropertyOwned() {
+        numOfProperties--;
+    }
+
+    public void decrementFreeProperty() {
+        numOfFreeProperties--;
     }
 }
