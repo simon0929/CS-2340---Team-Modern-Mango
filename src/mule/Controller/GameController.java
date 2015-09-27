@@ -1,18 +1,14 @@
-package mule;
+package mule.Controller;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -22,6 +18,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
+import mule.Model.Game;
+import mule.Model.Player;
+import mule.Model.Property;
 
 public class GameController {
 

@@ -1,7 +1,7 @@
-package mule;
+package mule.Model;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
+import mule.Model.Player;
 
 /**
  * Created by Hunter on 9/18/2015.
