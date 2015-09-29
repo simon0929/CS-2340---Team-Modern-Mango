@@ -5,3 +5,5 @@ build/*
 *.xml
 out/*
 .metadata/*
+.classpath
+.project

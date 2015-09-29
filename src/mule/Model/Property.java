@@ -1,11 +1,7 @@
-package mule;
+package mule.Model;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 
-/**
- * Created by Hunter on 9/18/2015.
- */
 public class Property extends Pane {
 
     Player owner;
@@ -14,7 +10,6 @@ public class Property extends Pane {
     public Property() {
         price = 300;
     }
-
 
     public void setOwner(Player player) {
         owner = player;
