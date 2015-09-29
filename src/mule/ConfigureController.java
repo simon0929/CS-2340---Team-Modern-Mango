@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 
 public class ConfigureController {
 
+	//Everything labeled @FXML relates directly to the .fxml files
+
 	@FXML
 	private RadioButton standMap, randomMap, beginDiff, stndDiff, tourDiff;
 
@@ -79,6 +81,8 @@ public class ConfigureController {
 		playerList = new ArrayList<Player>();
 	}
 
+	//Selectively enables the correct number of Player entry fields based on max number of players
+	//This happens when you select the number of players and hit "enter"
 	@FXML
 	private void handleNumSelect() {
 		if (numOfPlayers.getValue() != null) {
@@ -116,6 +120,7 @@ public class ConfigureController {
 		}
 	}
 
+	//If the map difficulty and type of map have been chosen, it enables the start button.
 	@FXML
 	private void handleMapDiff() {
 		if (beginDiff.isSelected() && standMap.isSelected()) {
@@ -125,10 +130,12 @@ public class ConfigureController {
 		}
 	}
 
+	//Runs when the start button is clicked. Sets up the main game screen and objects.
 	@FXML
 	private void handleStartGame(ActionEvent event) throws IOException {
 		maxPlayers = numOfPlayers.getSelectionModel().getSelectedItem().intValue();
 
+		//Initializes string objects containing the difficulty to add to Player objects later.
 		if (beginDiff.isSelected()) {
 			diff = "beginner";
 		} else if (stndDiff.isSelected()) {
@@ -137,6 +144,7 @@ public class ConfigureController {
 			diff = "tournament";
 		}
 
+		//Nested if/else statements that set up the correct number of players with the correct values and adds them to an ArrayList
 		if (maxPlayers == 4) {
 			player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
 			playerList.add(player1);
@@ -170,6 +178,7 @@ public class ConfigureController {
 			}
 		}
 
+		//Calls the Game.fxml file and actually constructs the GUI.
 		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/Game.fxml"));
 		this.gameScene = new Scene(gameScreenParent);
 		this.gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

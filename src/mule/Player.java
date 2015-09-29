@@ -9,7 +9,9 @@ public class Player {
 
     private String name, race, diff;
     private Color color;
+    //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
+    //is current player, not sure if needed
     private boolean isCurrent;
 
     public Player(String name, String race, Color color, String diff) {
@@ -21,6 +23,7 @@ public class Player {
         numOfProperties = 0;
         numOfFreeProperties = 2;
 
+        //Different races get different amounts of resources
         if (race.equals("Flapper")) {
             money = 1600;
         }

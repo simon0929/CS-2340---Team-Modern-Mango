@@ -1,8 +1,10 @@
 package mule;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -22,7 +24,9 @@ import javafx.scene.paint.Color;
 
 public class GameController {
 
-	@FXML
+    //Everything labeled @FXML relates directly to the .fxml files
+
+    @FXML
     private Label townLabel;
 
 	@FXML
@@ -37,6 +41,7 @@ public class GameController {
 
 	private Player currentPlayer;
 
+    //numOfPropBuyInRound = number of properties bought this round, if 0 then land selection phase ends
 	private int turnNumber, numOfPropBuyInRound;
 
 	private boolean selectionPhase;
@@ -59,8 +64,10 @@ public class GameController {
 		player2score.setText("0");
 		player3score.setText("0");
 		player4score.setText("0");
+        game = ConfigureController.game;
 	}
 
+    //Calls the Game.fxml file and actually constructs the GUI.
 	@FXML
 	private void handleTown(MouseEvent event) throws IOException {
 		Parent townScreen = FXMLLoader.load(getClass().getResource("Town.fxml"));
@@ -70,16 +77,27 @@ public class GameController {
 		townStage.show();
 	}
 
+    //Performs a variety of things when the End Turn button is clicked
 	@FXML
 	private void handleEndTurn(MouseEvent event) throws IOException {
-		this.game.update();
-		this.round.setText(String.valueOf(this.game.getRound()));
+        //refreshes screen
+		game.update();
+
+		round.setText(String.valueOf(this.game.getRound()));
 		turnNumber++;
 
+        //if the number of turns exceeds the number of players, the round ends
 		if (turnNumber > ConfigureController.maxPlayers) {
+            //Calculates all player scores and rearranges playerList for a new order for the next turn
 			getTurnOrder();
 
+            //Refreshes scores on GUI
+            refreshScores();
+
+            //Resets the turn to 1
 			turnNumber = 1;
+
+
 			if (numOfPropBuyInRound == 0) {
 				selectionPhase = false;
 			}
@@ -88,7 +106,7 @@ public class GameController {
 			}
 		}
 
-		//currentPlayer = ConfigureController.playerList[turnNumber - 1];
+		currentPlayer = ConfigureController.playerList.get(turnNumber - 1);
 
 		turn.setText(currentPlayer.getName());
 		food.setText(String.valueOf(currentPlayer.getFood()));
@@ -100,40 +118,59 @@ public class GameController {
 	@FXML
 	private void handleProperty(MouseEvent event) throws IOException {
 		if (selectionPhase) {
-			this.game = ConfigureController.game;
-			if (!this.game.selectedProp()) {
-				Color playerColor = this.game.getCurrPlayer().getColor();
+			//game = ConfigureController.game;
+
+			if (!game.selectedProp()) {
+				Color playerColor = game.getCurrPlayer().getColor();
 
 				Property property = (Property) event.getSource();
 
-				if (property.getOwner() == null || property.getOwner() == this.game.getCurrPlayer()) {
+				if (property.getOwner() == null || property.getOwner() == game.getCurrPlayer()) {
 					currentPlayer.incrementPropertyOwned();
 
 					if (currentPlayer.getNumOfFreeProperties() == 0) {
 						currentPlayer.setMoney(currentPlayer.getMoney() - 300);
+                        money.setText(String.valueOf(currentPlayer.getMoney()));
 					}
 					else {
 						currentPlayer.decrementFreeProperty();
 					}
 
 					numOfPropBuyInRound++;
-					property.setOwner(this.game.getCurrPlayer());
+					property.setOwner(game.getCurrPlayer());
 
 					Region reg = (Region) event.getSource();
 					reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(8.0))));
-					this.game.setSelectedProp(true);
+					//game.setSelectedProp(true);
 				}
 			}
 		}
 	}
 
 	private void getTurnOrder() {
+        Player minScore = null;
+        ArrayList<Player> tempList = new ArrayList<Player>();
 
+        for (int i = 0; i < ConfigureController.maxPlayers; i++) {
+            for (int j = 0; j < ConfigureController.maxPlayers; j++) {
+                if (minScore == null) {
+                    minScore = playerList.get(i);
+                }
+                else if (playerList.get(i) != null && playerList.get(i).getScore() < minScore.getScore()) {
+                    minScore = playerList.get(i);
+                    playerList.remove(i);
+                }
+            }
+            tempList.add(minScore);
+        }
 
-
-		player1score.setText("0");
-		player2score.setText("0");
-		player3score.setText("0");
-		player4score.setText("0");
+        playerList = tempList;
 	}
+
+    private void refreshScores() {
+        player1score.setText(String.valueOf(ConfigureController.player1.getScore()));
+        player2score.setText(String.valueOf(ConfigureController.player2.getScore()));
+        player3score.setText(String.valueOf(ConfigureController.player3.getScore()));
+        player4score.setText(String.valueOf(ConfigureController.player4.getScore()));
+    }
 }
