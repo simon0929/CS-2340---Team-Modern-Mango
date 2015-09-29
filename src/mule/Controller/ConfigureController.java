@@ -165,7 +165,7 @@ public class ConfigureController {
 			}
 		}
 
-		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("Game.fxml"));
+		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/View/Game.fxml"));
 		this.gameScene = new Scene(gameScreenParent);
 		this.gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		this.gameStage.setScene(gameScene);
