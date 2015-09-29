@@ -1,4 +1,4 @@
-package mule.Controller;
+package mule;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
-import mule.Model.Game;
-import mule.Model.Player;
-import mule.Model.Property;
 
 public class GameController {
 
@@ -91,7 +88,7 @@ public class GameController {
 			}
 		}
 
-		currentPlayer = ConfigureController.playerList[turnNumber - 1];
+		//currentPlayer = ConfigureController.playerList[turnNumber - 1];
 
 		turn.setText(currentPlayer.getName());
 		food.setText(String.valueOf(currentPlayer.getFood()));

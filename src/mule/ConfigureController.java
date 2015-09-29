@@ -1,4 +1,4 @@
-package mule.Controller;
+package mule;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,8 +17,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
-import mule.Model.Game;
-import mule.Model.Player;
 
 public class ConfigureController {
 
@@ -78,6 +76,7 @@ public class ConfigureController {
 		p3Race.setItems(race);
 		p4Race.setItems(race);
 		//GameController.round = 1;
+		playerList = new ArrayList<Player>();
 	}
 
 	@FXML
@@ -171,7 +170,7 @@ public class ConfigureController {
 			}
 		}
 
-		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/View/Game.fxml"));
+		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/Game.fxml"));
 		this.gameScene = new Scene(gameScreenParent);
 		this.gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		this.gameStage.setScene(gameScene);
