@@ -1,6 +1,7 @@
-package mule.Controller;
+package mule;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
-import mule.Model.Game;
-import mule.Model.Player;
-import mule.Model.Property;
 
 public class GameController {
 
@@ -43,8 +41,11 @@ public class GameController {
 
 	private boolean selectionPhase;
 
+	public static ArrayList<Player> playerList;
+
 	@FXML
 	private void initialize() {
+		playerList = ConfigureController.playerList;
 		currentPlayer = ConfigureController.player1;
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
@@ -76,7 +77,7 @@ public class GameController {
 		turnNumber++;
 
 		if (turnNumber > ConfigureController.maxPlayers) {
-			calculateScores();
+			getTurnOrder();
 
 			turnNumber = 1;
 			if (numOfPropBuyInRound == 0) {
@@ -87,7 +88,7 @@ public class GameController {
 			}
 		}
 
-		currentPlayer = ConfigureController.playerList[turnNumber - 1];
+		//currentPlayer = ConfigureController.playerList[turnNumber - 1];
 
 		turn.setText(currentPlayer.getName());
 		food.setText(String.valueOf(currentPlayer.getFood()));
@@ -126,7 +127,10 @@ public class GameController {
 		}
 	}
 
-	private void calculateScores() {
+	private void getTurnOrder() {
+
+
+
 		player1score.setText("0");
 		player2score.setText("0");
 		player3score.setText("0");
