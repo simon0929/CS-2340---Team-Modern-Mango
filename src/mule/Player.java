@@ -111,4 +111,8 @@ public class Player {
     public void decrementFreeProperty() {
         numOfFreeProperties--;
     }
+
+    public void calculateScore() {
+        score = money + (numOfProperties * 500) + food + energy + ore;
+    }
 }

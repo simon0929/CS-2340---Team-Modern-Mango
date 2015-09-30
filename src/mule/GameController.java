@@ -1,6 +1,5 @@
 package mule;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,10 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -44,8 +41,11 @@ public class GameController {
 
 	private boolean selectionPhase;
 
+	public static ArrayList<Player> playerList;
+
 	@FXML
 	private void initialize() {
+		playerList = ConfigureController.playerList;
 		currentPlayer = ConfigureController.player1;
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
@@ -77,7 +77,7 @@ public class GameController {
 		turnNumber++;
 
 		if (turnNumber > ConfigureController.maxPlayers) {
-			calculateScores();
+			getTurnOrder();
 
 			turnNumber = 1;
 			if (numOfPropBuyInRound == 0) {
@@ -88,7 +88,7 @@ public class GameController {
 			}
 		}
 
-		currentPlayer = ConfigureController.playerList[turnNumber - 1];
+		//currentPlayer = ConfigureController.playerList[turnNumber - 1];
 
 		turn.setText(currentPlayer.getName());
 		food.setText(String.valueOf(currentPlayer.getFood()));
@@ -127,7 +127,10 @@ public class GameController {
 		}
 	}
 
-	private void calculateScores() {
+	private void getTurnOrder() {
+
+
+
 		player1score.setText("0");
 		player2score.setText("0");
 		player3score.setText("0");
