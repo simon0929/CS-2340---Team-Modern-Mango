@@ -1,7 +1,7 @@
-package mule.Controller;
+package mule;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,10 +17,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
-import mule.Model.Game;
-import mule.Model.Player;
 
 public class ConfigureController {
+
+	//Everything labeled @FXML relates directly to the .fxml files
 
 	@FXML
 	private RadioButton standMap, randomMap, beginDiff, stndDiff, tourDiff;
@@ -49,7 +49,7 @@ public class ConfigureController {
 
 	public static Player currentPlayer, player1, player2, player3, player4;
 
-	public static Player[] playerList;
+	public static ArrayList<Player> playerList;
 
 	public static Stage gameStage;
 
@@ -78,8 +78,11 @@ public class ConfigureController {
 		p3Race.setItems(race);
 		p4Race.setItems(race);
 		//GameController.round = 1;
+		playerList = new ArrayList<Player>();
 	}
 
+	//Selectively enables the correct number of Player entry fields based on max number of players
+	//This happens when you select the number of players and hit "enter"
 	@FXML
 	private void handleNumSelect() {
 		if (numOfPlayers.getValue() != null) {
@@ -117,6 +120,7 @@ public class ConfigureController {
 		}
 	}
 
+	//If the map difficulty and type of map have been chosen, it enables the start button.
 	@FXML
 	private void handleMapDiff() {
 		if (beginDiff.isSelected() && standMap.isSelected()) {
@@ -126,10 +130,12 @@ public class ConfigureController {
 		}
 	}
 
+	//Runs when the start button is clicked. Sets up the main game screen and objects.
 	@FXML
 	private void handleStartGame(ActionEvent event) throws IOException {
 		maxPlayers = numOfPlayers.getSelectionModel().getSelectedItem().intValue();
 
+		//Initializes string objects containing the difficulty to add to Player objects later.
 		if (beginDiff.isSelected()) {
 			diff = "beginner";
 		} else if (stndDiff.isSelected()) {
@@ -138,34 +144,42 @@ public class ConfigureController {
 			diff = "tournament";
 		}
 
+		//Nested if/else statements that set up the correct number of players with the correct values and adds them to an ArrayList
 		if (maxPlayers == 4) {
 			player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+			playerList.add(player1);
 			player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+			playerList.add(player2);
 			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+			playerList.add(player3);
 			player4 = new Player(p4Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+			playerList.add(player4);
 			game = new Game(player1, player2, player3, player4);
-			playerList = new Player[]{player1, player2, player3, player4};
 		}
 		else {
 			if (maxPlayers == 3) {
 				player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+				playerList.add(player1);
 				player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+				playerList.add(player2);
 				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+				playerList.add(player3);
 				game = new Game(player1, player2, player3, null);
-				playerList = new Player[]{player1, player2, player3};
 			}
 			else {
 
 				if (maxPlayers == 2) {
 					player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+					playerList.add(player1);
 					player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+					playerList.add(player2);
 					game = new Game(player1, player2, null, null);
-					playerList = new Player[]{player1, player2};
 				}
 			}
 		}
 
-		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/View/Game.fxml"));
+		//Calls the Game.fxml file and actually constructs the GUI.
+		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/Game.fxml"));
 		this.gameScene = new Scene(gameScreenParent);
 		this.gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		this.gameStage.setScene(gameScene);
