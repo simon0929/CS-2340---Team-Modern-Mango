@@ -70,7 +70,7 @@ public class GameController {
         game = ConfigureController.game;
         turnTime = 0;
         defaultTurnTime = 50;
-        updateTurnTime();
+        startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
 
@@ -197,17 +197,22 @@ public class GameController {
 	private void getTurnOrder() {
         Player minScore = null;
         ArrayList<Player> tempList = new ArrayList<Player>();
+        int j;
 
         for (int i = 0; i < ConfigureController.maxPlayers; i++) {
-            for (int j = 0; j < ConfigureController.maxPlayers; j++) {
+            j = 0;
+            while (j < playerList.size()) {
                 if (minScore == null) {
-                    minScore = playerList.get(i);
+                    minScore = playerList.get(j);
                 }
-                else if (playerList.get(i) != null && playerList.get(i).getScore() < minScore.getScore()) {
-                    minScore = playerList.get(i);
-                    playerList.remove(i);
+                else if (playerList.get(j) != null && playerList.get(j).getScore() < minScore.getScore()) {
+                    minScore = playerList.get(j);
+                    playerList.remove(j);
                 }
+
+                j++;
             }
+
             tempList.add(minScore);
         }
 
@@ -265,21 +270,27 @@ public class GameController {
             }
         }
 
+        timeLeft.setText(String.valueOf(turnTime));
+    }
+
+    private void startTurnTimer() {
+        turnTime = 50;
+
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(new Runnable() {
-                      @Override
-                      public void run() {
-                          if (turnTime >= 0) {
-                              timeLeft.setText(String.valueOf(turnTime--));
-                          }
-                          else {
-                              handleEndTurn();
-                          }
-                      }
-                  });
+                    @Override
+                    public void run() {
+                        if (turnTime >= 0) {
+                            timeLeft.setText(String.valueOf(turnTime--));
+                        }
+                        else {
+                            handleEndTurn();
+                        }
+                    }
+                });
             }
         }, 1000, 1000);
     }
