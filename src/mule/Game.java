@@ -9,8 +9,11 @@ public class Game {
 	private int round, turn;
 	private ArrayList<Player> playerArr;
 	private boolean selectedProp;
+	private String diff;
+	private Store store;
 
-	public Game(Player p1, Player p2, Player p3, Player p4) {
+	public Game(Player p1, Player p2, Player p3, Player p4, String difficulty) {
+
 		this.playerArr = new ArrayList<Player>();
 		this.playerArr.add(p1);
 		this.playerArr.add(p2);
@@ -24,6 +27,7 @@ public class Game {
 		this.turn = 1;
 		this.selectedProp = false;
 		this.round = 1;
+		store = new Store(diff);
 	}
 
 	public Player getCurrPlayer() {
@@ -56,5 +60,7 @@ public class Game {
 	public int getTurn() {
 		return this.turn;
 	}
+
+	public Store getStore() { return store; }
 
 }

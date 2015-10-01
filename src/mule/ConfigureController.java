@@ -154,7 +154,7 @@ public class ConfigureController {
 			playerList.add(player3);
 			player4 = new Player(p4Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
 			playerList.add(player4);
-			game = new Game(player1, player2, player3, player4);
+			game = new Game(player1, player2, player3, player4, diff);
 		}
 		else {
 			if (maxPlayers == 3) {
@@ -164,7 +164,7 @@ public class ConfigureController {
 				playerList.add(player2);
 				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
 				playerList.add(player3);
-				game = new Game(player1, player2, player3, null);
+				game = new Game(player1, player2, player3, null, diff);
 			}
 			else {
 
@@ -173,7 +173,7 @@ public class ConfigureController {
 					playerList.add(player1);
 					player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
 					playerList.add(player2);
-					game = new Game(player1, player2, null, null);
+					game = new Game(player1, player2, null, null, diff);
 				}
 			}
 		}

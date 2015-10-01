@@ -25,7 +25,7 @@ public class Player {
         numOfFreeProperties = 2;
         propertyList = new ArrayList<>();
 
-        //Different races get different amounts of resources
+        //Different races get different amounts of money
         if (race.equals("Flapper")) {
             money = 1600;
         }
@@ -35,6 +35,18 @@ public class Player {
         else {
             money = 1000;
         }
+
+        //Different difficulties get different resources
+        if(diff == "beginner") {
+            food = 8;
+            energy = 4;
+            ore = 0;
+        } else {
+            food = 4;
+            energy = 2;
+            ore = 0;
+        }
+
     }
 
     public String getName() {
@@ -135,5 +147,86 @@ public class Player {
 
     public void calculateScore() {
         score = money + (numOfProperties * 500) + food + energy + ore;
+    }
+
+    public boolean buyResource(String resource) {
+
+        int price;
+        Store store = ConfigureController.game.getStore();
+
+        switch(resource) {
+            case "food":
+                price = 30;
+                if(price <= money) {
+                    money -= price;
+                    food++;
+                    store.setFood(store.getFood() - 1);
+                    return true;
+                }
+                break;
+            case "energy":
+                price = 25;
+                if(price <= money) {
+                    money -= price;
+                    energy++;
+                    store.setEnergy(store.getEnergy() - 1);
+                    return true;
+                }
+                break;
+            case "ore":
+                price = 50;
+                if(price <= money) {
+                    money -= price;
+                    ore++;
+                    store.setOre(store.getOre() - 1);
+                    return true;
+                }
+                break;
+            default:
+                break;
+        }
+
+        return false;
+    }
+
+    public boolean sellResource(String resource) {
+
+        int price;
+        Store store = ConfigureController.game.getStore();
+
+        switch(resource) {
+            case "food":
+                price = 30;
+                if(food >= 1) {
+                    money += price;
+                    food--;
+                    store.setFood(store.getFood() + 1);
+                    return true;
+                }
+                break;
+            case "energy":
+                price = 25;
+                if(energy >= 1) {
+                    money += price;
+                    energy--;
+                    store.setEnergy(store.getEnergy() + 1);
+                    return true;
+                }
+                break;
+            case "ore":
+                price = 50;
+                if(ore >= 1) {
+                    money += price;
+                    ore--;
+                    store.setOre(store.getOre() + 1);
+                    return true;
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        return false;
     }
 }
