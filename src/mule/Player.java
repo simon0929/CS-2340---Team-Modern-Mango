@@ -1,16 +1,19 @@
 package mule;
 
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-/**
- * Created by Hunter on 9/18/2015.
- */
+import java.util.ArrayList;
+
 public class Player {
 
     private String name, race, diff;
     private Color color;
+    //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
+    //is current player, not sure if needed
     private boolean isCurrent;
+    private ArrayList<Pane> propertyList;
 
     public Player(String name, String race, Color color, String diff) {
         this.name = name;
@@ -20,7 +23,9 @@ public class Player {
         isCurrent = false;
         numOfProperties = 0;
         numOfFreeProperties = 2;
+        propertyList = new ArrayList<>();
 
+        //Different races get different amounts of resources
         if (race.equals("Flapper")) {
             money = 1600;
         }
@@ -76,6 +81,10 @@ public class Player {
 
     public int getNumOfFreeProperties() { return numOfFreeProperties; }
 
+    public ArrayList<Pane> getPropertyList() {
+        return propertyList;
+    }
+
     public void setFood(int food) {
         this.food = food;
     }
@@ -98,6 +107,18 @@ public class Player {
 
     public void setIsCurrent(boolean isCurrent) {
         this.isCurrent = isCurrent;
+    }
+
+    public void addToPropertyList(Pane pane) {
+        propertyList.add(pane);
+    }
+
+    public void removeFromPropertyList(Pane pane) {
+        propertyList.remove(pane);
+    }
+
+    public boolean hasProperty(Pane pane) {
+        return propertyList.contains(pane);
     }
 
     public void incrementPropertyOwned() {
