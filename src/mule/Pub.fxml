@@ -37,7 +37,7 @@
       </AnchorPane>
       <Pane layoutY="154.0" prefHeight="432.0" prefWidth="530.0">
          <children>
-            <Button fx:id="gamble" layoutX="237.0" layoutY="204.0" mnemonicParsing="false" text="Gamble" />
+            <Button fx:id="gamble" layoutX="237.0" layoutY="204.0" mnemonicParsing="false" onAction="#handleGamble" text="Gamble" />
          </children>
       </Pane>
    </children>

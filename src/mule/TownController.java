@@ -2,6 +2,7 @@ package mule;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -84,17 +85,67 @@ public class TownController {
 	}
 
 	@FXML
+	private void handleReturnToMap() {
+		gameScene = ConfigureController.gameScene;
+		gameStage = ConfigureController.gameStage;
+		gameStage.setScene(gameScene);
+	}
+
+	@FXML
 	private void handleEndTurn() {
 		Game game = ConfigureController.game;
 		game.update();
 	}
 
 	@FXML
-	private void handlePub(MouseEvent event) throws IOException {
+	 private void handlePub(MouseEvent event) throws IOException {
 		Parent pubScreen = FXMLLoader.load(getClass().getResource("Pub.fxml"));
 		Scene pubScene = new Scene(pubScreen);
 		Stage pubStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		pubStage.setScene(pubScene);
 		pubStage.show();
+	}
+
+	@FXML
+	private void handleGamble(ActionEvent event) throws IOException {
+		int moneyBonus, timeBonus, roundBonus;
+		Random rand = new Random();
+
+		if (GameController.roundNumber < 4) {
+			roundBonus = 50;
+		}
+		else if (GameController.roundNumber < 8) {
+			roundBonus = 100;
+		}
+		else if (GameController.roundNumber < 12) {
+			roundBonus = 150;
+		}
+		else {
+			roundBonus = 200;
+		}
+
+		if (GameController.turnTime < 13) {
+			timeBonus = 50;
+		}
+		else if (GameController.turnTime < 26) {
+			timeBonus = 100;
+		}
+		else if (GameController.turnTime < 38) {
+			timeBonus = 150;
+		}
+		else {
+			timeBonus = 200;
+		}
+
+		moneyBonus = roundBonus * (rand.nextInt(timeBonus) + 1);
+
+		if (moneyBonus > 250) {
+			moneyBonus = 250;
+		}
+
+		GameController.currentPlayer.setMoney(GameController.currentPlayer.getMoney() + moneyBonus);
+		GameController.turnTime = 0;
+
+		handleReturnToMap();
 	}
 }
