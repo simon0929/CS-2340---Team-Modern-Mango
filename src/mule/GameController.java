@@ -40,10 +40,12 @@ public class GameController {
 
 	public static Game game;
 
-	private Player currentPlayer;
+	public static Player currentPlayer;
 
     //numOfPropBuyInRound = number of properties bought this round, if 0 then land selection phase ends
-	private int turnNumber, numOfPropBuyInRound, turnTime, maxTurnTime, defaultTurnTime;
+	private int turnNumber, numOfPropBuyInRound;
+
+    public static int turnTime, roundNumber;
 
 	private boolean selectionPhase;
 
@@ -57,6 +59,7 @@ public class GameController {
 		currentPlayer = ConfigureController.player1;
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
+        roundNumber = 1;
 		numOfPropBuyInRound = 0;
 		selectionPhase = true;
 		food.setText(String.valueOf(currentPlayer.getFood()));
@@ -69,7 +72,6 @@ public class GameController {
 		player4score.setText("0");
         game = ConfigureController.game;
         turnTime = 0;
-        defaultTurnTime = 50;
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
@@ -90,7 +92,7 @@ public class GameController {
         //refreshes screen
 		game.update();
 
-		round.setText(String.valueOf(game.getRound()));
+		round.setText(String.valueOf(roundNumber));
 		turnNumber++;
 
         //if the number of turns exceeds the number of players, the round ends
@@ -104,6 +106,7 @@ public class GameController {
             //Resets the turn to 1
 			turnNumber = 1;
 
+            roundNumber++;
 
 			if (numOfPropBuyInRound == 0) {
 				selectionPhase = false;
@@ -127,7 +130,7 @@ public class GameController {
         //refreshes screen
         game.update();
 
-        round.setText(String.valueOf(game.getRound()));
+        round.setText(String.valueOf(roundNumber));
         turnNumber++;
 
         //if the number of turns exceeds the number of players, the round ends
@@ -171,6 +174,7 @@ public class GameController {
 
 				if (!propertyOwnedList.contains(property)) {
 					currentPlayer.incrementPropertyOwned();
+                    propertyOwnedList.add(property);
 
 					if (currentPlayer.getNumOfFreeProperties() == 0) {
                         //Automatically updates player's money and on the GUI
@@ -231,11 +235,11 @@ public class GameController {
     }
 
     private void updateTurnTime() {
-        if (game.getRound() == 1) {
+        if (roundNumber == 1) {
             turnTime = 50;
         }
         else {
-            if (game.getRound() < 5) {
+            if (roundNumber < 5) {
                 if (currentPlayer.getFood() >= 3) {
                     turnTime = 50;
                 }
@@ -246,7 +250,7 @@ public class GameController {
                     turnTime = 5;
                 }
             }
-            else if (game.getRound() < 9) {
+            else if (roundNumber < 9) {
                 if (currentPlayer.getFood() >= 4) {
                     turnTime = 50;
                 }
@@ -292,6 +296,6 @@ public class GameController {
                     }
                 });
             }
-        }, 1000, 1000);
+        }, 0, 1000);
     }
 }
