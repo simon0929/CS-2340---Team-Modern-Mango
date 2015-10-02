@@ -27,9 +27,9 @@ public class TownController {
 
 	private int turnTime;
 
-	public Stage gameStage;
+	public static Stage gameStage;
 
-	public Scene gameScene;
+	public static Scene gameScene;
 
 	@FXML
 	private void initialize() {
@@ -97,4 +97,6 @@ public class TownController {
 		pubStage.setScene(pubScene);
 		pubStage.show();
 	}
+
+
 }
