@@ -50,7 +50,7 @@ public class GameController {
 
 	private boolean selectionPhase;
 
-	public static ArrayList<Player> playerList;
+	public static ArrayList<Player> playerList, basePlayerList;
 
     private ArrayList<Pane> propertyOwnedList;
 
@@ -62,6 +62,7 @@ public class GameController {
 	@FXML
 	private void initialize() {
 		playerList = ConfigureController.playerList;
+        basePlayerList = playerList;
 		currentPlayer = ConfigureController.player1;
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
@@ -115,48 +116,17 @@ public class GameController {
     //Performs a variety of things when the End Turn button is clicked
 	@FXML
 	private void handleEndTurn(MouseEvent event) throws IOException {
-        //refreshes screen
-		game.update();
-
-		round.setText(String.valueOf(roundNumber));
-		turnNumber++;
-
-        //if the number of turns exceeds the number of players, the round ends
-		if (turnNumber > ConfigureController.maxPlayers) {
-            //Calculates all player scores and rearranges playerList for a new order for the next turn
-			getTurnOrder();
-
-            //Refreshes scores on GUI
-            refreshScores();
-
-            //Resets the turn to 1
-			turnNumber = 1;
-
-            roundNumber++;
-
-			if (numOfPropBuyInRound == 0) {
-				selectionPhase = false;
-			}
-			else {
-				numOfPropBuyInRound = 0;
-			}
-		}
-
-        currentPlayer = playerList.get(turnNumber - 1);
-        updateTurnTime();
-
-		turn.setText(currentPlayer.getName());
-		food.setText(String.valueOf(currentPlayer.getFood()));
-		money.setText(String.valueOf(currentPlayer.getMoney()));
-		energy.setText(String.valueOf(currentPlayer.getEnergy()));
-		ore.setText(String.valueOf(currentPlayer.getOre()));
+        endTurn();
 	}
 
     private void handleEndTurn() {
+        endTurn();
+    }
+
+    private void endTurn() {
         //refreshes screen
         game.update();
 
-        round.setText(String.valueOf(roundNumber));
         turnNumber++;
 
         //if the number of turns exceeds the number of players, the round ends
@@ -170,6 +140,8 @@ public class GameController {
             //Resets the turn to 1
             turnNumber = 1;
 
+            roundNumber++;
+            round.setText(String.valueOf(roundNumber));
 
             if (numOfPropBuyInRound == 0) {
                 selectionPhase = false;
@@ -231,11 +203,15 @@ public class GameController {
 
         for (int i = 0; i < ConfigureController.maxPlayers; i++) {
             j = 0;
+            minScore = null;
+
             while (j < playerList.size()) {
                 if (minScore == null) {
                     minScore = playerList.get(j);
+                    j++;
                 }
-                else if (playerList.get(j) != null && playerList.get(j).getScore() < minScore.getScore()) {
+
+                if (j < playerList.size() && playerList.get(j).getScore() < minScore.getScore()) {
                     minScore = playerList.get(j);
                     playerList.remove(j);
                 }
