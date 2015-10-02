@@ -14,51 +14,49 @@ public class Game {
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String difficulty) {
 
-		this.playerArr = new ArrayList<Player>();
-		this.playerArr.add(p1);
-		this.playerArr.add(p2);
+		playerArr = new ArrayList<Player>();
+		playerArr.add(p1);
+		playerArr.add(p2);
 
 		if (p3 != null) {
-			this.playerArr.add(p3);
+			playerArr.add(p3);
 		}
 		if (p4 != null) {
-			this.playerArr.add(p4);
+			playerArr.add(p4);
 		}
-		this.turn = 1;
-		this.selectedProp = false;
-		this.round = 1;
+		turn = 1;
+		selectedProp = false;
 		store = new Store(diff);
 	}
 
 	public Player getCurrPlayer() {
-		return this.playerArr.get(this.turn - 1);
+		return playerArr.get(turn - 1);
 	}
 
 	public boolean selectedProp() {
-		return this.selectedProp;
+		return selectedProp;
 	}
 
 	public void setSelectedProp(boolean ans) {
-		this.selectedProp = ans;
+		selectedProp = ans;
 	}
 
 	public void update() {
-		if (this.playerArr.size() == this.turn) {
-			this.turn = 1;
-			this.round++;
+		if (playerArr.size() == turn) {
+			turn = 1;
 		} else {
-			this.turn++;
+			turn++;
 		}
 
-		this.selectedProp = false;
+		selectedProp = false;
 	}
 
 	public int getRound() {
-		return this.round;
+		return round;
 	}
 
 	public int getTurn() {
-		return this.turn;
+		return turn;
 	}
 
 	public Store getStore() { return store; }
