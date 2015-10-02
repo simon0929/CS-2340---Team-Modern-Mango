@@ -11,37 +11,35 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<?import mule.Model.Property?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.Controller.GameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.GameController">
    <children>
       <AnchorPane prefHeight="136.0" prefWidth="530.0">
          <children>
-            <Button layoutX="445.0" layoutY="102.0" mnemonicParsing="false" onMouseClicked="#handleEndTurn" text="End Turn" textAlignment="CENTER" />
+            <Button layoutX="415.0" layoutY="102.0" mnemonicParsing="false" onMouseClicked="#handleEndTurn" text="  End Turn  " textAlignment="CENTER" />
             <Label layoutX="40.0" layoutY="5.0" text="Scores" />
             <Label layoutX="11.0" layoutY="25.0" text="Player 1:" />
             <Label layoutX="11.0" layoutY="45.0" text="Player 2:" />
             <Label layoutX="11.0" layoutY="65.0" text="Player 3:" />
             <Label layoutX="11.0" layoutY="85.0" text="Player 4:" />
-            <Label layoutX="419.0" layoutY="17.0" text="Round: " />
-            <Label layoutX="429.0" layoutY="45.0" text="Turn:" />
-            <Label layoutX="380.0" layoutY="74.0" text="Turn Time Left: " />
+            <Label fx:id="player1score" layoutX="65.0" layoutY="25.0" text="" />
+            <Label fx:id="player2score" layoutX="65.0" layoutY="45.0" text="" />
+            <Label fx:id="player3score" layoutX="65.0" layoutY="65.0" text="" />
+            <Label fx:id="player4score" layoutX="65.0" layoutY="85.0" text="" />
             <Label layoutX="225.0" layoutY="5.0" text="Current Player Resources" />
             <Label layoutX="225.0" layoutY="25.0" text="Food: " />
             <Label layoutX="215.0" layoutY="45.0" text="Money: " />
             <Label layoutX="215.0" layoutY="65.0" text="Energy: " />
             <Label layoutX="232.0" layoutY="85.0" text="Ore: " />
+            <Label fx:id="food" layoutX="265.0" layoutY="25.0" text="" />
+            <Label fx:id="money" layoutX="265.0" layoutY="45.0" text="" />
+            <Label fx:id="energy" layoutX="265.0" layoutY="65.0" text="" />
+            <Label fx:id="ore" layoutX="265.0" layoutY="85.0" text="" />
+            <Label layoutX="419.0" layoutY="17.0" text="Round: " />
+            <Label layoutX="429.0" layoutY="45.0" text="Turn:" />
+            <Label layoutX="380.0" layoutY="74.0" text="Turn Time Left: " />
             <Label fx:id="round" layoutX="470.0" layoutY="17.0" text="1" />
             <Label fx:id="turn" layoutX="470.0" layoutY="45.0" text="" />
             <Label fx:id="timeLeft" layoutX="470.0" layoutY="75.0" text="" />
-            <Label fx:id="money" layoutX="265.0" layoutY="45.0" text="" />
-            <Label fx:id="food" layoutX="265.0" layoutY="25.0" text="" />
-            <Label fx:id="energy" layoutX="265.0" layoutY="65.0" text="" />
-            <Label fx:id="ore" layoutX="265.0" layoutY="85.0" text="" />
-            <Label fx:id="player1score" layoutX="65.0" layoutY="25.0" text="" />
-            <Label fx:id="player2score" layoutX="65.0" layoutY="45.0" text="" />
-            <Label fx:id="player3score" layoutX="65.0" layoutY="65.0" text="" />
-            <Label fx:id="player4score" layoutX="65.0" layoutY="85.0" text="" />
          </children>
       </AnchorPane>
       <GridPane gridLinesVisible="true" layoutX="2.0" layoutY="142.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="530.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="142.0">
@@ -64,231 +62,231 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
                   <Label layoutX="20.0" layoutY="36.0" text="M1" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                <children>
                   <Label layoutX="16.0" layoutY="38.0" text="River" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="21.0" layoutY="37.0" text="M1" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="14.0" layoutY="36.0" text="River" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="20.0" layoutY="35.0" text="M3" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="16.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleTown" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            </Pane>
+            <Pane onMouseClicked="#handleTown" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <children>
                   <Label fx:id="townLabel" layoutX="13.0" layoutY="35.0" text="Town" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="20.0" layoutY="35.0" text="M2" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="14.0" layoutY="35.0" text="River" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="20.0" layoutY="35.0" text="M2" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="14.0" layoutY="35.0" text="River" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                <children>
                   <Label layoutX="20.0" layoutY="36.0" text="M3" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7">
                <children>
                   <Label layoutX="17.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="20.0" layoutY="36.0" text="M3" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="13.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="20.0" layoutY="35.0" text="M1" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="20.0" layoutY="35.0" text="M2" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="16.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
                <children>
                   <Label layoutX="20.0" layoutY="35.0" text="M2" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
                </children>
-            </Property>
-            <Property onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+            </Pane>
+            <Pane onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
                   <Label layoutX="15.0" layoutY="36.0" text="Plain" />
                </children>
-            </Property>
+            </Pane>
          </children>
       </GridPane>
    </children>
