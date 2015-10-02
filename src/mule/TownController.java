@@ -8,6 +8,9 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -84,5 +87,14 @@ public class TownController {
 	private void handleEndTurn() {
 		Game game = ConfigureController.game;
 		game.update();
+	}
+
+	@FXML
+	private void handlePub(MouseEvent event) throws IOException {
+		Parent pubScreen = FXMLLoader.load(getClass().getResource("Pub.fxml"));
+		Scene pubScene = new Scene(pubScreen);
+		Stage pubStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		pubStage.setScene(pubScene);
+		pubStage.show();
 	}
 }
