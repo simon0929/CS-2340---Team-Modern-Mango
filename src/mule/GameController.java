@@ -2,6 +2,7 @@ package mule;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,6 +54,11 @@ public class GameController {
 
     private ArrayList<Pane> propertyOwnedList;
 
+    public Stage gameStage;
+
+    public Scene gameScene;
+
+
 	@FXML
 	private void initialize() {
 		playerList = ConfigureController.playerList;
@@ -86,6 +92,26 @@ public class GameController {
 		townStage.setScene(townScene);
 		townStage.show();
 	}
+
+    @FXML
+    private void handleGamble(MouseEvent event) throws IOException {
+        Random rand = new Random();
+
+        int moneyBonus = calRoundBonus() * rand.nextInt(calTimeBonus());
+        if (moneyBonus > 250) {
+            currentPlayer.setMoney(currentPlayer.getMoney() + 250);
+        } else {
+            currentPlayer.setMoney(currentPlayer.getMoney() + moneyBonus);
+        }
+
+        gameScene = ConfigureController.gameScene;
+        gameStage = ConfigureController.gameStage;
+        gameStage.setScene(gameScene);
+
+        this.handleEndTurn();
+
+    }
+
 
     //Performs a variety of things when the End Turn button is clicked
 	@FXML
@@ -265,13 +291,46 @@ public class GameController {
                     public void run() {
                         if (turnTime >= 0) {
                             timeLeft.setText(String.valueOf(turnTime--));
-                        }
-                        else {
+                        } else {
                             handleEndTurn();
                         }
                     }
                 });
             }
         }, 0, 1000);
+    }
+
+    private int calTimeBonus() {
+        if (turnTime < 50 && turnTime >= 37) {
+            return 200;
+        }
+        if (turnTime < 37 && turnTime >= 25) {
+            return 150;
+        }
+        if (turnTime < 25 && turnTime >= 12) {
+            return 100;
+        }
+        if (turnTime < 13 && turnTime >= 0) {
+            return 50;
+        }
+
+        return 50;
+    }
+
+    private int calRoundBonus() {
+
+        if (roundNumber < 4) {
+            return 50;
+        }
+
+        if (roundNumber < 8) {
+            return 100;
+        }
+
+        if (roundNumber < 12) {
+            return 150;
+        }
+
+        return 200;
     }
 }
