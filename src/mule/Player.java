@@ -157,7 +157,7 @@ public class Player {
         switch(resource) {
             case "food":
                 price = 30;
-                if(price <= money) {
+                if(price <= money && store.getFood() > 0) {
                     money -= price;
                     food++;
                     store.setFood(store.getFood() - 1);
@@ -166,7 +166,7 @@ public class Player {
                 break;
             case "energy":
                 price = 25;
-                if(price <= money) {
+                if(price <= money && store.getEnergy() > 0) {
                     money -= price;
                     energy++;
                     store.setEnergy(store.getEnergy() - 1);
@@ -175,7 +175,7 @@ public class Player {
                 break;
             case "ore":
                 price = 50;
-                if(price <= money) {
+                if(price <= money && store.getOre() > 0) {
                     money -= price;
                     ore++;
                     store.setOre(store.getOre() - 1);
