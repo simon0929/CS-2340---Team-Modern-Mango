@@ -2,6 +2,7 @@ package mule;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,23 +41,32 @@ public class GameController {
 
 	public static Game game;
 
-	private Player currentPlayer;
+	public static Player currentPlayer;
 
     //numOfPropBuyInRound = number of properties bought this round, if 0 then land selection phase ends
-	private int turnNumber, numOfPropBuyInRound, turnTime, maxTurnTime, defaultTurnTime;
+	private int turnNumber, numOfPropBuyInRound;
+
+    public static int turnTime, roundNumber;
 
 	private boolean selectionPhase;
 
-	public static ArrayList<Player> playerList;
+	public static ArrayList<Player> playerList, basePlayerList;
 
     private ArrayList<Pane> propertyOwnedList;
+
+    public Stage gameStage;
+
+    public Scene gameScene;
+
 
 	@FXML
 	private void initialize() {
 		playerList = ConfigureController.playerList;
+        basePlayerList = playerList;
 		currentPlayer = ConfigureController.player1;
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
+        roundNumber = 1;
 		numOfPropBuyInRound = 0;
 		selectionPhase = true;
 		food.setText(String.valueOf(currentPlayer.getFood()));
@@ -69,8 +79,7 @@ public class GameController {
 		player4score.setText("0");
         game = ConfigureController.game;
         turnTime = 0;
-        defaultTurnTime = 50;
-        updateTurnTime();
+        startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
 
@@ -84,50 +93,40 @@ public class GameController {
 		townStage.show();
 	}
 
+    @FXML
+    private void handleGamble(MouseEvent event) throws IOException {
+        Random rand = new Random();
+
+        int moneyBonus = calRoundBonus() * rand.nextInt(calTimeBonus());
+        if (moneyBonus > 250) {
+            currentPlayer.setMoney(currentPlayer.getMoney() + 250);
+        } else {
+            currentPlayer.setMoney(currentPlayer.getMoney() + moneyBonus);
+        }
+
+        gameScene = ConfigureController.gameScene;
+        gameStage = ConfigureController.gameStage;
+        gameStage.setScene(gameScene);
+
+        this.handleEndTurn();
+
+    }
+
+
     //Performs a variety of things when the End Turn button is clicked
 	@FXML
 	private void handleEndTurn(MouseEvent event) throws IOException {
-        //refreshes screen
-		game.update();
-
-		round.setText(String.valueOf(game.getRound()));
-		turnNumber++;
-
-        //if the number of turns exceeds the number of players, the round ends
-		if (turnNumber > ConfigureController.maxPlayers) {
-            //Calculates all player scores and rearranges playerList for a new order for the next turn
-			getTurnOrder();
-
-            //Refreshes scores on GUI
-            refreshScores();
-
-            //Resets the turn to 1
-			turnNumber = 1;
-
-
-			if (numOfPropBuyInRound == 0) {
-				selectionPhase = false;
-			}
-			else {
-				numOfPropBuyInRound = 0;
-			}
-		}
-
-        currentPlayer = playerList.get(turnNumber - 1);
-        updateTurnTime();
-
-		turn.setText(currentPlayer.getName());
-		food.setText(String.valueOf(currentPlayer.getFood()));
-		money.setText(String.valueOf(currentPlayer.getMoney()));
-		energy.setText(String.valueOf(currentPlayer.getEnergy()));
-		ore.setText(String.valueOf(currentPlayer.getOre()));
+        endTurn();
 	}
 
     private void handleEndTurn() {
+        endTurn();
+    }
+
+    private void endTurn() {
         //refreshes screen
         game.update();
 
-        round.setText(String.valueOf(game.getRound()));
         turnNumber++;
 
         //if the number of turns exceeds the number of players, the round ends
@@ -141,6 +140,8 @@ public class GameController {
             //Resets the turn to 1
             turnNumber = 1;
 
+            roundNumber++;
+            round.setText(String.valueOf(roundNumber));
 
             if (numOfPropBuyInRound == 0) {
                 selectionPhase = false;
@@ -171,6 +172,7 @@ public class GameController {
 
 				if (!propertyOwnedList.contains(property)) {
 					currentPlayer.incrementPropertyOwned();
+                    propertyOwnedList.add(property);
 
 					if (currentPlayer.getNumOfFreeProperties() == 0) {
                         //Automatically updates player's money and on the GUI
@@ -197,17 +199,26 @@ public class GameController {
 	private void getTurnOrder() {
         Player minScore = null;
         ArrayList<Player> tempList = new ArrayList<Player>();
+        int j;
 
         for (int i = 0; i < ConfigureController.maxPlayers; i++) {
-            for (int j = 0; j < ConfigureController.maxPlayers; j++) {
+            j = 0;
+            minScore = null;
+
+            while (j < playerList.size()) {
                 if (minScore == null) {
-                    minScore = playerList.get(i);
+                    minScore = playerList.get(j);
+                    j++;
                 }
-                else if (playerList.get(i) != null && playerList.get(i).getScore() < minScore.getScore()) {
-                    minScore = playerList.get(i);
-                    playerList.remove(i);
+
+                if (j < playerList.size() && playerList.get(j).getScore() < minScore.getScore()) {
+                    minScore = playerList.get(j);
+                    playerList.remove(j);
                 }
+
+                j++;
             }
+
             tempList.add(minScore);
         }
 
@@ -226,11 +237,11 @@ public class GameController {
     }
 
     private void updateTurnTime() {
-        if (game.getRound() == 1) {
+        if (roundNumber == 1) {
             turnTime = 50;
         }
         else {
-            if (game.getRound() < 5) {
+            if (roundNumber < 5) {
                 if (currentPlayer.getFood() >= 3) {
                     turnTime = 50;
                 }
@@ -241,7 +252,7 @@ public class GameController {
                     turnTime = 5;
                 }
             }
-            else if (game.getRound() < 9) {
+            else if (roundNumber < 9) {
                 if (currentPlayer.getFood() >= 4) {
                     turnTime = 50;
                 }
@@ -265,22 +276,61 @@ public class GameController {
             }
         }
 
+        timeLeft.setText(String.valueOf(turnTime));
+    }
+
+    private void startTurnTimer() {
+        turnTime = 50;
+
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(new Runnable() {
-                      @Override
-                      public void run() {
-                          if (turnTime >= 0) {
-                              timeLeft.setText(String.valueOf(turnTime--));
-                          }
-                          else {
-                              handleEndTurn();
-                          }
-                      }
-                  });
+                    @Override
+                    public void run() {
+                        if (turnTime >= 0) {
+                            timeLeft.setText(String.valueOf(turnTime--));
+                        } else {
+                            handleEndTurn();
+                        }
+                    }
+                });
             }
-        }, 1000, 1000);
+        }, 0, 1000);
+    }
+
+    private int calTimeBonus() {
+        if (turnTime < 50 && turnTime >= 37) {
+            return 200;
+        }
+        if (turnTime < 37 && turnTime >= 25) {
+            return 150;
+        }
+        if (turnTime < 25 && turnTime >= 12) {
+            return 100;
+        }
+        if (turnTime < 13 && turnTime >= 0) {
+            return 50;
+        }
+
+        return 50;
+    }
+
+    private int calRoundBonus() {
+
+        if (roundNumber < 4) {
+            return 50;
+        }
+
+        if (roundNumber < 8) {
+            return 100;
+        }
+
+        if (roundNumber < 12) {
+            return 150;
+        }
+
+        return 200;
     }
 }
