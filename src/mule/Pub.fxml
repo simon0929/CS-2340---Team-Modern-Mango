@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.TownController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.PubController">
    <children>
       <AnchorPane prefHeight="136.0" prefWidth="530.0">
          <children>
@@ -37,7 +37,7 @@
       </AnchorPane>
       <Pane layoutY="154.0" prefHeight="432.0" prefWidth="530.0">
          <children>
-            <Button fx:id="gamble" layoutX="237.0" layoutY="204.0" mnemonicParsing="false" onAction="#handleGamble" text="Gamble" />
+            <Button fx:id="gamble" layoutX="237.0" layoutY="204.0" mnemonicParsing="false" onAction="#handleGamble" onMousePressed="#handleGamble" text="Gamble" />
          </children>
       </Pane>
    </children>

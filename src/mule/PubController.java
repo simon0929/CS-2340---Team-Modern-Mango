@@ -8,21 +8,21 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.control.Button;
 
 /**
- * Created by madijuby on 10/4/15.
+ * Created by madijuby on 10/5/15.
+ *
  */
-public class StoreController {
+public class PubController {
+    @FXML
+    private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score, player4score;
 
     @FXML
-    private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
-            player4score, storeOre, storeEnergy, storeFood, storeMule;
-
-    @FXML
-    private Button buyOre, buyEnergy, buyFood, sellOre, sellEnergy, sellFood;
+    private Button gamble;
 
     private int turnTime;
 
@@ -51,11 +51,6 @@ public class StoreController {
         money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
         energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
         ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
-        storeOre.setText(String.valueOf(GameController.game.getStore().getOre()));
-        storeFood.setText(String.valueOf(GameController.game.getStore().getFood()));
-        storeEnergy.setText(String.valueOf(GameController.game.getStore().getEnergy()));
-        storeMule.setText(String.valueOf(GameController.game.getStore().getMule()));
-
 
         round.setText(String.valueOf(GameController.roundNumber));
         turn.setText(GameController.currentPlayer.getName());
@@ -101,29 +96,42 @@ public class StoreController {
     }
 
     @FXML
-    private void handleMakePurchase() {
+    private void handleGamble() {
+        if (gamble.isPressed()) {
+            int moneyBonus, timeBonus, roundBonus;
+            Random rand = new Random();
 
-        if(buyOre.isPressed()) {
-            GameController.currentPlayer.buyResource("ore");
-        } else if (buyEnergy.isPressed()) {
-            GameController.currentPlayer.buyResource("energy");
-        } else if (buyFood.isPressed()) {
-            GameController.currentPlayer.buyResource("food");
+            if (GameController.roundNumber < 4) {
+                roundBonus = 50;
+            } else if (GameController.roundNumber < 8) {
+                roundBonus = 100;
+            } else if (GameController.roundNumber < 12) {
+                roundBonus = 150;
+            } else {
+                roundBonus = 200;
+            }
+
+            if (GameController.turnTime < 13) {
+                timeBonus = 50;
+            } else if (GameController.turnTime < 26) {
+                timeBonus = 100;
+            } else if (GameController.turnTime < 38) {
+                timeBonus = 150;
+            } else {
+                timeBonus = 200;
+            }
+
+            moneyBonus = roundBonus * (rand.nextInt(timeBonus) + 1);
+
+            if (moneyBonus > 250) {
+                moneyBonus = 250;
+            }
+
+            GameController.currentPlayer.setMoney(GameController.currentPlayer.getMoney() + moneyBonus);
+            GameController.turnTime = 0;
+
+            updateValues();
         }
-        updateValues();
-    }
-
-    @FXML
-    private void handleSellResource() {
-
-        if(sellOre.isPressed()) {
-            GameController.currentPlayer.sellResource("ore");
-        } else if (sellEnergy.isPressed()) {
-            GameController.currentPlayer.sellResource("energy");
-        } else if (sellFood.isPressed()) {
-            GameController.currentPlayer.sellResource("food");
-        }
-        updateValues();
     }
 
     private void updateValues() {
@@ -131,10 +139,5 @@ public class StoreController {
         money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
         energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
         ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
-        storeOre.setText(String.valueOf(GameController.game.getStore().getOre()));
-        storeFood.setText(String.valueOf(GameController.game.getStore().getFood()));
-        storeEnergy.setText(String.valueOf(GameController.game.getStore().getEnergy()));
-        storeMule.setText(String.valueOf(GameController.game.getStore().getMule()));
     }
-
 }
