@@ -156,6 +156,6 @@ public class TownController {
 		GameController.currentPlayer.setMoney(GameController.currentPlayer.getMoney() + moneyBonus);
 		GameController.turnTime = 0;
 
-		handleReturnToMap();
+		//handleReturnToMap();
 	}
 }
