@@ -107,6 +107,16 @@ public class TownController {
 	}
 
 	@FXML
+	private void handleStore(MouseEvent event) throws IOException {
+		Parent storeScreen = FXMLLoader.load(getClass().getResource("Store.fxml"));
+		Scene storeScene = new Scene(storeScreen);
+		Stage storeStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		storeStage.setScene(storeScene);
+		storeStage.show();
+	}
+
+
+	@FXML
 	private void handleGamble(ActionEvent event) throws IOException {
 		int moneyBonus, timeBonus, roundBonus;
 		Random rand = new Random();
@@ -146,6 +156,6 @@ public class TownController {
 		GameController.currentPlayer.setMoney(GameController.currentPlayer.getMoney() + moneyBonus);
 		GameController.turnTime = 0;
 
-		handleReturnToMap();
+		//handleReturnToMap();
 	}
 }
