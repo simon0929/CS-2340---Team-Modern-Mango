@@ -1,12 +1,15 @@
 package mule;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -14,10 +17,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javafx.scene.control.Button;
 
 /**
  * Created by madijuby on 10/4/15.
+ * Edited by Tyler Whitfield 10/5/15.
  */
 public class StoreController {
 
@@ -26,6 +31,9 @@ public class StoreController {
 
     @FXML
     private Button buyOre, buyEnergy, buyFood, sellOre, sellEnergy, sellFood;
+    
+    @FXML
+    private ChoiceBox<String> muleType;
 
     private int turnTime;
 
@@ -81,6 +89,12 @@ public class StoreController {
                 });
             }
         }, 0, 1000);
+        
+        final ObservableList<String> type = FXCollections.observableArrayList();
+		type.add("food");
+		type.add("ore");
+		type.add("energy");
+		muleType.setItems(type);
     }
 
     @FXML
@@ -141,6 +155,19 @@ public class StoreController {
         storeMule.setText(String.valueOf(GameController.game.getStore().getMule()));
     }
 
-
+    @FXML
+    private void handleMuleBuy() {
+    	if(muleType.getValue() != null) {
+    		if (muleType.getSelectionModel().getSelectedItem().equals("food")) {
+    			GameController.currentPlayer.buyResource("foodMule");
+    		}
+    		else if (muleType.getSelectionModel().getSelectedItem().equals("energy")) {
+    			GameController.currentPlayer.buyResource("energyMule");
+    		}
+    		else if (muleType.getSelectionModel().getSelectedItem().equals("ore")) {
+    			GameController.currentPlayer.buyResource("oreMule");
+    		}
+    	}
+    }
 
 }

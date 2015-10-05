@@ -182,6 +182,27 @@ public class Player {
                     return true;
                 }
                 break;
+            case "foodMule":
+            	price = 125;
+            	if (price <= money && store.getMule() > 0) {
+            		money -= price;
+            		store.setMule(store.getMule() - 1);
+            		return true;
+            	}
+            case "energyMule":
+            	price = 150;
+            	if (price <= money && store.getMule() > 0) {
+            		money -= price;
+            		store.setMule(store.getMule() - 1);
+            		return true;
+            	}
+            case "oreMule":
+            	price = 175;
+            	if (price <= money && store.getMule() > 0) {
+            		money -= price;
+            		store.setMule(store.getMule() - 1);
+            		return true;
+            	}
             default:
                 break;
         }
