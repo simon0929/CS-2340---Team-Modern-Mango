@@ -120,7 +120,6 @@ public class StoreController {
     private void handleSellResource() {
 
         if(sellOre.isPressed()) {
-            System.out.println("ore pressed");
             GameController.currentPlayer.sellResource("ore");
         } else if (sellEnergy.isPressed()) {
             GameController.currentPlayer.sellResource("energy");
