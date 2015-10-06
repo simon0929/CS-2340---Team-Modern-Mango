@@ -149,68 +149,65 @@ public class Player {
         score = money + (numOfProperties * 500) + food + energy + ore;
     }
 
-    public boolean buyResource(String resource) {
-
+    public void buyResource(String resource) {
+    	System.out.println("buy recource entered");
         int price;
         Store store = ConfigureController.game.getStore();
+        boolean canPurchase = store.canPurchase(resource);
 
         switch(resource) {
             case "food":
                 price = 30;
-                if(price <= money && store.getFood() > 0) {
+                if(price <= money && canPurchase) {
                     money -= price;
                     food++;
                     store.setFood(store.getFood() - 1);
-                    return true;
                 }
                 break;
             case "energy":
                 price = 25;
-                if(price <= money && store.getEnergy() > 0) {
+                if(price <= money && canPurchase) {
                     money -= price;
                     energy++;
                     store.setEnergy(store.getEnergy() - 1);
-                    return true;
                 }
                 break;
             case "ore":
                 price = 50;
-                if(price <= money && store.getOre() > 0) {
+                if(price <= money && canPurchase) {
                     money -= price;
                     ore++;
                     store.setOre(store.getOre() - 1);
-                    return true;
                 }
                 break;
             case "foodMule":
             	price = 125;
-            	if (price <= money && store.getMule() > 0) {
+            	if (price <= money && canPurchase) {
             		money -= price;
             		store.setMule(store.getMule() - 1);
-            		return true;
+            		System.out.println("foodMule bought");
             	}
+            	break;
             case "energyMule":
             	price = 150;
-            	if (price <= money && store.getMule() > 0) {
+            	if (price <= money && canPurchase) {
             		money -= price;
             		store.setMule(store.getMule() - 1);
-            		return true;
             	}
+            	break;
             case "oreMule":
             	price = 175;
-            	if (price <= money && store.getMule() > 0) {
+            	if (price <= money && canPurchase) {
             		money -= price;
             		store.setMule(store.getMule() - 1);
-            		return true;
             	}
+            	break;
             default:
                 break;
         }
-
-        return false;
     }
 
-    public boolean sellResource(String resource) {
+    public void sellResource(String resource) {
 
         int price;
         Store store = ConfigureController.game.getStore();
@@ -222,7 +219,6 @@ public class Player {
                     money += price;
                     food--;
                     store.setFood(store.getFood() + 1);
-                    return true;
                 }
                 break;
             case "energy":
@@ -231,7 +227,6 @@ public class Player {
                     money += price;
                     energy--;
                     store.setEnergy(store.getEnergy() + 1);
-                    return true;
                 }
                 break;
             case "ore":
@@ -240,14 +235,11 @@ public class Player {
                     money += price;
                     ore--;
                     store.setOre(store.getOre() + 1);
-                    return true;
                 }
                 break;
 
             default:
                 break;
         }
-
-        return false;
     }
 }

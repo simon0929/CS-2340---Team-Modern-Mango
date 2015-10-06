@@ -58,8 +58,9 @@
             <Label fx:id="foodPrice" layoutX="226.0" layoutY="226.0" text="30" />
             <Label fx:id="energyPrice" layoutX="226.0" layoutY="158.0" text="25" />
             <Label fx:id="orePrice" layoutX="226.0" layoutY="108.0" text="50" />
-            <Button fx:id="buyFood1" layoutX="419.0" layoutY="286.0" mnemonicParsing="false" onMousePressed="#handleMakePurchase" text="Buy Mule" />
+            <Button fx:id="buyMule" layoutX="419.0" layoutY="286.0" mnemonicParsing="false" onMousePressed="#handleMuleBuy" text="Buy Mule" />
             <ChoiceBox fx:id="muleType" layoutX="288.0" layoutY="286.0" prefHeight="26.0" prefWidth="84.0" />
+            <Button fx:id="placeMule" layoutX="414.0" layoutY="335.0" mnemonicParsing="false" onAction="#changeScreen" text="Place Mule" />
          </children>
       </Pane>
    </children>
