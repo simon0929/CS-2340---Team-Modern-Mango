@@ -5,13 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,10 +23,11 @@ import javafx.scene.control.Button;
 public class StoreController {
 
     @FXML
-    private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score, player4score, storeOre, storeEnergy, storeFood, storeMule;
+    private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
+            player4score, storeOre, storeEnergy, storeFood, storeMule;
 
     @FXML
-    private Button buyOre, buyEnergy, buyFood, sellOre, sellEnergy, sellFood;
+    private Button buyOre, buyEnergy, buyFood, buyMule, sellOre, sellEnergy, sellFood, placeMule;
     
     @FXML
     private ChoiceBox<String> muleType;
@@ -134,7 +131,6 @@ public class StoreController {
     private void handleSellResource() {
 
         if(sellOre.isPressed()) {
-            System.out.println("ore pressed");
             GameController.currentPlayer.sellResource("ore");
         } else if (sellEnergy.isPressed()) {
             GameController.currentPlayer.sellResource("energy");
@@ -144,7 +140,7 @@ public class StoreController {
         updateValues();
     }
 
-    private void updateValues() {
+    public void updateValues() {
         food.setText(String.valueOf(GameController.currentPlayer.getFood()));
         money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
         energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
@@ -157,17 +153,29 @@ public class StoreController {
 
     @FXML
     private void handleMuleBuy() {
-    	if(muleType.getValue() != null) {
-    		if (muleType.getSelectionModel().getSelectedItem().equals("food")) {
+    	if(muleType.getValue() != null && buyMule.isPressed()) {
+    		System.out.println("handler entered");
+    		if (muleType.getSelectionModel().getSelectedItem().compareTo("food") == 0) {
     			GameController.currentPlayer.buyResource("foodMule");
+    			GameController.typeOfMule = "food";
     		}
-    		else if (muleType.getSelectionModel().getSelectedItem().equals("energy")) {
+    		else if (muleType.getSelectionModel().getSelectedItem().compareTo("energy") == 0) {
     			GameController.currentPlayer.buyResource("energyMule");
+    			GameController.typeOfMule = "energy";
     		}
-    		else if (muleType.getSelectionModel().getSelectedItem().equals("ore")) {
+    		else if (muleType.getSelectionModel().getSelectedItem().compareTo("ore") == 0) {
     			GameController.currentPlayer.buyResource("oreMule");
+    			GameController.typeOfMule = "ore";
     		}
     	}
+    	updateValues();
     }
-
+    
+    @FXML
+    private void changeScreen(ActionEvent event) throws IOException {
+    	GameController.placingMule = true;
+    	gameScene = ConfigureController.gameScene;
+        gameStage = ConfigureController.gameStage;
+        gameStage.setScene(gameScene);
+    }
 }
