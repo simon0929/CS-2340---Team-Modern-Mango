@@ -2,12 +2,16 @@ package mule;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -81,8 +85,34 @@ public class TownController {
 	}
 
 	@FXML
+	private void handleReturnToMap() {
+		gameScene = ConfigureController.gameScene;
+		gameStage = ConfigureController.gameStage;
+		gameStage.setScene(gameScene);
+	}
+
+	@FXML
 	private void handleEndTurn() {
 		Game game = ConfigureController.game;
 		game.update();
 	}
+
+	@FXML
+	 private void handlePub(MouseEvent event) throws IOException {
+		Parent pubScreen = FXMLLoader.load(getClass().getResource("Pub.fxml"));
+		Scene pubScene = new Scene(pubScreen);
+		Stage pubStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		pubStage.setScene(pubScene);
+		pubStage.show();
+	}
+
+	@FXML
+	private void handleStore(MouseEvent event) throws IOException {
+		Parent storeScreen = FXMLLoader.load(getClass().getResource("Store.fxml"));
+		Scene storeScene = new Scene(storeScreen);
+		Stage storeStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		storeStage.setScene(storeScene);
+		storeStage.show();
+	}
+
 }

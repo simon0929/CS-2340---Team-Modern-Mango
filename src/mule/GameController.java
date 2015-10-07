@@ -2,6 +2,7 @@ package mule;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,13 +50,19 @@ public class GameController {
 
 	private boolean selectionPhase;
 
-	public static ArrayList<Player> playerList;
+	public static ArrayList<Player> playerList, basePlayerList;
 
     private ArrayList<Pane> propertyOwnedList;
+
+    public Stage gameStage;
+
+    public Scene gameScene;
+
 
 	@FXML
 	private void initialize() {
 		playerList = ConfigureController.playerList;
+        basePlayerList = playerList;
 		currentPlayer = ConfigureController.player1;
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
@@ -86,51 +93,40 @@ public class GameController {
 		townStage.show();
 	}
 
+    @FXML
+    private void handleGamble(MouseEvent event) throws IOException {
+        Random rand = new Random();
+
+        int moneyBonus = calRoundBonus() * rand.nextInt(calTimeBonus());
+        if (moneyBonus > 250) {
+            currentPlayer.setMoney(currentPlayer.getMoney() + 250);
+        } else {
+            currentPlayer.setMoney(currentPlayer.getMoney() + moneyBonus);
+        }
+
+        gameScene = ConfigureController.gameScene;
+        gameStage = ConfigureController.gameStage;
+        gameStage.setScene(gameScene);
+
+        this.handleEndTurn();
+
+    }
+
+
     //Performs a variety of things when the End Turn button is clicked
 	@FXML
 	private void handleEndTurn(MouseEvent event) throws IOException {
-        //refreshes screen
-		game.update();
-
-		round.setText(String.valueOf(roundNumber));
-		turnNumber++;
-
-        //if the number of turns exceeds the number of players, the round ends
-		if (turnNumber > ConfigureController.maxPlayers) {
-            //Calculates all player scores and rearranges playerList for a new order for the next turn
-			getTurnOrder();
-
-            //Refreshes scores on GUI
-            refreshScores();
-
-            //Resets the turn to 1
-			turnNumber = 1;
-
-            roundNumber++;
-
-			if (numOfPropBuyInRound == 0) {
-				selectionPhase = false;
-			}
-			else {
-				numOfPropBuyInRound = 0;
-			}
-		}
-
-        currentPlayer = playerList.get(turnNumber - 1);
-        updateTurnTime();
-
-		turn.setText(currentPlayer.getName());
-		food.setText(String.valueOf(currentPlayer.getFood()));
-		money.setText(String.valueOf(currentPlayer.getMoney()));
-		energy.setText(String.valueOf(currentPlayer.getEnergy()));
-		ore.setText(String.valueOf(currentPlayer.getOre()));
+        endTurn();
 	}
 
     private void handleEndTurn() {
+        endTurn();
+    }
+
+    private void endTurn() {
         //refreshes screen
         game.update();
 
-        round.setText(String.valueOf(roundNumber));
         turnNumber++;
 
         //if the number of turns exceeds the number of players, the round ends
@@ -144,6 +140,8 @@ public class GameController {
             //Resets the turn to 1
             turnNumber = 1;
 
+            roundNumber++;
+            round.setText(String.valueOf(roundNumber));
 
             if (numOfPropBuyInRound == 0) {
                 selectionPhase = false;
@@ -205,11 +203,15 @@ public class GameController {
 
         for (int i = 0; i < ConfigureController.maxPlayers; i++) {
             j = 0;
+            minScore = null;
+
             while (j < playerList.size()) {
                 if (minScore == null) {
                     minScore = playerList.get(j);
+                    j++;
                 }
-                else if (playerList.get(j) != null && playerList.get(j).getScore() < minScore.getScore()) {
+
+                if (j < playerList.size() && playerList.get(j).getScore() < minScore.getScore()) {
                     minScore = playerList.get(j);
                     playerList.remove(j);
                 }
@@ -289,13 +291,46 @@ public class GameController {
                     public void run() {
                         if (turnTime >= 0) {
                             timeLeft.setText(String.valueOf(turnTime--));
-                        }
-                        else {
+                        } else {
                             handleEndTurn();
                         }
                     }
                 });
             }
         }, 0, 1000);
+    }
+
+    private int calTimeBonus() {
+        if (turnTime < 50 && turnTime >= 37) {
+            return 200;
+        }
+        if (turnTime < 37 && turnTime >= 25) {
+            return 150;
+        }
+        if (turnTime < 25 && turnTime >= 12) {
+            return 100;
+        }
+        if (turnTime < 13 && turnTime >= 0) {
+            return 50;
+        }
+
+        return 50;
+    }
+
+    private int calRoundBonus() {
+
+        if (roundNumber < 4) {
+            return 50;
+        }
+
+        if (roundNumber < 8) {
+            return 100;
+        }
+
+        if (roundNumber < 12) {
+            return 150;
+        }
+
+        return 200;
     }
 }
