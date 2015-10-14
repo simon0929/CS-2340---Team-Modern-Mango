@@ -57,7 +57,7 @@
                   <Label layoutX="95.0" layoutY="100.0" text="Assay Office" />
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <Pane onMouseClicked="#handleStore" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="99.0" layoutY="100.0" text="Town Store" />
                   <Pane layoutX="236.0" layoutY="-13.0" />
