@@ -51,7 +51,7 @@ public class GameController {
 	public static Player currentPlayer;
 
     //numOfPropBuyInRound = number of properties bought this round, if 0 then land selection phase ends
-	private int turnNumber, numOfPropBuyInRound;
+	private int turnNumber, numOfPropBoughtInTurn, numOfPropBoughtInRound;
 
     public static int turnTime, roundNumber;
 
@@ -77,7 +77,8 @@ public class GameController {
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
         roundNumber = 1;
-		numOfPropBuyInRound = 0;
+        numOfPropBoughtInTurn = 0;
+        numOfPropBoughtInRound = 0;
 		selectionPhase = true;
 		food.setText(String.valueOf(currentPlayer.getFood()));
 		money.setText(String.valueOf(currentPlayer.getMoney()));
@@ -139,6 +140,8 @@ public class GameController {
 
         turnNumber++;
 
+        numOfPropBoughtInRound += numOfPropBoughtInTurn;
+
         //if the number of turns exceeds the number of players, the round ends
         if (turnNumber > ConfigureController.maxPlayers) {
             //Calculates all player scores and rearranges playerList for a new order for the next turn
@@ -153,13 +156,17 @@ public class GameController {
             roundNumber++;
             round.setText(String.valueOf(roundNumber));
 
-            if (numOfPropBuyInRound == 0) {
+            if (numOfPropBoughtInRound == 0) {
                 selectionPhase = false;
             }
             else {
-                numOfPropBuyInRound = 0;
+                numOfPropBoughtInRound = 0;
             }
+
+
         }
+
+        numOfPropBoughtInTurn = 0;
 
         currentPlayer = playerList.get(turnNumber - 1);
         updateTurnTime();
@@ -173,67 +180,63 @@ public class GameController {
 
 	@FXML
 	private void handleProperty(MouseEvent event) throws IOException {
-		if (selectionPhase) {
-			if (!game.selectedProp()) {
-				Color playerColor = game.getCurrPlayer().getColor();
+        if (numOfPropBoughtInTurn == 0) {
+            if (selectionPhase) {
+                if (!game.selectedProp()) {
+                    Color playerColor = game.getCurrPlayer().getColor();
 
-                //Gets the actual property object that was clicked so that things can be done to it
-				Pane property = (Pane) event.getSource();
+                    //Gets the actual property object that was clicked so that things can be done to it
+                    Pane property = (Pane) event.getSource();
 
-				if (!propertyOwnedList.contains(property)) {
-					currentPlayer.incrementPropertyOwned();
-                    propertyOwnedList.add(property);
+                    if (!propertyOwnedList.contains(property)) {
+                        currentPlayer.incrementPropertyOwned();
+                        propertyOwnedList.add(property);
 
-					if (currentPlayer.getNumOfFreeProperties() == 0) {
-                        //Automatically updates player's money and on the GUI
-						currentPlayer.setMoney(currentPlayer.getMoney() - 300);
-                        money.setText(String.valueOf(currentPlayer.getMoney()));
-					}
-					else {
-						currentPlayer.decrementFreeProperty();
-					}
+                        if (currentPlayer.getNumOfFreeProperties() == 0) {
+                            //Automatically updates player's money and on the GUI
+                            currentPlayer.setMoney(currentPlayer.getMoney() - 300);
+                            money.setText(String.valueOf(currentPlayer.getMoney()));
+                        }
+                        else {
+                            currentPlayer.decrementFreeProperty();
+                        }
 
-					numOfPropBuyInRound++;
-                    currentPlayer.addToPropertyList(property);
+                        numOfPropBoughtInTurn++;
+                        currentPlayer.addToPropertyList(property);
 
-					Region reg = (Region) event.getSource();
-					reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
+                        Region reg = (Region) event.getSource();
+                        reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
 
-                    currentPlayer.calculateScore();
-                    refreshScores();
+                        currentPlayer.calculateScore();
+                        refreshScores();
+                    }
                 }
-			}
-		}
+            }
+        }
 	}
 
-	private void getTurnOrder() {
-        Player minScore = null;
-        ArrayList<Player> tempList = new ArrayList<Player>();
+    private void getTurnOrder() {
+        int minScore;
+        ArrayList<Player> tempList = playerList;
+        playerList = new ArrayList<>();
         int j;
 
         for (int i = 0; i < ConfigureController.maxPlayers; i++) {
             j = 0;
-            minScore = null;
+            minScore = 0;
 
-            while (j < playerList.size()) {
-                if (minScore == null) {
-                    minScore = playerList.get(j);
-                    j++;
-                }
-
-                if (j < playerList.size() && playerList.get(j).getScore() < minScore.getScore()) {
-                    minScore = playerList.get(j);
-                    playerList.remove(j);
+            while (j < tempList.size()) {
+                if (tempList.get(j).getScore() < tempList.get(minScore).getScore()) {
+                    minScore = j;
                 }
 
                 j++;
             }
 
-            tempList.add(minScore);
+            playerList.add(tempList.get(minScore));
+            tempList.remove(minScore);
         }
-
-        playerList = tempList;
-	}
+    }
 
     private void refreshScores() {
         player1score.setText(String.valueOf(ConfigureController.player1.getScore()));

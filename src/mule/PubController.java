@@ -129,19 +129,16 @@ public class PubController {
 
             GameController.currentPlayer.setMoney(GameController.currentPlayer.getMoney() + moneyBonus);
             GameController.turnTime = 0;
+<<<<<<< HEAD
             
             handleEndTurn();
             updateValues();
             gameScene = ConfigureController.gameScene;
             gameStage = ConfigureController.gameStage;
             gameStage.setScene(gameScene);
+=======
+            handleReturnToMap();
+>>>>>>> master
         }
-    }
-
-    private void updateValues() {
-        food.setText(String.valueOf(GameController.currentPlayer.getFood()));
-        money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
-        energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
-        ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
     }
 }
