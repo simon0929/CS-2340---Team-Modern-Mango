@@ -150,7 +150,7 @@ public class Player {
     }
 
     public void buyResource(String resource) {
-    	System.out.println("buy recource entered");
+
         int price;
         Store store = ConfigureController.game.getStore();
         boolean canPurchase = store.canPurchase(resource);

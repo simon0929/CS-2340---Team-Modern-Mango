@@ -47,6 +47,7 @@ public class Store {
             case "foodMule": return mule > 0;
             case "energyMule": return mule > 0;
             case "oreMule": return mule > 0;
+
             default: return false;
         }
     }

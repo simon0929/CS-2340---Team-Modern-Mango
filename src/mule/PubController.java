@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javafx.scene.control.Button;
 
 /**
@@ -136,8 +135,6 @@ public class PubController {
             gameScene = ConfigureController.gameScene;
             gameStage = ConfigureController.gameStage;
             gameStage.setScene(gameScene);
-
-            
         }
     }
 

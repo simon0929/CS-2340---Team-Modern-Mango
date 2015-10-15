@@ -154,7 +154,6 @@ public class StoreController {
     @FXML
     private void handleMuleBuy() {
     	if(muleType.getValue() != null && buyMule.isPressed()) {
-    		System.out.println("handler entered");
     		if (muleType.getSelectionModel().getSelectedItem().compareTo("food") == 0) {
     			GameController.currentPlayer.buyResource("foodMule");
     			GameController.typeOfMule = "food";
@@ -178,4 +177,5 @@ public class StoreController {
         gameStage = ConfigureController.gameStage;
         gameStage.setScene(gameScene);
     }
+
 }
