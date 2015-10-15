@@ -129,7 +129,16 @@ public class PubController {
 
             GameController.currentPlayer.setMoney(GameController.currentPlayer.getMoney() + moneyBonus);
             GameController.turnTime = 0;
+<<<<<<< HEAD
+            
+            handleEndTurn();
+            updateValues();
+            gameScene = ConfigureController.gameScene;
+            gameStage = ConfigureController.gameStage;
+            gameStage.setScene(gameScene);
+=======
             handleReturnToMap();
+>>>>>>> master
         }
     }
 }

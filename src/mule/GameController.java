@@ -7,11 +7,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
@@ -33,11 +35,16 @@ public class GameController {
 
 	@FXML
 	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score, player4score;
+	
+	@FXML
+	private Button label00, label10, label20, label30, label40, label50, label60, label70, label80,
+	label01, label11, label21, label31, label41, label51, label61, label71, label81,
+	label02, label12, label22, label32, label42, label52, label62, label72, label82,
+	label03, label13, label23, label33, label43, label53, label63, label73, label83,
+	label04, label14, label24, label34, label44, label54, label64, label74, label84;
 
 	@FXML
 	private Pane pane;
-
-	private String phase;
 
 	public static Game game;
 
@@ -57,7 +64,10 @@ public class GameController {
     public Stage gameStage;
 
     public Scene gameScene;
-
+    
+    public static boolean placingMule = false;
+    
+    public static String typeOfMule;
 
 	@FXML
 	private void initialize() {
@@ -84,7 +94,7 @@ public class GameController {
         propertyOwnedList = new ArrayList<>();
 	}
 
-    //Calls the Game.fxml file and actually constructs the GUI.
+    //Calls the Town.fxml file and constructs the Town GUI.
 	@FXML
 	private void handleTown(MouseEvent event) throws IOException {
 		Parent townScreen = FXMLLoader.load(getClass().getResource("Town.fxml"));
@@ -333,7 +343,30 @@ public class GameController {
         if (roundNumber < 12) {
             return 150;
         }
-
         return 200;
+    }
+    
+    @FXML
+    private void placeMule(ActionEvent event) throws IOException {
+    	food.setText(String.valueOf(currentPlayer.getFood()));
+        money.setText(String.valueOf(currentPlayer.getMoney()));
+        energy.setText(String.valueOf(currentPlayer.getEnergy()));
+        ore.setText(String.valueOf(currentPlayer.getOre()));
+    	if (placingMule) {
+    		Object source = event.getSource();
+    		Button clickedbtn = (Button) source;
+    		if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+    		    clickedbtn.setText("food");
+    		    clickedbtn.getParent();
+    		} else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+    			clickedbtn.setText("energy");
+    		} else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+    			clickedbtn.setText("ore");
+    		}
+			placingMule = false;
+    	}
     }
 }
