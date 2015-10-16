@@ -101,7 +101,7 @@ public class GameController {
     //Calls the Town.fxml file and constructs the Town GUI.
 	@FXML
 	private void handleTown(MouseEvent event) throws IOException {
-		Parent townScreen = FXMLLoader.load(getClass().getResource("view/Town.fxml"));
+		Parent townScreen = FXMLLoader.load(getClass().getResource("/mule/view/Town.fxml"));
 		Scene townScene = new Scene(townScreen);
 		Stage townStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		townStage.setScene(townScene);

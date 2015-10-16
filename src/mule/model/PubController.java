@@ -132,7 +132,7 @@ public class PubController {
 
 
             handleEndTurn();
-            updateValues();
+            //updateValues();
             gameScene = ConfigureController.gameScene;
             gameStage = ConfigureController.gameStage;
             gameStage.setScene(gameScene);
