@@ -170,6 +170,28 @@ public class Player {
                     store.setOre(store.getOre() - 1);
                 }
                 break;
+            case "foodMule":
+            	price = 125;
+            	if (price <= money && canPurchase) {
+            		money -= price;
+            		store.setMule(store.getMule() - 1);
+            		System.out.println("foodMule bought");
+            	}
+            	break;
+            case "energyMule":
+            	price = 150;
+            	if (price <= money && canPurchase) {
+            		money -= price;
+            		store.setMule(store.getMule() - 1);
+            	}
+            	break;
+            case "oreMule":
+            	price = 175;
+            	if (price <= money && canPurchase) {
+            		money -= price;
+            		store.setMule(store.getMule() - 1);
+            	}
+            	break;
             default:
                 break;
         }
