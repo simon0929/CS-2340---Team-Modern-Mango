@@ -1,4 +1,4 @@
-package mule;
+package mule.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -179,7 +179,7 @@ public class ConfigureController {
 		}
 
 		//Calls the Game.fxml file and actually constructs the GUI.
-		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/Game.fxml"));
+		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
 		this.gameScene = new Scene(gameScreenParent);
 		this.gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		this.gameStage.setScene(gameScene);

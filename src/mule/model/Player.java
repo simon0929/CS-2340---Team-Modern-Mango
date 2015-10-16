@@ -1,4 +1,4 @@
-package mule;
+package mule.model;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -110,7 +110,7 @@ public class Player {
     public void setScore(int score) {
         this.score = score;
     }
-    
+
     public void addToPropertyList(Pane pane) {
         propertyList.add(pane);
     }
