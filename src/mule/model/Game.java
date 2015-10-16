@@ -10,6 +10,7 @@ public class Game {
 	private ArrayList<Player> playerArr;
 	private boolean selectedProp;
 	private Store store;
+	private int m;
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 
@@ -47,6 +48,20 @@ public class Game {
 			turn++;
 		}
 
+		if (turn <= 3) {
+			m = 25;
+		} else {
+
+			if (turn >= 4 && turn <= 7) {
+				m = 50;
+			} else {
+				if (turn >= 8 && turn <= 11) {
+				m = 75;
+				} else {
+					m = 100;
+				}
+			}
+		}
 		selectedProp = false;
 	}
 
@@ -60,4 +75,12 @@ public class Game {
 
 	public Store getStore() { return store; }
 
-}
+
+	public ArrayList<Player> getPlayerArr() {
+		return playerArr;
+		}
+
+	public int getM() {
+		return m;
+		}
+	}

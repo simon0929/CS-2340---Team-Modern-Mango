@@ -35,7 +35,7 @@ public class GameController {
 
 	@FXML
 	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score, player4score;
-	
+
 	@FXML
 	private Button label00, label10, label20, label30, label40, label50, label60, label70, label80,
 	label01, label11, label21, label31, label41, label51, label61, label71, label81,
@@ -64,9 +64,9 @@ public class GameController {
     public Stage gameStage;
 
     public Scene gameScene;
-    
+
     public static boolean placingMule = false;
-    
+
     public static String typeOfMule;
 
 	@FXML
@@ -90,6 +90,10 @@ public class GameController {
 		player4score.setText("0");
         game = ConfigureController.game;
         turnTime = 0;
+        if (Math.random() < 27) {
+        	RandomEvent randEvent = new RandomEvent();
+        	System.out.println(randEvent.Random(game, currentPlayer));
+        }
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
@@ -169,7 +173,12 @@ public class GameController {
         numOfPropBoughtInTurn = 0;
 
         currentPlayer = playerList.get(turnNumber - 1);
+        if (Math.random() < 27) {
+        	RandomEvent randEvent = new RandomEvent();
+        	System.out.println(randEvent.Random(game, currentPlayer));
+        }
         updateTurnTime();
+
 
         turn.setText(currentPlayer.getName());
         food.setText(String.valueOf(currentPlayer.getFood()));
@@ -293,7 +302,7 @@ public class GameController {
     }
 
     private void startTurnTimer() {
-        turnTime = 50;
+        //turnTime = 50;
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -345,7 +354,7 @@ public class GameController {
         }
         return 200;
     }
-    
+
     @FXML
     private void placeMule(ActionEvent event) throws IOException {
     	food.setText(String.valueOf(currentPlayer.getFood()));
