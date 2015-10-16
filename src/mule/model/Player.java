@@ -1,4 +1,4 @@
-package mule;
+package mule.model;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -11,8 +11,6 @@ public class Player {
     private Color color;
     //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
-    //is current player, not sure if needed
-    private boolean isCurrent;
     private ArrayList<Pane> propertyList;
 
     public Player(String name, String race, Color color, String diff) {
@@ -20,7 +18,6 @@ public class Player {
         this.race = race;
         this.color = color;
         this.diff = diff;
-        isCurrent = false;
         numOfProperties = 0;
         numOfFreeProperties = 2;
         propertyList = new ArrayList<>();
@@ -85,9 +82,6 @@ public class Player {
         return score;
     }
 
-    public boolean getIsCurrent() {
-        return isCurrent;
-    }
 
     public int getNumOfProperties() { return numOfProperties; }
 
@@ -115,10 +109,6 @@ public class Player {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public void setIsCurrent(boolean isCurrent) {
-        this.isCurrent = isCurrent;
     }
 
     public void addToPropertyList(Pane pane) {
@@ -180,6 +170,28 @@ public class Player {
                     store.setOre(store.getOre() - 1);
                 }
                 break;
+            case "foodMule":
+            	price = 125;
+            	if (price <= money && canPurchase) {
+            		money -= price;
+            		store.setMule(store.getMule() - 1);
+            		System.out.println("foodMule bought");
+            	}
+            	break;
+            case "energyMule":
+            	price = 150;
+            	if (price <= money && canPurchase) {
+            		money -= price;
+            		store.setMule(store.getMule() - 1);
+            	}
+            	break;
+            case "oreMule":
+            	price = 175;
+            	if (price <= money && canPurchase) {
+            		money -= price;
+            		store.setMule(store.getMule() - 1);
+            	}
+            	break;
             default:
                 break;
         }

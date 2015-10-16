@@ -1,4 +1,4 @@
-package mule;
+package mule.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -93,6 +93,12 @@ public class ConfigureController {
 				p2Name.setDisable(false);
 				p2Color.setDisable(false);
 				p2Race.setDisable(false);
+				p3Name.setDisable(true);
+				p3Color.setDisable(true);
+				p3Race.setDisable(true);
+				p4Name.setDisable(true);
+				p4Color.setDisable(true);
+				p4Race.setDisable(true);
 			} else if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == 3) {
 				p1Name.setDisable(false);
 				p1Color.setDisable(false);
@@ -103,6 +109,9 @@ public class ConfigureController {
 				p3Name.setDisable(false);
 				p3Color.setDisable(false);
 				p3Race.setDisable(false);
+				p4Name.setDisable(true);
+				p4Color.setDisable(true);
+				p4Race.setDisable(true);
 			} else if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == 4) {
 				p1Name.setDisable(false);
 				p1Color.setDisable(false);
@@ -179,7 +188,7 @@ public class ConfigureController {
 		}
 
 		//Calls the Game.fxml file and actually constructs the GUI.
-		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/Game.fxml"));
+		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
 		this.gameScene = new Scene(gameScreenParent);
 		this.gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		this.gameStage.setScene(gameScene);

@@ -1,4 +1,4 @@
-package mule;
+package mule.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,11 +7,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
@@ -35,16 +37,21 @@ public class GameController {
 	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score, player4score;
 
 	@FXML
-	private Pane pane;
+	private Button label00, label10, label20, label30, label40, label50, label60, label70, label80,
+	label01, label11, label21, label31, label41, label51, label61, label71, label81,
+	label02, label12, label22, label32, label42, label52, label62, label72, label82,
+	label03, label13, label23, label33, label43, label53, label63, label73, label83,
+	label04, label14, label24, label34, label44, label54, label64, label74, label84;
 
-	private String phase;
+	@FXML
+	private Pane pane;
 
 	public static Game game;
 
 	public static Player currentPlayer;
 
     //numOfPropBuyInRound = number of properties bought this round, if 0 then land selection phase ends
-	private int turnNumber, numOfPropBuyInRound;
+	private int turnNumber, numOfPropBoughtInTurn, numOfPropBoughtInRound;
 
     public static int turnTime, roundNumber;
 
@@ -58,6 +65,9 @@ public class GameController {
 
     public Scene gameScene;
 
+    public static boolean placingMule = false;
+
+    public static String typeOfMule;
 
 	@FXML
 	private void initialize() {
@@ -67,7 +77,8 @@ public class GameController {
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
         roundNumber = 1;
-		numOfPropBuyInRound = 0;
+        numOfPropBoughtInTurn = 0;
+        numOfPropBoughtInRound = 0;
 		selectionPhase = true;
 		food.setText(String.valueOf(currentPlayer.getFood()));
 		money.setText(String.valueOf(currentPlayer.getMoney()));
@@ -79,14 +90,18 @@ public class GameController {
 		player4score.setText("0");
         game = ConfigureController.game;
         turnTime = 0;
+        if (Math.random() < 27) {
+        	RandomEvent randEvent = new RandomEvent();
+        	System.out.println(randEvent.Random(game, currentPlayer));
+        }
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
 
-    //Calls the Game.fxml file and actually constructs the GUI.
+    //Calls the Town.fxml file and constructs the Town GUI.
 	@FXML
 	private void handleTown(MouseEvent event) throws IOException {
-		Parent townScreen = FXMLLoader.load(getClass().getResource("Town.fxml"));
+		Parent townScreen = FXMLLoader.load(getClass().getResource("/mule/view/Town.fxml"));
 		Scene townScene = new Scene(townScreen);
 		Stage townStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		townStage.setScene(townScene);
@@ -129,6 +144,8 @@ public class GameController {
 
         turnNumber++;
 
+        numOfPropBoughtInRound += numOfPropBoughtInTurn;
+
         //if the number of turns exceeds the number of players, the round ends
         if (turnNumber > ConfigureController.maxPlayers) {
             //Calculates all player scores and rearranges playerList for a new order for the next turn
@@ -143,16 +160,25 @@ public class GameController {
             roundNumber++;
             round.setText(String.valueOf(roundNumber));
 
-            if (numOfPropBuyInRound == 0) {
+            if (numOfPropBoughtInRound == 0) {
                 selectionPhase = false;
             }
             else {
-                numOfPropBuyInRound = 0;
+                numOfPropBoughtInRound = 0;
             }
+
+
         }
 
+        numOfPropBoughtInTurn = 0;
+
         currentPlayer = playerList.get(turnNumber - 1);
+        if (Math.random() < 27) {
+        	RandomEvent randEvent = new RandomEvent();
+        	System.out.println(randEvent.Random(game, currentPlayer));
+        }
         updateTurnTime();
+
 
         turn.setText(currentPlayer.getName());
         food.setText(String.valueOf(currentPlayer.getFood()));
@@ -163,67 +189,63 @@ public class GameController {
 
 	@FXML
 	private void handleProperty(MouseEvent event) throws IOException {
-		if (selectionPhase) {
-			if (!game.selectedProp()) {
-				Color playerColor = game.getCurrPlayer().getColor();
+        if (numOfPropBoughtInTurn == 0) {
+            if (selectionPhase) {
+                if (!game.selectedProp()) {
+                    Color playerColor = game.getCurrPlayer().getColor();
 
-                //Gets the actual property object that was clicked so that things can be done to it
-				Pane property = (Pane) event.getSource();
+                    //Gets the actual property object that was clicked so that things can be done to it
+                    Pane property = (Pane) event.getSource();
 
-				if (!propertyOwnedList.contains(property)) {
-					currentPlayer.incrementPropertyOwned();
-                    propertyOwnedList.add(property);
+                    if (!propertyOwnedList.contains(property)) {
+                        currentPlayer.incrementPropertyOwned();
+                        propertyOwnedList.add(property);
 
-					if (currentPlayer.getNumOfFreeProperties() == 0) {
-                        //Automatically updates player's money and on the GUI
-						currentPlayer.setMoney(currentPlayer.getMoney() - 300);
-                        money.setText(String.valueOf(currentPlayer.getMoney()));
-					}
-					else {
-						currentPlayer.decrementFreeProperty();
-					}
+                        if (currentPlayer.getNumOfFreeProperties() == 0) {
+                            //Automatically updates player's money and on the GUI
+                            currentPlayer.setMoney(currentPlayer.getMoney() - 300);
+                            money.setText(String.valueOf(currentPlayer.getMoney()));
+                        }
+                        else {
+                            currentPlayer.decrementFreeProperty();
+                        }
 
-					numOfPropBuyInRound++;
-                    currentPlayer.addToPropertyList(property);
+                        numOfPropBoughtInTurn++;
+                        currentPlayer.addToPropertyList(property);
 
-					Region reg = (Region) event.getSource();
-					reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
+                        Region reg = (Region) event.getSource();
+                        reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
 
-                    currentPlayer.calculateScore();
-                    refreshScores();
+                        currentPlayer.calculateScore();
+                        refreshScores();
+                    }
                 }
-			}
-		}
+            }
+        }
 	}
 
-	private void getTurnOrder() {
-        Player minScore = null;
-        ArrayList<Player> tempList = new ArrayList<Player>();
+    private void getTurnOrder() {
+        int minScore;
+        ArrayList<Player> tempList = playerList;
+        playerList = new ArrayList<>();
         int j;
 
         for (int i = 0; i < ConfigureController.maxPlayers; i++) {
             j = 0;
-            minScore = null;
+            minScore = 0;
 
-            while (j < playerList.size()) {
-                if (minScore == null) {
-                    minScore = playerList.get(j);
-                    j++;
-                }
-
-                if (j < playerList.size() && playerList.get(j).getScore() < minScore.getScore()) {
-                    minScore = playerList.get(j);
-                    playerList.remove(j);
+            while (j < tempList.size()) {
+                if (tempList.get(j).getScore() < tempList.get(minScore).getScore()) {
+                    minScore = j;
                 }
 
                 j++;
             }
 
-            tempList.add(minScore);
+            playerList.add(tempList.get(minScore));
+            tempList.remove(minScore);
         }
-
-        playerList = tempList;
-	}
+    }
 
     private void refreshScores() {
         player1score.setText(String.valueOf(ConfigureController.player1.getScore()));
@@ -280,7 +302,7 @@ public class GameController {
     }
 
     private void startTurnTimer() {
-        turnTime = 50;
+        //turnTime = 50;
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -330,7 +352,30 @@ public class GameController {
         if (roundNumber < 12) {
             return 150;
         }
-
         return 200;
+    }
+
+    @FXML
+    private void placeMule(ActionEvent event) throws IOException {
+    	food.setText(String.valueOf(currentPlayer.getFood()));
+        money.setText(String.valueOf(currentPlayer.getMoney()));
+        energy.setText(String.valueOf(currentPlayer.getEnergy()));
+        ore.setText(String.valueOf(currentPlayer.getOre()));
+    	if (placingMule) {
+    		Object source = event.getSource();
+    		Button clickedbtn = (Button) source;
+    		if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+    		    clickedbtn.setText("food");
+    		    clickedbtn.getParent();
+    		} else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+    			clickedbtn.setText("energy");
+    		} else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+    			clickedbtn.setText("ore");
+    		}
+			placingMule = false;
+    	}
     }
 }
