@@ -1,4 +1,4 @@
-package mule;
+package mule.model;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -132,7 +132,7 @@ public class PubController {
 
 
             handleEndTurn();
-            updateValues();
+            //updateValues();
             gameScene = ConfigureController.gameScene;
             gameStage = ConfigureController.gameStage;
             gameStage.setScene(gameScene);

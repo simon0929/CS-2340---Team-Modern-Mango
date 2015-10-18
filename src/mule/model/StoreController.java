@@ -1,4 +1,4 @@
-package mule;
+package mule.model;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

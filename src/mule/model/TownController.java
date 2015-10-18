@@ -1,8 +1,6 @@
-package mule;
+package mule.model;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -99,7 +97,7 @@ public class TownController {
 
 	@FXML
 	 private void handlePub(MouseEvent event) throws IOException {
-		Parent pubScreen = FXMLLoader.load(getClass().getResource("Pub.fxml"));
+		Parent pubScreen = FXMLLoader.load(getClass().getResource("/mule/view/Pub.fxml"));
 		Scene pubScene = new Scene(pubScreen);
 		Stage pubStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		pubStage.setScene(pubScene);
@@ -108,7 +106,7 @@ public class TownController {
 
 	@FXML
 	private void handleStore(MouseEvent event) throws IOException {
-		Parent storeScreen = FXMLLoader.load(getClass().getResource("Store.fxml"));
+		Parent storeScreen = FXMLLoader.load(getClass().getResource("/mule/view/Store.fxml"));
 		Scene storeScene = new Scene(storeScreen);
 		Stage storeStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		storeStage.setScene(storeScene);
