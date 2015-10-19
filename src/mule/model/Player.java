@@ -1,5 +1,6 @@
 package mule.model;
 
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -12,6 +13,7 @@ public class Player {
     //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
     private ArrayList<Pane> propertyList;
+    private ArrayList<Button> muleList;
 
     public Player(String name, String race, Color color, String diff) {
         this.name = name;
@@ -21,6 +23,7 @@ public class Player {
         numOfProperties = 0;
         numOfFreeProperties = 2;
         propertyList = new ArrayList<>();
+        muleList = new ArrayList<>();
 
         //Different races get different amounts of money
         if (race.equals("Flapper")) {
@@ -91,6 +94,10 @@ public class Player {
         return propertyList;
     }
 
+    public ArrayList<Button> getMuleList() {
+    	return muleList;
+    }
+
     public void setFood(int food) {
         this.food = food;
     }
@@ -113,6 +120,10 @@ public class Player {
 
     public void addToPropertyList(Pane pane) {
         propertyList.add(pane);
+    }
+
+    public void addToMuleList(Button mule) {
+    	muleList.add(mule);
     }
 
     public void removeFromPropertyList(Pane pane) {
