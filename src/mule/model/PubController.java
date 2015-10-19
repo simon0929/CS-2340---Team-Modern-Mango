@@ -128,6 +128,7 @@ public class PubController {
             }
 
             GameController.currentPlayer.setMoney(GameController.currentPlayer.getMoney() + moneyBonus);
+            GameController.currentPlayer.setScore(GameController.currentPlayer.getScore() + moneyBonus);
             GameController.turnTime = 0;
 
 
