@@ -90,10 +90,6 @@ public class GameController {
 		player4score.setText("0");
         game = ConfigureController.game;
         turnTime = 0;
-        if (Math.random() < 27) {
-        	RandomEvent randEvent = new RandomEvent();
-        	System.out.println(randEvent.Random(game, currentPlayer));
-        }
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
@@ -173,14 +169,65 @@ public class GameController {
         numOfPropBoughtInTurn = 0;
 
         currentPlayer = playerList.get(turnNumber - 1);
-        if (Math.random() < 27) {
+        turn.setText(currentPlayer.getName());
+        if (Math.random() < .27) {
         	RandomEvent randEvent = new RandomEvent();
         	System.out.println(randEvent.Random(game, currentPlayer));
         }
         updateTurnTime();
 
+        if (currentPlayer.getMuleList().size() > 0) {
+        for(Button mule:currentPlayer.getMuleList()) {
+        	System.out.println("here");
+        	System.out.println(currentPlayer.getMuleList().size());
 
-        turn.setText(currentPlayer.getName());
+        	if (currentPlayer.getEnergy() >= 1) {
+        		//propertyInd =mule.getParent().getChildrenUnmodifiable().indexOf(new Label());
+        		//System.out.println(propertyInd);
+        			Label label = (Label)mule.getParent().getChildrenUnmodifiable().get(0);
+        			String propertyType = label.getText();
+
+        			if (mule.getText() == "food") {
+        				if (propertyType == "Plain") {
+        					currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+        					currentPlayer.setFood(currentPlayer.getFood() + 2);
+        				} else if (propertyType == "River") {
+        					currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+        					currentPlayer.setFood(currentPlayer.getFood() + 4);
+        					} else if (propertyType == "M1" || propertyType == "M2" || propertyType == "M3") {
+        						currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+            					currentPlayer.setFood(currentPlayer.getFood() + 1);
+        					}
+        			} else if (mule.getText() == "energy") {
+        				if (propertyType == "Plain") {
+        					currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+        					currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
+        				} else if (propertyType == "River") {
+        					currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+        					currentPlayer.setEnergy(currentPlayer.getEnergy() + 2);
+        					} else if (propertyType == "M1" || propertyType == "M2" || propertyType == "M3") {
+        						currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+        						currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
+        					}
+        			} else if (mule.getText() == "ore") {
+        				if (propertyType == "Plain") {
+        					currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+        					currentPlayer.setOre(currentPlayer.getOre() + 1);
+        					} else if (propertyType == "M1") {
+        						currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+        						currentPlayer.setOre(currentPlayer.getOre() + 2);
+        						} else if (propertyType == "M2") {
+        							currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+            						currentPlayer.setOre(currentPlayer.getOre() + 3);
+        						} else if (propertyType == "M3") {
+        							currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+            						currentPlayer.setOre(currentPlayer.getOre() + 4);
+        						}
+        			}
+        	}
+        }
+        }
+
         food.setText(String.valueOf(currentPlayer.getFood()));
         money.setText(String.valueOf(currentPlayer.getMoney()));
         energy.setText(String.valueOf(currentPlayer.getEnergy()));
@@ -376,6 +423,7 @@ public class GameController {
     			clickedbtn.setText("ore");
     		}
 			placingMule = false;
+			currentPlayer.addToMuleList(clickedbtn);
     	}
     }
 }
