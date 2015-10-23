@@ -25,6 +25,7 @@ public class Game {
 			playerArr.add(p4);
 		}
 		turn = 1;
+		round = 1;
 		selectedProp = false;
 		store = new Store(diff);
 	}
@@ -44,6 +45,7 @@ public class Game {
 	public void update() {
 		if (playerArr.size() == turn) {
 			turn = 1;
+			round++;
 		} else {
 			turn++;
 		}

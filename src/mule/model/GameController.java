@@ -34,7 +34,7 @@ public class GameController {
     private Label townLabel;
 
 	@FXML
-	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score, player4score;
+	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score, player4score, randomEvent;
 
 	@FXML
 	private Button label00, label10, label20, label30, label40, label50, label60, label70, label80,
@@ -137,7 +137,7 @@ public class GameController {
     private void endTurn() {
         //refreshes screen
         game.update();
-
+        this.randomEvent.setText("");
         turnNumber++;
 
         numOfPropBoughtInRound += numOfPropBoughtInTurn;
@@ -172,7 +172,7 @@ public class GameController {
         turn.setText(currentPlayer.getName());
         if (Math.random() < .27) {
         	RandomEvent randEvent = new RandomEvent();
-        	System.out.println(randEvent.Random(game, currentPlayer));
+        	this.randomEvent.setText(randEvent.Random(game, currentPlayer));
         }
         updateTurnTime();
 
