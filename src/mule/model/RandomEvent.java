@@ -20,9 +20,12 @@ public class RandomEvent {
 	public String Random(Game game, Player player) {
 		int randInd;
 		int m = game.getM();
-		if (game.getTurn() == game.getPlayerArr().size()) {
+		if (game.getTurn() == 1 && game.getRound() > 1) {
+			System.out.println("Lowest Player: " + player.getName());
 			randInd = (int) (Math.random() * 4);
 		} else {
+			System.out.println("turn : " + game.getTurn());
+			System.out.println("ROund : " + game.getRound());
 			randInd = (int) (Math.random() * eventList.size());
 		}
 
