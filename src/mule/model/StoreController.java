@@ -24,7 +24,7 @@ public class StoreController {
 
     @FXML
     private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
-            player4score, storeOre, storeEnergy, storeFood, storeMule;
+            player4score, storeOre, storeEnergy, storeFood, storeMule, storeMessage;
 
     @FXML
     private Button buyOre, buyEnergy, buyFood, buyMule, sellOre, sellEnergy, sellFood, placeMule;
@@ -63,6 +63,7 @@ public class StoreController {
         storeFood.setText(String.valueOf(GameController.game.getStore().getFood()));
         storeEnergy.setText(String.valueOf(GameController.game.getStore().getEnergy()));
         storeMule.setText(String.valueOf(GameController.game.getStore().getMule()));
+        storeMessage.setText("");
 
 
         round.setText(String.valueOf(GameController.roundNumber));
@@ -88,10 +89,11 @@ public class StoreController {
         }, 0, 1000);
         
         final ObservableList<String> type = FXCollections.observableArrayList();
-		type.add("food");
-		type.add("ore");
-		type.add("energy");
-		muleType.setItems(type);
+		type.add("food (+25)");
+		type.add("energy (+50)");
+        type.add("ore (+75)");
+
+        muleType.setItems(type);
     }
 
     @FXML
@@ -116,27 +118,60 @@ public class StoreController {
 
     @FXML
     private void handleMakePurchase() {
+        String message = "";
+        storeMessage.setText(message);
 
         if(buyOre.isPressed()) {
-            GameController.currentPlayer.buyResource("ore");
+            message = GameController.currentPlayer.buyResource("ore");
         } else if (buyEnergy.isPressed()) {
-            GameController.currentPlayer.buyResource("energy");
+           message = GameController.currentPlayer.buyResource("energy");
         } else if (buyFood.isPressed()) {
-            GameController.currentPlayer.buyResource("food");
+            message = GameController.currentPlayer.buyResource("food");
         }
+
+        storeMessage.setText(message);
         updateValues();
     }
 
     @FXML
     private void handleSellResource() {
+        String message = "";
+        storeMessage.setText(message);
 
         if(sellOre.isPressed()) {
-            GameController.currentPlayer.sellResource("ore");
+            message = GameController.currentPlayer.sellResource("ore");
         } else if (sellEnergy.isPressed()) {
-            GameController.currentPlayer.sellResource("energy");
+           message = GameController.currentPlayer.sellResource("energy");
         } else if (sellFood.isPressed()) {
-            GameController.currentPlayer.sellResource("food");
+            message = GameController.currentPlayer.sellResource("food");
         }
+
+        storeMessage.setText(message);
+        updateValues();
+    }
+
+
+    @FXML
+    private void handleMuleBuy() {
+        String message = "";
+        storeMessage.setText(message);
+
+    	if(muleType.getValue() != null && buyMule.isPressed()) {
+    		if (muleType.getSelectionModel().getSelectedItem().compareTo("food (+25)") == 0) {
+    			message = GameController.currentPlayer.buyResource("foodMule");
+    			GameController.typeOfMule = "food";
+    		}
+    		else if (muleType.getSelectionModel().getSelectedItem().compareTo("energy (+50)") == 0) {
+                message = GameController.currentPlayer.buyResource("energyMule");
+    			GameController.typeOfMule = "energy";
+    		}
+    		else if (muleType.getSelectionModel().getSelectedItem().compareTo("ore (+75)") == 0) {
+                message = GameController.currentPlayer.buyResource("oreMule");
+    			GameController.typeOfMule = "ore";
+    		}
+    	}
+
+        storeMessage.setText(message);
         updateValues();
     }
 
@@ -149,25 +184,6 @@ public class StoreController {
         storeFood.setText(String.valueOf(GameController.game.getStore().getFood()));
         storeEnergy.setText(String.valueOf(GameController.game.getStore().getEnergy()));
         storeMule.setText(String.valueOf(GameController.game.getStore().getMule()));
-    }
-
-    @FXML
-    private void handleMuleBuy() {
-    	if(muleType.getValue() != null && buyMule.isPressed()) {
-    		if (muleType.getSelectionModel().getSelectedItem().compareTo("food") == 0) {
-    			GameController.currentPlayer.buyResource("foodMule");
-    			GameController.typeOfMule = "food";
-    		}
-    		else if (muleType.getSelectionModel().getSelectedItem().compareTo("energy") == 0) {
-    			GameController.currentPlayer.buyResource("energyMule");
-    			GameController.typeOfMule = "energy";
-    		}
-    		else if (muleType.getSelectionModel().getSelectedItem().compareTo("ore") == 0) {
-    			GameController.currentPlayer.buyResource("oreMule");
-    			GameController.typeOfMule = "ore";
-    		}
-    	}
-    	updateValues();
     }
     
     @FXML
