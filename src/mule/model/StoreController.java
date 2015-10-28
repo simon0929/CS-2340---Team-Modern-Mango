@@ -8,9 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,6 +35,9 @@ public class StoreController {
     @FXML
     private ChoiceBox<String> muleType;
 
+    @FXML
+    private Rectangle p1Color, p2Color, p3Color, p4Color;
+
     private int turnTime;
 
     public Stage gameStage;
@@ -40,6 +46,7 @@ public class StoreController {
 
     @FXML
     private void initialize() {
+        ArrayList<Player> playerList = GameController.playerList;
         player1score.setText(String.valueOf(ConfigureController.player1.getScore()));
         player2score.setText(String.valueOf(ConfigureController.player2.getScore()));
         if (ConfigureController.player3 != null) {
@@ -59,6 +66,16 @@ public class StoreController {
         money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
         energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
         ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
+
+        Color c1 = (playerList.get(0) != null) ? playerList.get(0).getColor() : Color.TRANSPARENT;
+        Color c2 = (playerList.get(1) != null) ? playerList.get(1).getColor() : Color.TRANSPARENT;
+        Color c3 = (playerList.get(2) != null) ? playerList.get(2).getColor() : Color.TRANSPARENT;
+        Color c4 = (playerList.get(3) != null) ? playerList.get(3).getColor() : Color.TRANSPARENT;
+        p1Color.setFill(c1);
+        p2Color.setFill(c2);
+        p3Color.setFill(c3);
+        p4Color.setFill(c4);
+
         storeOre.setText(String.valueOf(GameController.game.getStore().getOre()));
         storeFood.setText(String.valueOf(GameController.game.getStore().getFood()));
         storeEnergy.setText(String.valueOf(GameController.game.getStore().getEnergy()));

@@ -1,5 +1,6 @@
 package mule.model;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class GameController {
 
@@ -45,6 +47,9 @@ public class GameController {
 
 	@FXML
 	private Pane pane;
+
+    @FXML
+    private Rectangle p1Color, p2Color, p3Color, p4Color;
 
 	public static Game game;
 
@@ -80,14 +85,27 @@ public class GameController {
         numOfPropBoughtInTurn = 0;
         numOfPropBoughtInRound = 0;
 		selectionPhase = true;
-		food.setText(String.valueOf(currentPlayer.getFood()));
+
+        food.setText(String.valueOf(currentPlayer.getFood()));
 		money.setText(String.valueOf(currentPlayer.getMoney()));
 		energy.setText(String.valueOf(currentPlayer.getEnergy()));
 		ore.setText(String.valueOf(currentPlayer.getOre()));
-		player1score.setText("0");
+
+        player1score.setText("0");
 		player2score.setText("0");
 		player3score.setText("0");
 		player4score.setText("0");
+
+        Color c1 = (playerList.get(0) != null) ? playerList.get(0).getColor() : Color.TRANSPARENT;
+        Color c2 = (playerList.get(1) != null) ? playerList.get(1).getColor() : Color.TRANSPARENT;
+        Color c3 = (playerList.get(2) != null) ? playerList.get(2).getColor() : Color.TRANSPARENT;
+        Color c4 = (playerList.get(3) != null) ? playerList.get(3).getColor() : Color.TRANSPARENT;
+        p1Color.setFill(c1);
+        p2Color.setFill(c2);
+        p3Color.setFill(c3);
+        p4Color.setFill(c4);
+
+
         game = ConfigureController.game;
         turnTime = 50;
         startTurnTimer();
