@@ -241,7 +241,7 @@ public class GameController {
                     //Gets the actual property object that was clicked so that things can be done to it
                     Pane property = (Pane) event.getSource();
 
-                    if (!propertyOwnedList.contains(property)) {
+                    if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= 300) {
                         currentPlayer.incrementPropertyOwned();
                         propertyOwnedList.add(property);
 

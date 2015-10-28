@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -33,6 +34,11 @@
             <Label fx:id="round" layoutX="470.0" layoutY="17.0" text="1" />
             <Label fx:id="turn" layoutX="470.0" layoutY="45.0" text="" />
             <Label fx:id="timeLeft" layoutX="470.0" layoutY="75.0" text="" />
+            <Label fx:id="storeMessage" layoutX="5.0" layoutY="104.0" prefHeight="26.0" prefWidth="397.0">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Pane layoutY="147.0" prefHeight="432.0" prefWidth="530.0">
@@ -59,8 +65,9 @@
             <Label fx:id="energyPrice" layoutX="226.0" layoutY="158.0" text="25" />
             <Label fx:id="orePrice" layoutX="226.0" layoutY="108.0" text="50" />
             <Button fx:id="buyMule" layoutX="419.0" layoutY="286.0" mnemonicParsing="false" onMousePressed="#handleMuleBuy" text="Buy Mule" />
-            <ChoiceBox fx:id="muleType" layoutX="288.0" layoutY="286.0" prefHeight="26.0" prefWidth="84.0" />
+            <ChoiceBox fx:id="muleType" layoutX="288.0" layoutY="286.0" prefHeight="26.0" prefWidth="103.0" />
             <Button fx:id="placeMule" layoutX="414.0" layoutY="335.0" mnemonicParsing="false" onAction="#changeScreen" text="Place Mule" />
+            <Label fx:id="mulePrice" layoutX="226.0" layoutY="291.0" text="100+" />
          </children>
       </Pane>
    </children>

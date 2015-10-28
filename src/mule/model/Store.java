@@ -19,7 +19,6 @@ public class Store {
             ore = 8;
             mule = 14;
         } else {
-            //don't let this happen
         }
     }
 
