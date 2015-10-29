@@ -38,7 +38,7 @@ public class TownController {
 
 	@FXML
 	private void initialize() {
-		ArrayList<Player> playerList = GameController.playerList;
+		ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
 
 		player1score.setText(String.valueOf(ConfigureController.player1.getScore()));
 		player2score.setText(String.valueOf(ConfigureController.player2.getScore()));
@@ -60,10 +60,10 @@ public class TownController {
 		energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
 		ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
 
-		Color c1 = (playerList.get(0) != null) ? playerList.get(0).getColor() : Color.TRANSPARENT;
-		Color c2 = (playerList.get(1) != null) ? playerList.get(1).getColor() : Color.TRANSPARENT;
-		Color c3 = (playerList.get(2) != null) ? playerList.get(2).getColor() : Color.TRANSPARENT;
-		Color c4 = (playerList.get(3) != null) ? playerList.get(3).getColor() : Color.TRANSPARENT;
+		Color c1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getColor() : Color.TRANSPARENT;
+		Color c2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getColor() : Color.TRANSPARENT;
+		Color c3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getColor() : Color.TRANSPARENT;
+		Color c4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getColor() : Color.TRANSPARENT;
 		p1Color.setFill(c1);
 		p2Color.setFill(c2);
 		p3Color.setFill(c3);
