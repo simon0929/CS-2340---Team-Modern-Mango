@@ -134,16 +134,20 @@ public class ConfigureController {
 		player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
 		Player player3 = null;
 		Player player4 = null;
+		playerList.add(player1);
+		playerList.add(player2);
+
 		if(maxPlayers >=3) {
 			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+			playerList.add(player3);
+
 		}
 		if(maxPlayers == 4) {
 			player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
+			playerList.add(player4);
+
 		}
-		playerList.add(player1);
-		playerList.add(player2);
-		playerList.add(player3);
-		playerList.add(player4);
+
 		game = new Game(player1, player2, player3, player4, diff);
 
 
