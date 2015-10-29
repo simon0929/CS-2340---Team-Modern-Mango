@@ -77,6 +77,7 @@ public class GameController {
 	@FXML
 	private void initialize() {
         ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
+        playerList = GameController.playerList;
 
         basePlayerList = playerList;
 		currentPlayer = ConfigureController.player1;
