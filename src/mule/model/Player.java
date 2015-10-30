@@ -20,6 +20,7 @@ public class Player {
         this.race = race;
         this.color = color;
         this.diff = diff;
+        this.score = 0;
         numOfProperties = 0;
         numOfFreeProperties = 2;
         propertyList = new ArrayList<>();
