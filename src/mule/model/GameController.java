@@ -36,7 +36,8 @@ public class GameController {
     private Label townLabel;
 
 	@FXML
-	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score, player4score, randomEvent;
+	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
+            player4score, randomEvent, name1, name2, name3, name4;
 
 	@FXML
 	private Button label00, label10, label20, label30, label40, label50, label60, label70, label80,
@@ -93,10 +94,7 @@ public class GameController {
 		energy.setText(String.valueOf(currentPlayer.getEnergy()));
 		ore.setText(String.valueOf(currentPlayer.getOre()));
 
-        player1score.setText("0");
-		player2score.setText("0");
-		player3score.setText("0");
-		player4score.setText("0");
+        refreshScores();
 
         Color c1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getColor() : Color.TRANSPARENT;
         Color c2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getColor() : Color.TRANSPARENT;
@@ -107,6 +105,14 @@ public class GameController {
         p3Color.setFill(c3);
         p4Color.setFill(c4);
 
+        String n1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getName() + ":" : "";
+        String n2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getName() + ":" : "";
+        String n3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getName() + ":" : "";
+        String n4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getName() + ":" : "";
+        name1.setText(n1);
+        name2.setText(n2);
+        name3.setText(n3);
+        name4.setText(n4);
 
         game = ConfigureController.game;
         turnTime = 50;
@@ -312,14 +318,16 @@ public class GameController {
     }
 
     private void refreshScores() {
-        player1score.setText(String.valueOf(ConfigureController.player1.getScore()));
-        player2score.setText(String.valueOf(ConfigureController.player2.getScore()));
-        if (ConfigureController.player3 != null) {
-            player3score.setText(String.valueOf(ConfigureController.player3.getScore()));
-        }
-        if (ConfigureController.player4 != null) {
-            player4score.setText(String.valueOf(ConfigureController.player4.getScore()));
-        }
+        ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
+
+        String s1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? String.valueOf(playerArr.get(0).getScore()) : "";
+        String s2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? String.valueOf(playerArr.get(1).getScore()) : "";
+        String s3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? String.valueOf(playerArr.get(2).getScore()) : "";
+        String s4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? String.valueOf(playerArr.get(3).getScore()) : "";
+        player1score.setText(s1);
+        player2score.setText(s2);
+        player3score.setText(s3);
+        player4score.setText(s4);
     }
 
     private void updateTurnTime() {
