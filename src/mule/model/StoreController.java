@@ -23,7 +23,7 @@ import javafx.scene.control.Button;
  * Created by madijuby on 10/4/15.
  * Edited by Tyler Whitfield 10/5/15.
  */
-public class StoreController {
+public final class StoreController {
 
     @FXML
     private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,

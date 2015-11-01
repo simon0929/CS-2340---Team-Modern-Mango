@@ -6,11 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
-public class Main extends Application {
+public final class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/mule/view/GameConfigure.fxml"));
+			AnchorPane root = FXMLLoader.load(getClass().getResource("/mule/view/GameConfigure.fxml"));
 			Scene scene = new Scene(root,600,500);
 			scene.getStylesheets().add(getClass().getResource("/mule/view/application.css").toExternalForm());
 			primaryStage.setScene(scene);

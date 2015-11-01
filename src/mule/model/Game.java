@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Hunter on 9/18/2015.
  */
-public class Game {
+public final class Game {
 	private int round, turn;
 	private ArrayList<Player> playerArr;
 	private boolean selectedProp;
