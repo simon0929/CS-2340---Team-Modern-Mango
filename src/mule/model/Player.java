@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-public class Player {
+public final class Player {
 
     private String name, race, diff;
     private Color color;
@@ -15,11 +15,11 @@ public class Player {
     private ArrayList<Pane> propertyList;
     private ArrayList<Button> muleList;
 
-    public Player(String name, String race, Color color, String diff) {
-        this.name = name;
-        this.race = race;
-        this.color = color;
-        this.diff = diff;
+    public Player(String n, String r, Color c, String d) {
+        name = n;
+        race = r;
+        color = c;
+        diff = d;
         this.score = 0;
         numOfProperties = 0;
         numOfFreeProperties = 2;
@@ -38,7 +38,7 @@ public class Player {
         }
 
         //Different difficulties get different resources
-        if(diff == "beginner") {
+        if(diff.equals("beginner")) {
             food = 8;
             energy = 4;
             ore = 0;
@@ -99,24 +99,24 @@ public class Player {
     	return muleList;
     }
 
-    public void setFood(int food) {
-        this.food = food;
+    public void setFood(int newFood) {
+        food = newFood;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void setMoney(int newMoney) {
+        money = newMoney;
     }
 
-    public void setEnergy(int energy) {
-        this.energy = energy;
+    public void setEnergy(int newEnergy) {
+        energy = newEnergy;
     }
 
-    public void setOre(int ore) {
-        this.ore = ore;
+    public void setOre(int newOre) {
+        ore = newOre;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setScore(int newScore) {
+        score = newScore;
     }
 
     public void addToPropertyList(Pane pane) {

@@ -130,25 +130,6 @@ public class GameController {
 		townStage.show();
 	}
 
-    @FXML
-    private void handleGamble(MouseEvent event) throws IOException {
-        Random rand = new Random();
-
-        int moneyBonus = calRoundBonus() * rand.nextInt(calTimeBonus());
-        if (moneyBonus > 250) {
-            currentPlayer.setMoney(currentPlayer.getMoney() + 250);
-        } else {
-            currentPlayer.setMoney(currentPlayer.getMoney() + moneyBonus);
-        }
-
-        gameScene = ConfigureController.gameScene;
-        gameStage = ConfigureController.gameStage;
-        gameStage.setScene(gameScene);
-
-        this.handleEndTurn();
-
-    }
-
 
     //Performs a variety of things when the End Turn button is clicked
 	@FXML
@@ -198,19 +179,17 @@ public class GameController {
         turn.setText(currentPlayer.getName());
         if (Math.random() < .27) {
         	RandomEvent randEvent = new RandomEvent();
-        	this.randomEvent.setText(randEvent.Random(game, currentPlayer));
+        	this.randomEvent.setText(randEvent.random(game, currentPlayer));
         }
         updateTurnTime();
 
         if (currentPlayer.getMuleList().size() > 0) {
             for(Button mule:currentPlayer.getMuleList()) {
-                System.out.println(currentPlayer.getMuleList().size());
-
                 if (currentPlayer.getEnergy() >= 1) {
                     Label label = (Label)mule.getParent().getChildrenUnmodifiable().get(0);
                     String propertyType = label.getText();
 
-                    if (mule.getText() == "food") {
+                    if (mule.getText().equals( "food")) {
                         if (propertyType.equals("Plain")) {
                             currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
                             currentPlayer.setFood(currentPlayer.getFood() + 2);
@@ -221,7 +200,7 @@ public class GameController {
                                 currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
                                 currentPlayer.setFood(currentPlayer.getFood() + 1);
                             }
-                    } else if (mule.getText() == "energy") {
+                    } else if (mule.getText().equals("energy")) {
                         if (propertyType.equals("Plain")) {
                             currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
                             currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
@@ -232,7 +211,7 @@ public class GameController {
                                 currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
                                 currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
                             }
-                    } else if (mule.getText() == "ore") {
+                    } else if (mule.getText().equals( "ore")) {
                         if (propertyType.equals("Plain")) {
                             currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
                             currentPlayer.setOre(currentPlayer.getOre() + 1);
