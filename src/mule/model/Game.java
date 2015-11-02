@@ -1,15 +1,16 @@
-package mule;
+package mule.model;
 
 import java.util.ArrayList;
 
 /**
  * Created by Hunter on 9/18/2015.
  */
-public class Game {
+public final class Game {
 	private int round, turn;
 	private ArrayList<Player> playerArr;
 	private boolean selectedProp;
 	private Store store;
+	private int m;
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 
@@ -24,6 +25,7 @@ public class Game {
 			playerArr.add(p4);
 		}
 		turn = 1;
+		round = 1;
 		selectedProp = false;
 		store = new Store(diff);
 	}
@@ -43,10 +45,25 @@ public class Game {
 	public void update() {
 		if (playerArr.size() == turn) {
 			turn = 1;
+			round++;
 		} else {
 			turn++;
 		}
 
+		if (turn <= 3) {
+			m = 25;
+		} else {
+
+			if (turn >= 4 && turn <= 7) {
+				m = 50;
+			} else {
+				if (turn >= 8 && turn <= 11) {
+				m = 75;
+				} else {
+					m = 100;
+				}
+			}
+		}
 		selectedProp = false;
 	}
 
@@ -60,4 +77,12 @@ public class Game {
 
 	public Store getStore() { return store; }
 
-}
+
+	public ArrayList<Player> getPlayerArr() {
+		return playerArr;
+		}
+
+	public int getM() {
+		return m;
+		}
+	}

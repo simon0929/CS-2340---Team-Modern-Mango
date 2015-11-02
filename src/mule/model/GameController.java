@@ -1,5 +1,6 @@
-package mule;
+package mule.model;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class GameController {
 
@@ -34,8 +36,9 @@ public class GameController {
     private Label townLabel;
 
 	@FXML
-	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score, player4score;
-	
+	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
+            player4score, randomEvent, name1, name2, name3, name4;
+
 	@FXML
 	private Button label00, label10, label20, label30, label40, label50, label60, label70, label80,
 	label01, label11, label21, label31, label41, label51, label61, label71, label81,
@@ -45,6 +48,9 @@ public class GameController {
 
 	@FXML
 	private Pane pane;
+
+    @FXML
+    private Rectangle p1Color, p2Color, p3Color, p4Color;
 
 	public static Game game;
 
@@ -64,14 +70,16 @@ public class GameController {
     public Stage gameStage;
 
     public Scene gameScene;
-    
+
     public static boolean placingMule = false;
-    
+
     public static String typeOfMule;
 
 	@FXML
 	private void initialize() {
-		playerList = ConfigureController.playerList;
+        ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
+        playerList = ConfigureController.playerList;
+
         basePlayerList = playerList;
 		currentPlayer = ConfigureController.player1;
 		turn.setText(currentPlayer.getName());
@@ -80,16 +88,34 @@ public class GameController {
         numOfPropBoughtInTurn = 0;
         numOfPropBoughtInRound = 0;
 		selectionPhase = true;
-		food.setText(String.valueOf(currentPlayer.getFood()));
+
+        food.setText(String.valueOf(currentPlayer.getFood()));
 		money.setText(String.valueOf(currentPlayer.getMoney()));
 		energy.setText(String.valueOf(currentPlayer.getEnergy()));
 		ore.setText(String.valueOf(currentPlayer.getOre()));
-		player1score.setText("0");
-		player2score.setText("0");
-		player3score.setText("0");
-		player4score.setText("0");
+
+        refreshScores();
+
+        Color c1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getColor() : Color.TRANSPARENT;
+        Color c2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getColor() : Color.TRANSPARENT;
+        Color c3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getColor() : Color.TRANSPARENT;
+        Color c4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getColor() : Color.TRANSPARENT;
+        p1Color.setFill(c1);
+        p2Color.setFill(c2);
+        p3Color.setFill(c3);
+        p4Color.setFill(c4);
+
+        String n1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getName() + ":" : "";
+        String n2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getName() + ":" : "";
+        String n3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getName() + ":" : "";
+        String n4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getName() + ":" : "";
+        name1.setText(n1);
+        name2.setText(n2);
+        name3.setText(n3);
+        name4.setText(n4);
+
         game = ConfigureController.game;
-        turnTime = 0;
+        turnTime = 50;
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
@@ -97,31 +123,12 @@ public class GameController {
     //Calls the Town.fxml file and constructs the Town GUI.
 	@FXML
 	private void handleTown(MouseEvent event) throws IOException {
-		Parent townScreen = FXMLLoader.load(getClass().getResource("Town.fxml"));
+		Parent townScreen = FXMLLoader.load(getClass().getResource("/mule/view/Town.fxml"));
 		Scene townScene = new Scene(townScreen);
 		Stage townStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		townStage.setScene(townScene);
 		townStage.show();
 	}
-
-    @FXML
-    private void handleGamble(MouseEvent event) throws IOException {
-        Random rand = new Random();
-
-        int moneyBonus = calRoundBonus() * rand.nextInt(calTimeBonus());
-        if (moneyBonus > 250) {
-            currentPlayer.setMoney(currentPlayer.getMoney() + 250);
-        } else {
-            currentPlayer.setMoney(currentPlayer.getMoney() + moneyBonus);
-        }
-
-        gameScene = ConfigureController.gameScene;
-        gameStage = ConfigureController.gameStage;
-        gameStage.setScene(gameScene);
-
-        this.handleEndTurn();
-
-    }
 
 
     //Performs a variety of things when the End Turn button is clicked
@@ -137,7 +144,7 @@ public class GameController {
     private void endTurn() {
         //refreshes screen
         game.update();
-
+        this.randomEvent.setText("");
         turnNumber++;
 
         numOfPropBoughtInRound += numOfPropBoughtInTurn;
@@ -169,9 +176,60 @@ public class GameController {
         numOfPropBoughtInTurn = 0;
 
         currentPlayer = playerList.get(turnNumber - 1);
+        turn.setText(currentPlayer.getName());
+        if (Math.random() < .27) {
+        	RandomEvent randEvent = new RandomEvent();
+        	this.randomEvent.setText(randEvent.random(game, currentPlayer));
+        }
         updateTurnTime();
 
-        turn.setText(currentPlayer.getName());
+        if (currentPlayer.getMuleList().size() > 0) {
+            for(Button mule:currentPlayer.getMuleList()) {
+                if (currentPlayer.getEnergy() >= 1) {
+                    Label label = (Label)mule.getParent().getChildrenUnmodifiable().get(0);
+                    String propertyType = label.getText();
+
+                    if (mule.getText().equals( "food")) {
+                        if (propertyType.equals("Plain")) {
+                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                            currentPlayer.setFood(currentPlayer.getFood() + 2);
+                        } else if (propertyType.equals("River")) {
+                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                            currentPlayer.setFood(currentPlayer.getFood() + 4);
+                            } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
+                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                                currentPlayer.setFood(currentPlayer.getFood() + 1);
+                            }
+                    } else if (mule.getText().equals("energy")) {
+                        if (propertyType.equals("Plain")) {
+                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                            currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
+                        } else if (propertyType.equals("River")) {
+                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                            currentPlayer.setEnergy(currentPlayer.getEnergy() + 2);
+                        } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
+                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                                currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
+                            }
+                    } else if (mule.getText().equals( "ore")) {
+                        if (propertyType.equals("Plain")) {
+                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                            currentPlayer.setOre(currentPlayer.getOre() + 1);
+                            } else if (propertyType.equals("M1")) {
+                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                                currentPlayer.setOre(currentPlayer.getOre() + 2);
+                                } else if (propertyType.equals("M2")) {
+                                    currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                                    currentPlayer.setOre(currentPlayer.getOre() + 3);
+                                } else if (propertyType.equals("M3")) {
+                                    currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                                    currentPlayer.setOre(currentPlayer.getOre() + 4);
+                                }
+                    }
+                }
+            }
+        }
+
         food.setText(String.valueOf(currentPlayer.getFood()));
         money.setText(String.valueOf(currentPlayer.getMoney()));
         energy.setText(String.valueOf(currentPlayer.getEnergy()));
@@ -188,7 +246,7 @@ public class GameController {
                     //Gets the actual property object that was clicked so that things can be done to it
                     Pane property = (Pane) event.getSource();
 
-                    if (!propertyOwnedList.contains(property)) {
+                    if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= 300) {
                         currentPlayer.incrementPropertyOwned();
                         propertyOwnedList.add(property);
 
@@ -239,14 +297,16 @@ public class GameController {
     }
 
     private void refreshScores() {
-        player1score.setText(String.valueOf(ConfigureController.player1.getScore()));
-        player2score.setText(String.valueOf(ConfigureController.player2.getScore()));
-        if (ConfigureController.player3 != null) {
-            player3score.setText(String.valueOf(ConfigureController.player3.getScore()));
-        }
-        if (ConfigureController.player4 != null) {
-            player4score.setText(String.valueOf(ConfigureController.player4.getScore()));
-        }
+        ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
+
+        String s1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? String.valueOf(playerArr.get(0).getScore()) : "";
+        String s2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? String.valueOf(playerArr.get(1).getScore()) : "";
+        String s3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? String.valueOf(playerArr.get(2).getScore()) : "";
+        String s4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? String.valueOf(playerArr.get(3).getScore()) : "";
+        player1score.setText(s1);
+        player2score.setText(s2);
+        player3score.setText(s3);
+        player4score.setText(s4);
     }
 
     private void updateTurnTime() {
@@ -293,7 +353,7 @@ public class GameController {
     }
 
     private void startTurnTimer() {
-        turnTime = 50;
+        //turnTime = 50;
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -345,7 +405,7 @@ public class GameController {
         }
         return 200;
     }
-    
+
     @FXML
     private void placeMule(ActionEvent event) throws IOException {
     	food.setText(String.valueOf(currentPlayer.getFood()));
@@ -367,6 +427,7 @@ public class GameController {
     			clickedbtn.setText("ore");
     		}
 			placingMule = false;
+			currentPlayer.addToMuleList(clickedbtn);
     	}
     }
 }

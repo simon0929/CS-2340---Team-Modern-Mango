@@ -1,4 +1,4 @@
-package mule;
+package mule.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
-public class ConfigureController {
+public final class ConfigureController {
 
 	//Everything labeled @FXML relates directly to the .fxml files
 
@@ -57,15 +57,19 @@ public class ConfigureController {
 
 	public static int maxPlayers;
 
-	public ConfigureController() {
+	public static int minNumPlayers = 2, maxNumPlayers = 4;
+
+
+	private ConfigureController() {
 	}
 
 	@FXML
 	private void initialize() {
 		final ObservableList<Integer> numPlay = FXCollections.observableArrayList();
-		numPlay.add(2);
-		numPlay.add(3);
-		numPlay.add(4);
+		for(int i = minNumPlayers; i <= maxNumPlayers; i++) {
+			numPlay.add(i);
+		}
+
 		numOfPlayers.setItems(numPlay);
 		final ObservableList<String> race = FXCollections.observableArrayList();
 		race.add("Human");
@@ -77,7 +81,6 @@ public class ConfigureController {
 		p2Race.setItems(race);
 		p3Race.setItems(race);
 		p4Race.setItems(race);
-		//GameController.round = 1;
 		playerList = new ArrayList<Player>();
 	}
 
@@ -86,42 +89,18 @@ public class ConfigureController {
 	@FXML
 	private void handleNumSelect() {
 		if (numOfPlayers.getValue() != null) {
-			if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == 2) {
+			if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() >= minNumPlayers) {
 				p1Name.setDisable(false);
 				p1Color.setDisable(false);
 				p1Race.setDisable(false);
 				p2Name.setDisable(false);
 				p2Color.setDisable(false);
 				p2Race.setDisable(false);
-				p3Name.setDisable(true);
-				p3Color.setDisable(true);
-				p3Race.setDisable(true);
-				p4Name.setDisable(true);
-				p4Color.setDisable(true);
-				p4Race.setDisable(true);
-			} else if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == 3) {
-				p1Name.setDisable(false);
-				p1Color.setDisable(false);
-				p1Race.setDisable(false);
-				p2Name.setDisable(false);
-				p2Color.setDisable(false);
-				p2Race.setDisable(false);
+			} if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() >= minNumPlayers + 1) {
 				p3Name.setDisable(false);
 				p3Color.setDisable(false);
 				p3Race.setDisable(false);
-				p4Name.setDisable(true);
-				p4Color.setDisable(true);
-				p4Race.setDisable(true);
-			} else if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == 4) {
-				p1Name.setDisable(false);
-				p1Color.setDisable(false);
-				p1Race.setDisable(false);
-				p2Name.setDisable(false);
-				p2Color.setDisable(false);
-				p2Race.setDisable(false);
-				p3Name.setDisable(false);
-				p3Color.setDisable(false);
-				p3Race.setDisable(false);
+			} if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == maxNumPlayers) {
 				p4Name.setDisable(false);
 				p4Color.setDisable(false);
 				p4Race.setDisable(false);
@@ -153,45 +132,32 @@ public class ConfigureController {
 			diff = "tournament";
 		}
 
-		//Nested if/else statements that set up the correct number of players with the correct values and adds them to an ArrayList
-		if (maxPlayers == 4) {
-			player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-			playerList.add(player1);
-			player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
-			playerList.add(player2);
+
+		//Create new Game with correct number of players
+		player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+		player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+		playerList.add(player1);
+		playerList.add(player2);
+
+		if(maxPlayers >= minNumPlayers + 1) {
 			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
 			playerList.add(player3);
-			player4 = new Player(p4Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
-			playerList.add(player4);
-			game = new Game(player1, player2, player3, player4, diff);
-		}
-		else {
-			if (maxPlayers == 3) {
-				player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-				playerList.add(player1);
-				player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
-				playerList.add(player2);
-				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
-				playerList.add(player3);
-				game = new Game(player1, player2, player3, null, diff);
-			}
-			else {
 
-				if (maxPlayers == 2) {
-					player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-					playerList.add(player1);
-					player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
-					playerList.add(player2);
-					game = new Game(player1, player2, null, null, diff);
-				}
-			}
 		}
+		if(maxPlayers == maxNumPlayers) {
+			player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
+			playerList.add(player4);
+
+		}
+
+		game = new Game(player1, player2, player3, player4, diff);
+
 
 		//Calls the Game.fxml file and actually constructs the GUI.
-		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/Game.fxml"));
-		this.gameScene = new Scene(gameScreenParent);
-		this.gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		this.gameStage.setScene(gameScene);
-		this.gameStage.show();
+		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
+		gameScene = new Scene(gameScreenParent);
+		gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		gameStage.setScene(gameScene);
+		gameStage.show();
 	}
 }

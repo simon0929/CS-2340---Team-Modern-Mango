@@ -1,6 +1,6 @@
-package mule;
+package mule.model;
 
-public class Store {
+public final class Store {
 
     private int food, energy, ore, mule;
 
@@ -8,18 +8,16 @@ public class Store {
         this("beginner");
     }
     public Store(String difficulty) {
-        if(difficulty == "beginner") {
+        if (difficulty.equals("beginner")) {
             food = 16;
             energy = 16;
             ore = 0;
             mule = 25;
-        } else if(difficulty == "standard" || difficulty == "tournament") {
+        } else if (difficulty.equals("standard") || difficulty.equals("tournament")) {
             food = 8;
             energy = 8;
             ore = 8;
             mule = 14;
-        } else {
-            //don't let this happen
         }
     }
 
