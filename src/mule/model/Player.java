@@ -154,7 +154,7 @@ public final class Player {
     public String buyResource(String resource) {
 
         int price;
-        Store store = ConfigureController.game.getStore();
+        Store store = ConfigureController.getGame().getStore();
         boolean bought = false;
         String message = "";
 
@@ -226,7 +226,7 @@ public final class Player {
     public String sellResource(String resource) {
 
         int price;
-        Store store = ConfigureController.game.getStore();
+        Store store = ConfigureController.getGame().getStore();
         String message = "";
         Boolean sold = false;
 
