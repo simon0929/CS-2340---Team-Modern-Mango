@@ -1,11 +1,10 @@
 package mule.model;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -39,20 +38,19 @@ public class GameController {
 	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
             player4score, randomEvent, name1, name2, name3, name4;
 
-	@FXML
-	private Button label00, label10, label20, label30, label40, label50, label60, label70, label80,
-	label01, label11, label21, label31, label41, label51, label61, label71, label81,
-	label02, label12, label22, label32, label42, label52, label62, label72, label82,
-	label03, label13, label23, label33, label43, label53, label63, label73, label83,
-	label04, label14, label24, label34, label44, label54, label64, label74, label84;
+//	@FXML
+//	private Button
+//    label00, label10, label20, label30, label40, label50, label60, label70, label80,
+//	label01, label11, label21, label31, label41, label51, label61, label71, label81,
+//	label02, label12, label22, label32, label42, label52, label62, label72, label82,
+//	label03, label13, label23, label33, label43, label53, label63, label73, label83,
+//	label04, label14, label24, label34, label44, label54, label64, label74, label84;
 
-	@FXML
-	private Pane pane;
+//	@FXML
+//	private Pane pane;
 
     @FXML
     private Rectangle p1Color, p2Color, p3Color, p4Color;
-
-	public static Game game;
 
 	public static Player currentPlayer;
 
@@ -67,6 +65,8 @@ public class GameController {
 
     private ArrayList<Pane> propertyOwnedList;
 
+    private ArrayList<Label> scoreView;
+
     public Stage gameStage;
 
     public Scene gameScene;
@@ -77,11 +77,11 @@ public class GameController {
 
 	@FXML
 	private void initialize() {
-        ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
-        playerList = ConfigureController.playerList;
+        ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
+        playerList = ConfigureController.getPlayerList();
 
         basePlayerList = playerList;
-		currentPlayer = ConfigureController.player1;
+		currentPlayer = ConfigureController.getGame().getPlayerArr().get(0); //player1
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
         roundNumber = 1;
@@ -94,27 +94,36 @@ public class GameController {
 		energy.setText(String.valueOf(currentPlayer.getEnergy()));
 		ore.setText(String.valueOf(currentPlayer.getOre()));
 
+        scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        scoreView.add(player1score);
+        scoreView.add(player2score);
+        scoreView.add(player3score);
+        scoreView.add(player4score);
+
         refreshScores();
 
-        Color c1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getColor() : Color.TRANSPARENT;
-        Color c2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getColor() : Color.TRANSPARENT;
-        Color c3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getColor() : Color.TRANSPARENT;
-        Color c4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getColor() : Color.TRANSPARENT;
-        p1Color.setFill(c1);
-        p2Color.setFill(c2);
-        p3Color.setFill(c3);
-        p4Color.setFill(c4);
+        ArrayList<Rectangle> colorView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        colorView.add(p1Color);
+        colorView.add(p2Color);
+        colorView.add(p3Color);
+        colorView.add(p4Color);
 
-        String n1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getName() + ":" : "";
-        String n2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getName() + ":" : "";
-        String n3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getName() + ":" : "";
-        String n4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getName() + ":" : "";
-        name1.setText(n1);
-        name2.setText(n2);
-        name3.setText(n3);
-        name4.setText(n4);
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+            Color c = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getColor() : Color.TRANSPARENT;
+            colorView.get(i).setFill(c);
+        }
 
-        game = ConfigureController.game;
+        ArrayList<Label> nameView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        nameView.add(name1);
+        nameView.add(name2);
+        nameView.add(name3);
+        nameView.add(name4);
+
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+            String n = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getName() + ":" : "";
+            nameView.get(i).setText(n);
+        }
+
         turnTime = 50;
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
@@ -143,7 +152,7 @@ public class GameController {
 
     private void endTurn() {
         //refreshes screen
-        game.update();
+        ConfigureController.getGame().update();
         this.randomEvent.setText("");
         turnNumber++;
 
@@ -179,12 +188,12 @@ public class GameController {
         turn.setText(currentPlayer.getName());
         if (Math.random() < .27) {
         	RandomEvent randEvent = new RandomEvent();
-        	this.randomEvent.setText(randEvent.random(game, currentPlayer));
+        	this.randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
         }
         updateTurnTime();
 
         if (currentPlayer.getMuleList().size() > 0) {
-            for(Button mule:currentPlayer.getMuleList()) {
+            for(Button mule: currentPlayer.getMuleList()) {
                 if (currentPlayer.getEnergy() >= 1) {
                     Label label = (Label)mule.getParent().getChildrenUnmodifiable().get(0);
                     String propertyType = label.getText();
@@ -240,8 +249,8 @@ public class GameController {
 	private void handleProperty(MouseEvent event) throws IOException {
         if (numOfPropBoughtInTurn == 0) {
             if (selectionPhase) {
-                if (!game.selectedProp()) {
-                    Color playerColor = game.getCurrPlayer().getColor();
+                if (!ConfigureController.getGame().selectedProp()) {
+                    Color playerColor = ConfigureController.getGame().getCurrPlayer().getColor();
 
                     //Gets the actual property object that was clicked so that things can be done to it
                     Pane property = (Pane) event.getSource();
@@ -297,16 +306,12 @@ public class GameController {
     }
 
     private void refreshScores() {
-        ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
+        ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
 
-        String s1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? String.valueOf(playerArr.get(0).getScore()) : "";
-        String s2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? String.valueOf(playerArr.get(1).getScore()) : "";
-        String s3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? String.valueOf(playerArr.get(2).getScore()) : "";
-        String s4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? String.valueOf(playerArr.get(3).getScore()) : "";
-        player1score.setText(s1);
-        player2score.setText(s2);
-        player3score.setText(s3);
-        player4score.setText(s4);
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+            String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";
+            scoreView.get(i).setText(s);
+        }
     }
 
     private void updateTurnTime() {

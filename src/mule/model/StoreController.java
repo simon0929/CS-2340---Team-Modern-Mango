@@ -30,7 +30,7 @@ public final class StoreController {
             player4score, storeOre, storeEnergy, storeFood, storeMule, storeMessage, name1, name2, name3, name4;
 
     @FXML
-    private Button buyOre, buyEnergy, buyFood, buyMule, sellOre, sellEnergy, sellFood, placeMule;
+    private Button buyOre, buyEnergy, buyFood, buyMule, sellOre, sellEnergy, sellFood;
     
     @FXML
     private ChoiceBox<String> muleType;
@@ -46,44 +46,50 @@ public final class StoreController {
 
     @FXML
     private void initialize() {
-        ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
+        ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
 
-        String s1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? String.valueOf(playerArr.get(0).getScore()) : "";
-        String s2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? String.valueOf(playerArr.get(1).getScore()) : "";
-        String s3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? String.valueOf(playerArr.get(2).getScore()) : "";
-        String s4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? String.valueOf(playerArr.get(3).getScore()) : "";
-        player1score.setText(s1);
-        player2score.setText(s2);
-        player3score.setText(s3);
-        player4score.setText(s4);
+        ArrayList<Label> scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        scoreView.add(player1score);
+        scoreView.add(player2score);
+        scoreView.add(player3score);
+        scoreView.add(player4score);
 
-        Color c1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getColor() : Color.TRANSPARENT;
-        Color c2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getColor() : Color.TRANSPARENT;
-        Color c3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getColor() : Color.TRANSPARENT;
-        Color c4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getColor() : Color.TRANSPARENT;
-        p1Color.setFill(c1);
-        p2Color.setFill(c2);
-        p3Color.setFill(c3);
-        p4Color.setFill(c4);
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+            String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";
+            scoreView.get(i).setText(s);
+        }
 
-        String n1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getName() + ":" : "";
-        String n2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getName() + ":" : "";
-        String n3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getName() + ":" : "";
-        String n4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getName() + ":" : "";
-        name1.setText(n1);
-        name2.setText(n2);
-        name3.setText(n3);
-        name4.setText(n4);
+        ArrayList<Rectangle> colorView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        colorView.add(p1Color);
+        colorView.add(p2Color);
+        colorView.add(p3Color);
+        colorView.add(p4Color);
+
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+            Color c = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getColor() : Color.TRANSPARENT;
+            colorView.get(i).setFill(c);
+        }
+
+        ArrayList<Label> nameView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        nameView.add(name1);
+        nameView.add(name2);
+        nameView.add(name3);
+        nameView.add(name4);
+
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+            String n = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getName() + ":" : "";
+            nameView.get(i).setText(n);
+        }
 
         food.setText(String.valueOf(GameController.currentPlayer.getFood()));
         money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
         energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
         ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
 
-        storeOre.setText(String.valueOf(GameController.game.getStore().getOre()));
-        storeFood.setText(String.valueOf(GameController.game.getStore().getFood()));
-        storeEnergy.setText(String.valueOf(GameController.game.getStore().getEnergy()));
-        storeMule.setText(String.valueOf(GameController.game.getStore().getMule()));
+        storeOre.setText(String.valueOf(ConfigureController.getGame().getStore().getOre()));
+        storeFood.setText(String.valueOf(ConfigureController.getGame().getStore().getFood()));
+        storeEnergy.setText(String.valueOf(ConfigureController.getGame().getStore().getEnergy()));
+        storeMule.setText(String.valueOf(ConfigureController.getGame().getStore().getMule()));
         storeMessage.setText("");
 
 
@@ -133,7 +139,7 @@ public final class StoreController {
 
     @FXML
     private void handleEndTurn() {
-        Game game = ConfigureController.game;
+        Game game = ConfigureController.getGame();
         game.update();
     }
 
@@ -201,10 +207,10 @@ public final class StoreController {
         money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
         energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
         ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
-        storeOre.setText(String.valueOf(GameController.game.getStore().getOre()));
-        storeFood.setText(String.valueOf(GameController.game.getStore().getFood()));
-        storeEnergy.setText(String.valueOf(GameController.game.getStore().getEnergy()));
-        storeMule.setText(String.valueOf(GameController.game.getStore().getMule()));
+        storeOre.setText(String.valueOf(ConfigureController.getGame().getStore().getOre()));
+        storeFood.setText(String.valueOf(ConfigureController.getGame().getStore().getFood()));
+        storeEnergy.setText(String.valueOf(ConfigureController.getGame().getStore().getEnergy()));
+        storeMule.setText(String.valueOf(ConfigureController.getGame().getStore().getMule()));
     }
     
     @FXML
