@@ -23,10 +23,10 @@ public final class ConfigureController {
 	//Everything labeled @FXML relates directly to the .fxml files
 
 	@FXML
-	private RadioButton standMap, randomMap, beginDiff, stndDiff, tourDiff;
+	private RadioButton standMap, beginDiff, stndDiff;
 
-	@FXML
-	private ToggleGroup mapType, difficultyType;
+//	@FXML
+//	private ToggleGroup mapType, difficultyType;
 
 	@FXML
 	private ChoiceBox<Integer> numOfPlayers;
@@ -45,11 +45,11 @@ public final class ConfigureController {
 
 	private String diff;
 
-	public static Game game;
+	private static Game game;
 
-	public static Player currentPlayer, player1, player2, player3, player4;
+	private static Player currentPlayer;
 
-	public static ArrayList<Player> playerList;
+	private static ArrayList<Player> playerList;
 
 	public static Stage gameStage;
 
@@ -59,9 +59,6 @@ public final class ConfigureController {
 
 	public static int minNumPlayers = 2, maxNumPlayers = 4;
 
-
-	private ConfigureController() {
-	}
 
 	@FXML
 	private void initialize() {
@@ -134,10 +131,13 @@ public final class ConfigureController {
 
 
 		//Create new Game with correct number of players
-		player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-		player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+		Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+		Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
 		playerList.add(player1);
 		playerList.add(player2);
+
+		Player player3 = null;
+		Player player4 = null;
 
 		if(maxPlayers >= minNumPlayers + 1) {
 			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
@@ -160,4 +160,9 @@ public final class ConfigureController {
 		gameStage.setScene(gameScene);
 		gameStage.show();
 	}
+
+	public static Game getGame() {return game;}
+
+	public static ArrayList<Player> getPlayerList() { return playerList;}
+
 }
