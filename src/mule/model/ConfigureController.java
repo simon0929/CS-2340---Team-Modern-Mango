@@ -57,7 +57,7 @@ public final class ConfigureController {
 
 	public static int maxPlayers;
 
-	public static int minNumPlayers = 2, maxNumPlayers = 4;
+	public final static int minNumPlayers = 2, maxNumPlayers = 4;
 
 
 	@FXML

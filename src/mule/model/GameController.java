@@ -59,6 +59,8 @@ public class GameController {
 
     public static int turnTime, roundNumber;
 
+    private static final int propertyPrice = 300;
+
 	private boolean selectionPhase;
 
 	public static ArrayList<Player> playerList, basePlayerList;
@@ -193,48 +195,11 @@ public class GameController {
         updateTurnTime();
 
         if (currentPlayer.getMuleList().size() > 0) {
-            for(Button mule: currentPlayer.getMuleList()) {
-                if (currentPlayer.getEnergy() >= 1) {
-                    Label label = (Label)mule.getParent().getChildrenUnmodifiable().get(0);
-                    String propertyType = label.getText();
+            for(Mule mule : currentPlayer.getMuleList()) {
+                System.out.println(currentPlayer.getMuleList().size());
 
-                    if (mule.getText().equals( "food")) {
-                        if (propertyType.equals("Plain")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setFood(currentPlayer.getFood() + 2);
-                        } else if (propertyType.equals("River")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setFood(currentPlayer.getFood() + 4);
-                            } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
-                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                currentPlayer.setFood(currentPlayer.getFood() + 1);
-                            }
-                    } else if (mule.getText().equals("energy")) {
-                        if (propertyType.equals("Plain")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
-                        } else if (propertyType.equals("River")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() + 2);
-                        } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
-                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
-                            }
-                    } else if (mule.getText().equals( "ore")) {
-                        if (propertyType.equals("Plain")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setOre(currentPlayer.getOre() + 1);
-                            } else if (propertyType.equals("M1")) {
-                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                currentPlayer.setOre(currentPlayer.getOre() + 2);
-                                } else if (propertyType.equals("M2")) {
-                                    currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                    currentPlayer.setOre(currentPlayer.getOre() + 3);
-                                } else if (propertyType.equals("M3")) {
-                                    currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                    currentPlayer.setOre(currentPlayer.getOre() + 4);
-                                }
-                    }
+                if (currentPlayer.getEnergy() >= 1) {
+                    mule.calculateResourceChanges();
                 }
             }
         }
@@ -255,13 +220,13 @@ public class GameController {
                     //Gets the actual property object that was clicked so that things can be done to it
                     Pane property = (Pane) event.getSource();
 
-                    if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= 300) {
+                    if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= propertyPrice) {
                         currentPlayer.incrementPropertyOwned();
                         propertyOwnedList.add(property);
 
                         if (currentPlayer.getNumOfFreeProperties() == 0) {
                             //Automatically updates player's money and on the GUI
-                            currentPlayer.setMoney(currentPlayer.getMoney() - 300);
+                            currentPlayer.setMoney(currentPlayer.getMoney() - propertyPrice);
                             money.setText(String.valueOf(currentPlayer.getMoney()));
                         }
                         else {
@@ -420,19 +385,38 @@ public class GameController {
     	if (placingMule) {
     		Object source = event.getSource();
     		Button clickedbtn = (Button) source;
-    		if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-    		    clickedbtn.setText("food");
-    		    clickedbtn.getParent();
-    		} else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-    			clickedbtn.setText("energy");
-    		} else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-    			clickedbtn.setText("ore");
-    		}
+            Label label = (Label) clickedbtn.getParent().getChildrenUnmodifiable().get(0);
+            String propertyType = label.getText();
+
+            Mule mule = new Mule() {
+                @Override
+                public String getPropertyType() {
+                    return null;
+                }
+
+                @Override
+                public void setPropertyType() {}
+
+                @Override
+                public void calculateResourceChanges() {}
+            };
+
+            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+                clickedbtn.setText("food");
+                clickedbtn.getParent();
+                mule = new FoodMule(propertyType);
+            } else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+                clickedbtn.setText("energy");
+                mule = new EnergyMule(propertyType);
+            } else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+                clickedbtn.setText("ore");
+                mule = new OreMule(propertyType);
+            }
 			placingMule = false;
-			currentPlayer.addToMuleList(clickedbtn);
+			currentPlayer.addToMuleList(mule);
     	}
     }
 }
