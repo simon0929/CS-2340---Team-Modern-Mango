@@ -59,6 +59,8 @@ public class GameController {
 
     public static int turnTime, roundNumber;
 
+    private static final int propertyPrice = 300;
+
 	private boolean selectionPhase;
 
 	public static ArrayList<Player> playerList, basePlayerList;
@@ -218,13 +220,13 @@ public class GameController {
                     //Gets the actual property object that was clicked so that things can be done to it
                     Pane property = (Pane) event.getSource();
 
-                    if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= 300) {
+                    if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= propertyPrice) {
                         currentPlayer.incrementPropertyOwned();
                         propertyOwnedList.add(property);
 
                         if (currentPlayer.getNumOfFreeProperties() == 0) {
                             //Automatically updates player's money and on the GUI
-                            currentPlayer.setMoney(currentPlayer.getMoney() - 300);
+                            currentPlayer.setMoney(currentPlayer.getMoney() - propertyPrice);
                             money.setText(String.valueOf(currentPlayer.getMoney()));
                         }
                         else {

@@ -47,7 +47,6 @@ public final class Player {
             energy = 2;
             ore = 0;
         }
-
     }
 
     public String getName() {

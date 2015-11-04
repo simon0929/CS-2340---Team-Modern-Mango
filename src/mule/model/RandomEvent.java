@@ -19,7 +19,7 @@ public final class RandomEvent {
 
 	public String random(Game game, Player player) {
 		int randInd;
-		int m = game.getM();
+		int m = game.getRandomFactor();
 		if (game.getTurn() == 1 && game.getRound() > 1) {
 			randInd = (int) (Math.random() * 4);
 		} else {

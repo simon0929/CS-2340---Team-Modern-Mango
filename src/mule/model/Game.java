@@ -10,7 +10,8 @@ public final class Game {
 	private ArrayList<Player> playerArr;
 	private boolean selectedProp;
 	private Store store;
-	private int m;
+	private int randomFactor;
+	private final int randFact1 = 25, randFact2 = 50, randFact3 = 75, randFact4 = 100;
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 
@@ -51,16 +52,16 @@ public final class Game {
 		}
 
 		if (turn <= 3) {
-			m = 25;
+			randomFactor = randFact1;
 		} else {
 
 			if (turn >= 4 && turn <= 7) {
-				m = 50;
+				randomFactor = randFact2;
 			} else {
 				if (turn >= 8 && turn <= 11) {
-				m = 75;
+				randomFactor = randFact3;
 				} else {
-					m = 100;
+					randomFactor = randFact4;
 				}
 			}
 		}
@@ -82,7 +83,7 @@ public final class Game {
 		return playerArr;
 		}
 
-	public int getM() {
-		return m;
+	public int getRandomFactor() {
+		return randomFactor;
 		}
 	}
