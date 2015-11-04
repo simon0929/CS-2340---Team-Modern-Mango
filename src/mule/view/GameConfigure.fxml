@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
-
 <AnchorPane prefHeight="523.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.ConfigureController">
    <children>
       <TabPane layoutX="-100.0" layoutY="-143.0" prefHeight="500.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -75,7 +72,7 @@
                               <ToggleGroup fx:id="difficultyType" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton id="standDifRadio" fx:id="stndDiff" layoutX="114.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Standard" toggleGroup="$difficultyType" />
+                        <RadioButton id="standDifRadio" fx:id="standDiff" layoutX="114.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Standard" toggleGroup="$difficultyType" />
                         <RadioButton id="tourRadio" fx:id="tourDiff" layoutX="211.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Tournament" toggleGroup="$difficultyType" />
                         <Pane layoutX="167.0" layoutY="14.0" prefHeight="355.0" prefWidth="406.0">
                            <children>

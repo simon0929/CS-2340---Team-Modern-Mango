@@ -12,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -98,14 +97,11 @@ public final class StoreController {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (turnTime >= 1) {
-                            timeLeft.setText(String.valueOf(turnTime--));
-                        } else {
-                            handleEndTurn();
-                        }
+                Platform.runLater(() -> {
+                    if (turnTime >= 1) {
+                        timeLeft.setText(String.valueOf(turnTime--));
+                    } else {
+                        handleEndTurn();
                     }
                 });
             }

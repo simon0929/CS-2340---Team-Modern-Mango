@@ -15,7 +15,7 @@ public final class Game {
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 
-		playerArr = new ArrayList<Player>();
+		playerArr = new ArrayList<>();
 		playerArr.add(p1);
 		playerArr.add(p2);
 

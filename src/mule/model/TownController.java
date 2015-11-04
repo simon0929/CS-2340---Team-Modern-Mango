@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -88,16 +87,13 @@ public class TownController {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						if (turnTime >= 1) {
-							timeLeft.setText(String.valueOf(turnTime--));
-						} else {
-							handleEndTurn();
-						}
-					}
-				});
+				Platform.runLater(() -> {
+                    if (turnTime >= 1) {
+                        timeLeft.setText(String.valueOf(turnTime--));
+                    } else {
+                        handleEndTurn();
+                    }
+                });
 			}
 		}, 0, 1000);
 	}

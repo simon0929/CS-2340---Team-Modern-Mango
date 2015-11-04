@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ConcurrentSkipListMap;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -329,14 +328,11 @@ public class GameController {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (turnTime >= 0) {
-                            timeLeft.setText(String.valueOf(turnTime--));
-                        } else {
-                            handleEndTurn();
-                        }
+                Platform.runLater(() -> {
+                    if (turnTime >= 0) {
+                        timeLeft.setText(String.valueOf(turnTime--));
+                    } else {
+                        handleEndTurn();
                     }
                 });
             }
