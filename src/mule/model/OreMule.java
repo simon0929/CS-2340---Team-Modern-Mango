@@ -5,13 +5,13 @@ public class OreMule implements Mule {
     private final String propertyType;
     private final Player currentPlayer;
 
-    public OreMule(String propertyType) {
-        this.propertyType = propertyType;
+    public OreMule(String type) {
+        this.propertyType = type;
         currentPlayer = GameController.currentPlayer;
     }
 
     @Override
-    public void calculateResourceChanges() {
+    public final void calculateResourceChanges() {
         switch (propertyType) {
             case "Plain":
                 currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
@@ -33,7 +33,7 @@ public class OreMule implements Mule {
     }
 
     @Override
-    public String getPropertyType() {
+    public final String getPropertyType() {
         return propertyType;
     }
 

@@ -1,17 +1,15 @@
 package mule.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by Hunter on 9/18/2015.
- */
 public final class Game {
 	private int round, turn;
-	private final ArrayList<Player> playerArr;
+	private final List<Player> playerArr;
 	private boolean selectedProp;
 	private final Store store;
 	private int randomFactor;
-	private static final int randFact1 = 25, randFact2 = 50, randFact3 = 75, randFact4 = 100;
+	private static final int RAND_FACT_1 = 25, RAND_FACT_2 = 50, RAND_FACT_3 = 75, RAND_FACT_4 = 100;
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 
@@ -52,16 +50,16 @@ public final class Game {
 		}
 
 		if (turn <= 3) {
-			randomFactor = randFact1;
+			randomFactor = RAND_FACT_1;
 		} else {
 
 			if (turn >= 4 && turn <= 7) {
-				randomFactor = randFact2;
+				randomFactor = RAND_FACT_2;
 			} else {
 				if (turn >= 8 && turn <= 11) {
-				randomFactor = randFact3;
+				randomFactor = RAND_FACT_3;
 				} else {
-					randomFactor = randFact4;
+					randomFactor = RAND_FACT_4;
 				}
 			}
 		}
@@ -79,7 +77,7 @@ public final class Game {
 	public Store getStore() { return store; }
 
 
-	public ArrayList<Player> getPlayerArr() {
+	public List<Player> getPlayerArr() {
 		return playerArr;
 		}
 

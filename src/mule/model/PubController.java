@@ -10,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -34,7 +35,7 @@ public class PubController {
 
     @FXML
     private void initialize() {
-        ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
+        List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
 
         ArrayList<Label> scoreView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
         scoreView.add(player1score);
@@ -96,15 +97,15 @@ public class PubController {
 
     @FXML
     private void handleReturnToMap(ActionEvent event) {
-        gameScene = ConfigureController.gameScene;
-        gameStage = ConfigureController.gameStage;
+        gameScene = ConfigureController.getGameScene();
+        gameStage = ConfigureController.getGameStage();
         gameStage.setScene(gameScene);
     }
 
     @FXML
     private void handleReturnToMap() {
-        gameScene = ConfigureController.gameScene;
-        gameStage = ConfigureController.gameStage;
+        gameScene = ConfigureController.getGameScene();
+        gameStage = ConfigureController.getGameStage();
         gameStage.setScene(gameScene);
     }
 
@@ -152,8 +153,8 @@ public class PubController {
 
 
             handleEndTurn();
-            gameScene = ConfigureController.gameScene;
-            gameStage = ConfigureController.gameStage;
+            gameScene = ConfigureController.getGameScene();
+            gameStage = ConfigureController.getGameStage();
             gameStage.setScene(gameScene);
 
             handleReturnToMap();

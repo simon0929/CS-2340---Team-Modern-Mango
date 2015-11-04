@@ -1,6 +1,6 @@
 package mule.model;
 
-public interface Mule {
+interface Mule {
 
     void calculateResourceChanges();
 

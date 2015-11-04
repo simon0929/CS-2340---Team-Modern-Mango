@@ -2,6 +2,7 @@ package mule.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -62,11 +63,11 @@ public class GameController {
 
 	private boolean selectionPhase;
 
-	private static ArrayList<Player> playerList, basePlayerList;
+	private static List<Player> playerList;
 
-    private ArrayList<Pane> propertyOwnedList;
+    private List<Pane> propertyOwnedList;
 
-    private ArrayList<Label> scoreView;
+    private List<Label> scoreView;
 
     public Stage gameStage;
 
@@ -78,10 +79,10 @@ public class GameController {
 
 	@FXML
 	private void initialize() {
-        ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
+        List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
         playerList = ConfigureController.getPlayerList();
 
-        basePlayerList = playerList;
+        List<Player> basePlayerList = playerList;
 		currentPlayer = ConfigureController.getGame().getPlayerArr().get(0); //player1
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
@@ -160,7 +161,7 @@ public class GameController {
         numOfPropBoughtInRound += numOfPropBoughtInTurn;
 
         //if the number of turns exceeds the number of players, the round ends
-        if (turnNumber > ConfigureController.maxPlayers) {
+        if (turnNumber > ConfigureController.getNumPlayers()) {
             //Calculates all player scores and rearranges playerList for a new order for the next turn
             getTurnOrder();
 
@@ -248,11 +249,11 @@ public class GameController {
 
     private void getTurnOrder() {
         int minScore;
-        ArrayList<Player> tempList = playerList;
+        List<Player> tempList = playerList;
         playerList = new ArrayList<>();
         int j;
 
-        for (int i = 0; i < ConfigureController.maxPlayers; i++) {
+        for (int i = 0; i < ConfigureController.getNumPlayers(); i++) {
             j = 0;
             minScore = 0;
 
@@ -270,7 +271,7 @@ public class GameController {
     }
 
     private void refreshScores() {
-        ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
+        List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
 
         for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
             String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";

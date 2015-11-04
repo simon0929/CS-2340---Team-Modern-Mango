@@ -2,6 +2,7 @@ package mule.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,7 +39,7 @@ public class TownController {
 
 	@FXML
 	private void initialize() {
-		ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
+		List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
 
 		ArrayList<Label> scoreView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
 		scoreView.add(player1score);
@@ -100,15 +101,15 @@ public class TownController {
 
 	@FXML
 	private void handleReturnToMap(ActionEvent event) {
-		gameScene = ConfigureController.gameScene;
-		gameStage = ConfigureController.gameStage;
+		gameScene = ConfigureController.getGameScene();
+		gameStage = ConfigureController.getGameStage();
 		gameStage.setScene(gameScene);
 	}
 
 	@FXML
 	private void handleReturnToMap() {
-		gameScene = ConfigureController.gameScene;
-		gameStage = ConfigureController.gameStage;
+		gameScene = ConfigureController.getGameScene();
+		gameStage = ConfigureController.getGameStage();
 		gameStage.setScene(gameScene);
 	}
 
