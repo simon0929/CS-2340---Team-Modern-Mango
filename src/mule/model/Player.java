@@ -13,7 +13,7 @@ public final class Player {
     //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
     private ArrayList<Pane> propertyList;
-    private ArrayList<Button> muleList;
+    private ArrayList<Mule> muleList;
 
     public Player(String n, String r, Color c, String d) {
         name = n;
@@ -95,7 +95,7 @@ public final class Player {
         return propertyList;
     }
 
-    public ArrayList<Button> getMuleList() {
+    public ArrayList<Mule> getMuleList() {
     	return muleList;
     }
 
@@ -123,7 +123,7 @@ public final class Player {
         propertyList.add(pane);
     }
 
-    public void addToMuleList(Button mule) {
+    public void addToMuleList(Mule mule) {
     	muleList.add(mule);
     }
 
