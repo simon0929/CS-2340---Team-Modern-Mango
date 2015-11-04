@@ -12,15 +12,21 @@ public class EnergyMule implements Mule {
 
     @Override
     public void calculateResourceChanges() {
-        if (propertyType.equals("Plain")) {
-            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-            currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
-        } else if (propertyType.equals("River")) {
-            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-            currentPlayer.setEnergy(currentPlayer.getEnergy() + 2);
-        } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
-            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-            currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
+        switch (propertyType) {
+            case "Plain":
+                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
+                break;
+            case "River":
+                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                currentPlayer.setEnergy(currentPlayer.getEnergy() + 2);
+                break;
+            case "M1":
+            case "M2":
+            case "M3":
+                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
+                break;
         }
     }
 

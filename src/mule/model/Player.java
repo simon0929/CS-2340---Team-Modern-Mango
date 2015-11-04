@@ -1,6 +1,5 @@
 package mule.model;
 
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -27,14 +26,16 @@ public final class Player {
         muleList = new ArrayList<>();
 
         //Different races get different amounts of money
-        if (race.equals("Flapper")) {
-            money = 1600;
-        }
-        else if (race.equals("Human")) {
-            money = 600;
-        }
-        else {
-            money = 1000;
+        switch (race) {
+            case "Flapper":
+                money = 1600;
+                break;
+            case "Human":
+                money = 600;
+                break;
+            default:
+                money = 1000;
+                break;
         }
 
         //Different difficulties get different resources

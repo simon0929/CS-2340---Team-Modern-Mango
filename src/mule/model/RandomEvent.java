@@ -7,7 +7,7 @@ final class RandomEvent {
 	private final ArrayList<String> eventList;
 
 	public RandomEvent() {
-		eventList = new ArrayList<String>();
+		eventList = new ArrayList<>();
 		eventList.add("YOU JUST RECEIVED A PACKAGE FROM THE GT ALUMNI CONTAINING 3 FOOD AND 2 ENERGY UNITS.");
 		eventList.add("A WANDERING TECH STUDENT REPAID YOUR HOSPITALITY BY LEAVING TWO BARS OF ORE.");
 		eventList.add("THE MUSEUM BOUGHT YOUR ANTIQUE PERSONAL COMPUTER FOR $ 8*m.");

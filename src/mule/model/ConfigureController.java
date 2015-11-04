@@ -15,7 +15,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 public final class ConfigureController {
@@ -76,7 +75,7 @@ public final class ConfigureController {
 		p2Race.setItems(race);
 		p3Race.setItems(race);
 		p4Race.setItems(race);
-		playerList = new ArrayList<Player>();
+		playerList = new ArrayList<>();
 	}
 
 	//Selectively enables the correct number of Player entry fields based on max number of players
@@ -84,18 +83,18 @@ public final class ConfigureController {
 	@FXML
 	private void handleNumSelect() {
 		if (numOfPlayers.getValue() != null) {
-			if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() >= minNumPlayers) {
+			if (numOfPlayers.getSelectionModel().getSelectedItem() >= minNumPlayers) {
 				p1Name.setDisable(false);
 				p1Color.setDisable(false);
 				p1Race.setDisable(false);
 				p2Name.setDisable(false);
 				p2Color.setDisable(false);
 				p2Race.setDisable(false);
-			} if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() >= minNumPlayers + 1) {
+			} if (numOfPlayers.getSelectionModel().getSelectedItem() >= minNumPlayers + 1) {
 				p3Name.setDisable(false);
 				p3Color.setDisable(false);
 				p3Race.setDisable(false);
-			} if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == maxNumPlayers) {
+			} if (numOfPlayers.getSelectionModel().getSelectedItem() == maxNumPlayers) {
 				p4Name.setDisable(false);
 				p4Color.setDisable(false);
 				p4Race.setDisable(false);
@@ -116,7 +115,7 @@ public final class ConfigureController {
 	//Runs when the start button is clicked. Sets up the main game screen and objects.
 	@FXML
 	private void handleStartGame(ActionEvent event) throws IOException {
-		maxPlayers = numOfPlayers.getSelectionModel().getSelectedItem().intValue();
+		maxPlayers = numOfPlayers.getSelectionModel().getSelectedItem();
 
 		//Initializes string objects containing the difficulty to add to Player objects later.
 		String diff;

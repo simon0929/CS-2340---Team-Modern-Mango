@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.StoreController">
    <children>
       <Pane layoutY="147.0" prefHeight="432.0" prefWidth="530.0">
@@ -39,7 +38,7 @@
       </Pane>
       <AnchorPane prefHeight="136.0" prefWidth="530.0">
          <children>
-            <Button fx:id="returnToMap" layoutX="415.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleReturnToMap" text="Return to Map" />
+            <Button layoutX="415.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleReturnToMap" text="Return to Map" />
             <Label layoutX="40.0" layoutY="5.0" text="Scores" />
             <Label layoutX="225.0" layoutY="5.0" text="Current Player Resources" />
             <Label layoutX="225.0" layoutY="25.0" text="Food: " />
@@ -64,10 +63,10 @@
             <Label fx:id="player2score" layoutX="132.0" layoutY="48.0" text="" />
             <Label fx:id="player3score" layoutX="132.0" layoutY="68.0" text="" />
             <Label fx:id="player4score" layoutX="132.0" layoutY="88.0" text="" />
-            <Rectangle fx:id="p1Color" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" layoutX="11.0" layoutY="28.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
-            <Rectangle fx:id="p2Color" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" layoutX="11.0" layoutY="48.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
-            <Rectangle fx:id="p3Color" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" layoutX="11.0" layoutY="68.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
-            <Rectangle fx:id="p4Color" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" layoutX="11.0" layoutY="88.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
+            <Rectangle fx:id="p1Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="11.0" layoutY="28.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
+            <Rectangle fx:id="p2Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="11.0" layoutY="48.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
+            <Rectangle fx:id="p3Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="11.0" layoutY="68.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
+            <Rectangle fx:id="p4Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="11.0" layoutY="88.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
             <Label fx:id="storeMessage" layoutX="12.0" layoutY="107.0" prefHeight="16.0" prefWidth="374.0">
                <font>
                   <Font size="10.0" />

@@ -12,18 +12,23 @@ public class OreMule implements Mule {
 
     @Override
     public void calculateResourceChanges() {
-        if (propertyType.equals("Plain")) {
-            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-            currentPlayer.setOre(currentPlayer.getOre() + 1);
-        } else if (propertyType.equals("M1")) {
-            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-            currentPlayer.setOre(currentPlayer.getOre() + 2);
-        } else if (propertyType.equals("M2")) {
-            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-            currentPlayer.setOre(currentPlayer.getOre() + 3);
-        } else if (propertyType.equals("M3")) {
-            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-            currentPlayer.setOre(currentPlayer.getOre() + 4);
+        switch (propertyType) {
+            case "Plain":
+                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                currentPlayer.setOre(currentPlayer.getOre() + 1);
+                break;
+            case "M1":
+                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                currentPlayer.setOre(currentPlayer.getOre() + 2);
+                break;
+            case "M2":
+                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                currentPlayer.setOre(currentPlayer.getOre() + 3);
+                break;
+            case "M3":
+                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+                currentPlayer.setOre(currentPlayer.getOre() + 4);
+                break;
         }
     }
 
