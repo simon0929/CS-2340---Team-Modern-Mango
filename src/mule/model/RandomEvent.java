@@ -2,9 +2,9 @@ package mule.model;
 
 import java.util.ArrayList;
 
-public final class RandomEvent {
+final class RandomEvent {
 
-	private ArrayList<String> eventList;
+	private final ArrayList<String> eventList;
 
 	public RandomEvent() {
 		eventList = new ArrayList<String>();
@@ -14,7 +14,7 @@ public final class RandomEvent {
 		eventList.add("YOU FOUND A DEAD MOOSE RAT AND SOLD THE HIDE FOR $2*m.");
 		eventList.add("FLYING CAT-BUGS ATE THE ROOF OFF YOUR HOUSE. REPAIRS COST $4*m.");
 		eventList.add("MISCHIEVOUS UGA STUDENTS BROKE INTO YOUR STORAGE SHED AND STOLE HALF YOUR FOOD.");
-		eventList.add("YOUR SPACE GYPSY INLAWS MADE A MESS OF THE TOWN. IT COST YOU $6*m TO CLEAN IT UP.");
+		eventList.add("YOUR SPACE GYPSY IN-LAWS MADE A MESS OF THE TOWN. IT COST YOU $6*m TO CLEAN IT UP.");
 	}
 
 	public String random(Game game, Player player) {

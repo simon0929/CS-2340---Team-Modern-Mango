@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 
 public final class Main extends Application {
 
-	private final int width = 600, height = 500;
+	private static final int width = 600, height = 500;
 
 	@Override
 	public void start(Stage primaryStage) {

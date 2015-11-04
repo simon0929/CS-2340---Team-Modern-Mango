@@ -23,7 +23,7 @@ public final class ConfigureController {
 	//Everything labeled @FXML relates directly to the .fxml files
 
 	@FXML
-	private RadioButton standMap, beginDiff, stndDiff;
+	private RadioButton standMap, beginDiff, standDiff;
 
 //	@FXML
 //	private ToggleGroup mapType, difficultyType;
@@ -43,8 +43,6 @@ public final class ConfigureController {
 	@FXML
 	private Button startGameButton;
 
-	private String diff;
-
 	private static Game game;
 
 	private static Player currentPlayer;
@@ -57,7 +55,7 @@ public final class ConfigureController {
 
 	public static int maxPlayers;
 
-	public final static int minNumPlayers = 2, maxNumPlayers = 4;
+	private final static int minNumPlayers = 2, maxNumPlayers = 4;
 
 
 	@FXML
@@ -121,9 +119,10 @@ public final class ConfigureController {
 		maxPlayers = numOfPlayers.getSelectionModel().getSelectedItem().intValue();
 
 		//Initializes string objects containing the difficulty to add to Player objects later.
+		String diff;
 		if (beginDiff.isSelected()) {
 			diff = "beginner";
-		} else if (stndDiff.isSelected()) {
+		} else if (standDiff.isSelected()) {
 			diff = "standard";
 		} else {
 			diff = "tournament";
@@ -164,5 +163,9 @@ public final class ConfigureController {
 	public static Game getGame() {return game;}
 
 	public static ArrayList<Player> getPlayerList() { return playerList;}
+
+	public static int getMaxNumPlayers() { return maxNumPlayers;}
+
+	public static int getMinNumPlayers() { return minNumPlayers;}
 
 }

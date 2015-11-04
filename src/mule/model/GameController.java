@@ -59,11 +59,11 @@ public class GameController {
 
     public static int turnTime, roundNumber;
 
-    private static final int propertyPrice = 300;
+    private static final int propertyPrice = 300, timeLimit = 50;
 
 	private boolean selectionPhase;
 
-	public static ArrayList<Player> playerList, basePlayerList;
+	private static ArrayList<Player> playerList, basePlayerList;
 
     private ArrayList<Pane> propertyOwnedList;
 
@@ -75,7 +75,7 @@ public class GameController {
 
     public static boolean placingMule = false;
 
-    public static String typeOfMule;
+    private static String typeOfMule;
 
 	@FXML
 	private void initialize() {
@@ -96,7 +96,7 @@ public class GameController {
 		energy.setText(String.valueOf(currentPlayer.getEnergy()));
 		ore.setText(String.valueOf(currentPlayer.getOre()));
 
-        scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        scoreView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
         scoreView.add(player1score);
         scoreView.add(player2score);
         scoreView.add(player3score);
@@ -104,29 +104,29 @@ public class GameController {
 
         refreshScores();
 
-        ArrayList<Rectangle> colorView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        ArrayList<Rectangle> colorView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
         colorView.add(p1Color);
         colorView.add(p2Color);
         colorView.add(p3Color);
         colorView.add(p4Color);
 
-        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+        for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
             Color c = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getColor() : Color.TRANSPARENT;
             colorView.get(i).setFill(c);
         }
 
-        ArrayList<Label> nameView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        ArrayList<Label> nameView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
         nameView.add(name1);
         nameView.add(name2);
         nameView.add(name3);
         nameView.add(name4);
 
-        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+        for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
             String n = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getName() + ":" : "";
             nameView.get(i).setText(n);
         }
 
-        turnTime = 50;
+        turnTime = timeLimit;
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
@@ -144,7 +144,7 @@ public class GameController {
 
     //Performs a variety of things when the End Turn button is clicked
 	@FXML
-	private void handleEndTurn(MouseEvent event) throws IOException {
+	private void handleEndTurn(MouseEvent event) {
         endTurn();
 	}
 
@@ -211,7 +211,7 @@ public class GameController {
     }
 
 	@FXML
-	private void handleProperty(MouseEvent event) throws IOException {
+	private void handleProperty(MouseEvent event) {
         if (numOfPropBoughtInTurn == 0) {
             if (selectionPhase) {
                 if (!ConfigureController.getGame().selectedProp()) {
@@ -273,7 +273,7 @@ public class GameController {
     private void refreshScores() {
         ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
 
-        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+        for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
             String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";
             scoreView.get(i).setText(s);
         }
@@ -377,46 +377,36 @@ public class GameController {
     }
 
     @FXML
-    private void placeMule(ActionEvent event) throws IOException {
+    private void placeMule(ActionEvent event) {
     	food.setText(String.valueOf(currentPlayer.getFood()));
         money.setText(String.valueOf(currentPlayer.getMoney()));
         energy.setText(String.valueOf(currentPlayer.getEnergy()));
         ore.setText(String.valueOf(currentPlayer.getOre()));
     	if (placingMule) {
     		Object source = event.getSource();
-    		Button clickedbtn = (Button) source;
-            Label label = (Label) clickedbtn.getParent().getChildrenUnmodifiable().get(0);
+    		Button clickedButton = (Button) source;
+            Label label = (Label) clickedButton.getParent().getChildrenUnmodifiable().get(0);
             String propertyType = label.getText();
+            Mule mule = null;
 
-            Mule mule = new Mule() {
-                @Override
-                public String getPropertyType() {
-                    return null;
-                }
-
-                @Override
-                public void setPropertyType() {}
-
-                @Override
-                public void calculateResourceChanges() {}
-            };
-
-            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-                clickedbtn.setText("food");
-                clickedbtn.getParent();
+            if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
+                clickedButton.setText("food");
+                clickedButton.getParent();
                 mule = new FoodMule(propertyType);
-            } else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-                clickedbtn.setText("energy");
+            } else if (typeOfMule.compareTo("energy") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
+                clickedButton.setText("energy");
                 mule = new EnergyMule(propertyType);
-            } else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-                clickedbtn.setText("ore");
+            } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
+                clickedButton.setText("ore");
                 mule = new OreMule(propertyType);
             }
 			placingMule = false;
 			currentPlayer.addToMuleList(mule);
     	}
     }
+
+    public static void setTypeOfMule(String type) { typeOfMule = type; }
 }

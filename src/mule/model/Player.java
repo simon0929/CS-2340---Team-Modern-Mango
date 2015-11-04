@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public final class Player {
 
-    private String name, race, diff;
-    private Color color;
+    private final String name, race, diff;
+    private final Color color;
     //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
     private ArrayList<Pane> propertyList;
