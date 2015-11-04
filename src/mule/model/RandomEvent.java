@@ -1,10 +1,11 @@
 package mule.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 final class RandomEvent {
 
-	private final ArrayList<String> eventList;
+	private final List<String> eventList;
 
 	public RandomEvent() {
 		eventList = new ArrayList<>();
@@ -18,46 +19,48 @@ final class RandomEvent {
 	}
 
 	public String random(Game game, Player player) {
-		int randInd;
 		int m = game.getRandomFactor();
-		if (game.getTurn() == 1 && game.getRound() > 1) {
-			randInd = (int) (Math.random() * 4);
-		} else {
-			randInd = (int) (Math.random() * eventList.size());
-		}
+		int randInt = calcRandInt(game);
 
-		switch(randInd) {
-		case 0:
-			player.setFood(player.getFood() + 3);
-			player.setEnergy(player.getEnergy() + 2);
-			break;
-		case 1:
-			player.setOre(player.getOre() + 2);
-			break;
-		case 2:
-			player.setMoney(player.getMoney() + (8 * m));
-			break;
-		case 3:
-			player.setMoney(player.getMoney() + (2 * m));
-			break;
-		case 4:
-			player.setMoney(player.getMoney() - (4 * m));
-			if (player.getMoney() < 0) {
-				player.setMoney(0);
-			}
-			break;
-		case 5:
-			player.setFood(player.getFood() / 2);
-			break;
-		case 6:
-			player.setMoney(player.getMoney() - (6 * m));
-			if (player.getMoney() < 0) {
-				player.setMoney(0);
-			}
-			break;
+		switch(randInt) {
+			case 0:
+				player.setFood(player.getFood() + 3);
+				player.setEnergy(player.getEnergy() + 2);
+				break;
+			case 1:
+				player.setOre(player.getOre() + 2);
+				break;
+			case 2:
+				player.setMoney(player.getMoney() + (8 * m));
+				break;
+			case 3:
+				player.setMoney(player.getMoney() + (2 * m));
+				break;
+			case 4:
+				int money4 = player.getMoney() - (4 * m);
+				player.setMoney(money4 >= 0 ? money4 : 0);
+				break;
+			case 5:
+				player.setFood(player.getFood() / 2);
+				break;
+			case 6:
+				int money5 = player.getMoney() - (6 * m);
+				player.setMoney(money5 >= 0 ? money5 : 0);
+				break;
 		}
-		return eventList.get(randInd);
+		return eventList.get(randInt);
 	}
+
+	private int calcRandInt(Game game) {
+		int randInt;
+		if (game.getTurn() == 1 && game.getRound() > 1) {
+			randInt = (int) (Math.random() * 4);
+		} else {
+			randInt = (int) (Math.random() * eventList.size());
+		}
+		return randInt;
+	}
+
 }
 
 

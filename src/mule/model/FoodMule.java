@@ -5,13 +5,13 @@ public class FoodMule implements Mule {
     private final String propertyType;
     private final Player currentPlayer;
 
-    public FoodMule(String propertyType) {
-        this.propertyType = propertyType;
+    public FoodMule(String type) {
+        this.propertyType = type;
         currentPlayer = GameController.currentPlayer;
     }
 
     @Override
-    public void calculateResourceChanges() {
+    public final void calculateResourceChanges() {
         switch (propertyType) {
             case "Plain":
                 currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
@@ -31,7 +31,7 @@ public class FoodMule implements Mule {
     }
 
     @Override
-    public String getPropertyType() {
+    public final String getPropertyType() {
         return propertyType;
     }
 

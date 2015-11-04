@@ -1,23 +1,37 @@
 package mule.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class Store {
 
     private int food, energy, ore, mule;
+    private static final int INIT_FOOD_B = 16, INIT_ENERGY_B = 16, INIT_ORE_B = 0, INIT_MULE_B = 25, INIT_FOOD_S = 8,
+            INIT_ENERGY_S = 8, INIT_ORE_S = 8, INIT_MULE_S = 14;
+    private static final Map<String, Integer> RESOURCE_LIST = new HashMap<>();
+    {
+        RESOURCE_LIST.put("food", 30);
+        RESOURCE_LIST.put("energy", 25);
+        RESOURCE_LIST.put("ore", 50);
+        RESOURCE_LIST.put("energyMule", 150);
+        RESOURCE_LIST.put("foodMule", 125);
+        RESOURCE_LIST.put("oreMule", 175);
+    }
 
     public Store() {
         this("beginner");
     }
     public Store(String difficulty) {
         if (difficulty.equals("beginner")) {
-            food = 16;
-            energy = 16;
-            ore = 0;
-            mule = 25;
+            food = INIT_FOOD_B;
+            energy = INIT_ENERGY_B;
+            ore = INIT_ORE_B;
+            mule = INIT_MULE_B;
         } else if (difficulty.equals("standard") || difficulty.equals("tournament")) {
-            food = 8;
-            energy = 8;
-            ore = 8;
-            mule = 14;
+            food = INIT_FOOD_S;
+            energy = INIT_ENERGY_S;
+            ore = INIT_ORE_S;
+            mule = INIT_MULE_S;
         }
     }
 
@@ -36,6 +50,8 @@ public final class Store {
     public void setOre(int o) { ore = o;}
 
     public void setMule(int m) { mule = m; }
+
+    public Map<String, Integer> getResourceList() {return RESOURCE_LIST;}
 
     public boolean canPurchase(String item) {
         switch(item) {

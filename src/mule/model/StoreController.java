@@ -13,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,7 +42,7 @@ public final class StoreController {
 
     @FXML
     private void initialize() {
-        ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
+        List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
 
         ArrayList<Label> scoreView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
         scoreView.add(player1score);
@@ -117,15 +118,15 @@ public final class StoreController {
 
     @FXML
     private void handleReturnToMap(ActionEvent event) {
-        gameScene = ConfigureController.gameScene;
-        gameStage = ConfigureController.gameStage;
+        gameScene = ConfigureController.getGameScene();
+        gameStage = ConfigureController.getGameStage();
         gameStage.setScene(gameScene);
     }
 
     @FXML
     private void handleReturnToMap() {
-        gameScene = ConfigureController.gameScene;
-        gameStage = ConfigureController.gameStage;
+        gameScene = ConfigureController.getGameScene();
+        gameStage = ConfigureController.getGameStage();
         gameStage.setScene(gameScene);
     }
 
@@ -194,7 +195,7 @@ public final class StoreController {
         updateValues();
     }
 
-    public void updateValues() {
+    private void updateValues() {
         food.setText(String.valueOf(GameController.currentPlayer.getFood()));
         money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
         energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
@@ -208,8 +209,8 @@ public final class StoreController {
     @FXML
     private void changeScreen(ActionEvent event) {
     	GameController.placingMule = true;
-    	gameScene = ConfigureController.gameScene;
-        gameStage = ConfigureController.gameStage;
+    	gameScene = ConfigureController.getGameScene();
+        gameStage = ConfigureController.getGameStage();
         gameStage.setScene(gameScene);
     }
 
