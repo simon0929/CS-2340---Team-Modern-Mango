@@ -7,11 +7,11 @@ import java.util.ArrayList;
  */
 public final class Game {
 	private int round, turn;
-	private ArrayList<Player> playerArr;
+	private final ArrayList<Player> playerArr;
 	private boolean selectedProp;
-	private Store store;
+	private final Store store;
 	private int randomFactor;
-	private final int randFact1 = 25, randFact2 = 50, randFact3 = 75, randFact4 = 100;
+	private static final int randFact1 = 25, randFact2 = 50, randFact3 = 75, randFact4 = 100;
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 

@@ -2,8 +2,8 @@ package mule.model;
 
 public class OreMule implements Mule {
 
-    String propertyType;
-    Player currentPlayer;
+    private final String propertyType;
+    private final Player currentPlayer;
 
     public OreMule(String propertyType) {
         this.propertyType = propertyType;
@@ -32,8 +32,4 @@ public class OreMule implements Mule {
         return propertyType;
     }
 
-    @Override
-    public void setPropertyType() {
-
-    }
 }

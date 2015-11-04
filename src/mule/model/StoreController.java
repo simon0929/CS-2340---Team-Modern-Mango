@@ -19,10 +19,6 @@ import java.util.TimerTask;
 
 import javafx.scene.control.Button;
 
-/**
- * Created by madijuby on 10/4/15.
- * Edited by Tyler Whitfield 10/5/15.
- */
 public final class StoreController {
 
     @FXML
@@ -40,43 +36,43 @@ public final class StoreController {
 
     private int turnTime;
 
-    public Stage gameStage;
+    private Stage gameStage;
 
-    public Scene gameScene;
+    private Scene gameScene;
 
     @FXML
     private void initialize() {
         ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
 
-        ArrayList<Label> scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        ArrayList<Label> scoreView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
         scoreView.add(player1score);
         scoreView.add(player2score);
         scoreView.add(player3score);
         scoreView.add(player4score);
 
-        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+        for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
             String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";
             scoreView.get(i).setText(s);
         }
 
-        ArrayList<Rectangle> colorView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        ArrayList<Rectangle> colorView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
         colorView.add(p1Color);
         colorView.add(p2Color);
         colorView.add(p3Color);
         colorView.add(p4Color);
 
-        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+        for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
             Color c = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getColor() : Color.TRANSPARENT;
             colorView.get(i).setFill(c);
         }
 
-        ArrayList<Label> nameView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        ArrayList<Label> nameView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
         nameView.add(name1);
         nameView.add(name2);
         nameView.add(name3);
         nameView.add(name4);
 
-        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+        for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
             String n = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getName() + ":" : "";
             nameView.get(i).setText(n);
         }
@@ -124,7 +120,7 @@ public final class StoreController {
     }
 
     @FXML
-    private void handleReturnToMap(ActionEvent event) throws IOException {
+    private void handleReturnToMap(ActionEvent event) {
         gameScene = ConfigureController.gameScene;
         gameStage = ConfigureController.gameStage;
         gameStage.setScene(gameScene);
@@ -186,15 +182,15 @@ public final class StoreController {
     	if(muleType.getValue() != null && buyMule.isPressed()) {
     		if (muleType.getSelectionModel().getSelectedItem().compareTo("food (+25)") == 0) {
     			message = GameController.currentPlayer.buyResource("foodMule");
-    			GameController.typeOfMule = "food";
+    			GameController.setTypeOfMule("food");
     		}
     		else if (muleType.getSelectionModel().getSelectedItem().compareTo("energy (+50)") == 0) {
                 message = GameController.currentPlayer.buyResource("energyMule");
-    			GameController.typeOfMule = "energy";
+    			GameController.setTypeOfMule("energy");
     		}
     		else if (muleType.getSelectionModel().getSelectedItem().compareTo("ore (+75)") == 0) {
                 message = GameController.currentPlayer.buyResource("oreMule");
-    			GameController.typeOfMule = "ore";
+    			GameController.setTypeOfMule("ore");
     		}
     	}
 
@@ -214,7 +210,7 @@ public final class StoreController {
     }
     
     @FXML
-    private void changeScreen(ActionEvent event) throws IOException {
+    private void changeScreen(ActionEvent event) {
     	GameController.placingMule = true;
     	gameScene = ConfigureController.gameScene;
         gameStage = ConfigureController.gameStage;

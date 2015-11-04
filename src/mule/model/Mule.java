@@ -2,9 +2,8 @@ package mule.model;
 
 public interface Mule {
 
-    public void calculateResourceChanges();
+    void calculateResourceChanges();
 
-    public String getPropertyType();
+    String getPropertyType();
 
-    public void setPropertyType();
 }

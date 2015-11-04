@@ -2,8 +2,8 @@ package mule.model;
 
 public class EnergyMule implements Mule {
 
-    String propertyType;
-    Player currentPlayer;
+    private final String propertyType;
+    private final Player currentPlayer;
 
     public EnergyMule(String propertyType) {
         this.propertyType = propertyType;
@@ -29,8 +29,4 @@ public class EnergyMule implements Mule {
         return propertyType;
     }
 
-    @Override
-    public void setPropertyType() {
-
-    }
 }
