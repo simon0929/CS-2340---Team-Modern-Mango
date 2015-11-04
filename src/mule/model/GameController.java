@@ -1,9 +1,7 @@
 package mule.model;
 
-import java.awt.*;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -28,11 +28,16 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class GameController {
+public class GameController implements java.io.Serializable {
 
     //Everything labeled @FXML relates directly to the .fxml files
 
-    @FXML
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@FXML
     private Label townLabel;
 
 	@FXML
@@ -51,8 +56,11 @@ public class GameController {
 
     @FXML
     private Rectangle p1Color, p2Color, p3Color, p4Color;
+    
+    @FXML
+    private MenuItem save, load;
 
-	public static Game game;
+	public Game game;
 
 	public static Player currentPlayer;
 
@@ -64,6 +72,8 @@ public class GameController {
 	private boolean selectionPhase;
 
 	public static ArrayList<Player> playerList, basePlayerList;
+	
+	private ArrayList<Player> constantPlayerList = new ArrayList<>();
 
     private ArrayList<Pane> propertyOwnedList;
 
@@ -79,20 +89,28 @@ public class GameController {
 	private void initialize() {
         ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
         playerList = ConfigureController.playerList;
-
+        this.game = ConfigureController.game;
         basePlayerList = playerList;
-		currentPlayer = ConfigureController.player1;
+        for (int i = 0; i < playerList.size(); i++) {
+        	constantPlayerList.add(playerList.get(i));
+        }
+        System.out.println("PlayerArr:");
+        System.out.println(game.getPlayerArr());
+		currentPlayer = this.game.getCurrPlayer();
 		turn.setText(currentPlayer.getName());
-		turnNumber = 1;
-        roundNumber = 1;
+		turnNumber = game.getTurn();
+        roundNumber = game.getRound();
         numOfPropBoughtInTurn = 0;
         numOfPropBoughtInRound = 0;
 		selectionPhase = true;
+		
 
         food.setText(String.valueOf(currentPlayer.getFood()));
 		money.setText(String.valueOf(currentPlayer.getMoney()));
 		energy.setText(String.valueOf(currentPlayer.getEnergy()));
 		ore.setText(String.valueOf(currentPlayer.getOre()));
+		round.setText(String.valueOf(roundNumber));
+		turn.setText(currentPlayer.getName());
 
         refreshScores();
 
@@ -142,6 +160,10 @@ public class GameController {
     }
 
     private void endTurn() {
+    	System.out.println("PlayerArr: Beginning of end turn:");
+        System.out.println(playerList);
+        System.out.println(turnNumber);
+        System.out.println();
         //refreshes screen
         game.update();
         this.randomEvent.setText("");
@@ -150,10 +172,9 @@ public class GameController {
         numOfPropBoughtInRound += numOfPropBoughtInTurn;
 
         //if the number of turns exceeds the number of players, the round ends
-        if (turnNumber > ConfigureController.maxPlayers) {
+        if (turnNumber > playerList.size()) {
             //Calculates all player scores and rearranges playerList for a new order for the next turn
             getTurnOrder();
-
             //Refreshes scores on GUI
             refreshScores();
 
@@ -169,12 +190,9 @@ public class GameController {
             else {
                 numOfPropBoughtInRound = 0;
             }
-
-
         }
 
         numOfPropBoughtInTurn = 0;
-
         currentPlayer = playerList.get(turnNumber - 1);
         turn.setText(currentPlayer.getName());
         if (Math.random() < .27) {
@@ -182,50 +200,50 @@ public class GameController {
         	this.randomEvent.setText(randEvent.random(game, currentPlayer));
         }
         updateTurnTime();
-
         if (currentPlayer.getMuleList().size() > 0) {
-            for(Button mule:currentPlayer.getMuleList()) {
+            for(Object muleButton:currentPlayer.getMuleList()) {
+            	Button mule = (Button) muleButton;
                 if (currentPlayer.getEnergy() >= 1) {
-                    Label label = (Label)mule.getParent().getChildrenUnmodifiable().get(0);
-                    String propertyType = label.getText();
-
-                    if (mule.getText().equals( "food")) {
-                        if (propertyType.equals("Plain")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setFood(currentPlayer.getFood() + 2);
-                        } else if (propertyType.equals("River")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setFood(currentPlayer.getFood() + 4);
-                            } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
-                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                currentPlayer.setFood(currentPlayer.getFood() + 1);
-                            }
-                    } else if (mule.getText().equals("energy")) {
-                        if (propertyType.equals("Plain")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
-                        } else if (propertyType.equals("River")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() + 2);
-                        } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
-                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
-                            }
-                    } else if (mule.getText().equals( "ore")) {
-                        if (propertyType.equals("Plain")) {
-                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                            currentPlayer.setOre(currentPlayer.getOre() + 1);
-                            } else if (propertyType.equals("M1")) {
-                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                currentPlayer.setOre(currentPlayer.getOre() + 2);
-                                } else if (propertyType.equals("M2")) {
-                                    currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                    currentPlayer.setOre(currentPlayer.getOre() + 3);
-                                } else if (propertyType.equals("M3")) {
-                                    currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                                    currentPlayer.setOre(currentPlayer.getOre() + 4);
-                                }
-                    }
+                	Label label = (Label)mule.getParent().getChildrenUnmodifiable().get(0);
+	                String propertyType = label.getText();
+	
+	                    if (mule.getText().equals( "food")) {
+	                    if (propertyType.equals("Plain")) {
+	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                        currentPlayer.setFood(currentPlayer.getFood() + 2);
+	                    } else if (propertyType.equals("River")) {
+	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                        currentPlayer.setFood(currentPlayer.getFood() + 4);
+	                        } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
+	                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                            currentPlayer.setFood(currentPlayer.getFood() + 1);
+	                        }
+	                } else if (mule.getText().equals("energy")) {
+	                    if (propertyType.equals("Plain")) {
+	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                        currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
+	                    } else if (propertyType.equals("River")) {
+	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                        currentPlayer.setEnergy(currentPlayer.getEnergy() + 2);
+	                    } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
+	                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                            currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
+	                        }
+	                } else if (mule.getText().equals( "ore")) {
+	                    if (propertyType.equals("Plain")) {
+	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                        currentPlayer.setOre(currentPlayer.getOre() + 1);
+	                        } else if (propertyType.equals("M1")) {
+	                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                            currentPlayer.setOre(currentPlayer.getOre() + 2);
+	                            } else if (propertyType.equals("M2")) {
+	                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                                currentPlayer.setOre(currentPlayer.getOre() + 3);
+	                            } else if (propertyType.equals("M3")) {
+	                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+	                                currentPlayer.setOre(currentPlayer.getOre() + 4);
+	                            }
+	                }
                 }
             }
         }
@@ -234,6 +252,7 @@ public class GameController {
         money.setText(String.valueOf(currentPlayer.getMoney()));
         energy.setText(String.valueOf(currentPlayer.getEnergy()));
         ore.setText(String.valueOf(currentPlayer.getOre()));
+        refreshScores();
     }
 
 	@FXML
@@ -275,11 +294,12 @@ public class GameController {
 
     private void getTurnOrder() {
         int minScore;
+        int size = playerList.size();
         ArrayList<Player> tempList = playerList;
         playerList = new ArrayList<>();
+        System.out.println(tempList);
         int j;
-
-        for (int i = 0; i < ConfigureController.maxPlayers; i++) {
+        for (int i = 0; i < size; i++) {
             j = 0;
             minScore = 0;
 
@@ -290,19 +310,16 @@ public class GameController {
 
                 j++;
             }
-
             playerList.add(tempList.get(minScore));
             tempList.remove(minScore);
         }
     }
 
     private void refreshScores() {
-        ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
-
-        String s1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? String.valueOf(playerArr.get(0).getScore()) : "";
-        String s2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? String.valueOf(playerArr.get(1).getScore()) : "";
-        String s3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? String.valueOf(playerArr.get(2).getScore()) : "";
-        String s4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? String.valueOf(playerArr.get(3).getScore()) : "";
+        String s1 = (constantPlayerList.size() >= 1 && constantPlayerList.get(0) != null) ? String.valueOf(constantPlayerList.get(0).getScore()) : "";
+        String s2 = (constantPlayerList.size() >= 2 && constantPlayerList.get(1) != null) ? String.valueOf(constantPlayerList.get(1).getScore()) : "";
+        String s3 = (constantPlayerList.size() >= 3 && constantPlayerList.get(2) != null) ? String.valueOf(constantPlayerList.get(2).getScore()) : "";
+        String s4 = (constantPlayerList.size() == 4 && constantPlayerList.get(3) != null) ? String.valueOf(constantPlayerList.get(3).getScore()) : "";
         player1score.setText(s1);
         player2score.setText(s2);
         player3score.setText(s3);
@@ -428,6 +445,38 @@ public class GameController {
     		}
 			placingMule = false;
 			currentPlayer.addToMuleList(clickedbtn);
+    	}
+    }
+    
+    @FXML
+    private void handleSave (ActionEvent event) throws IOException {
+    	try {
+    		FileOutputStream fileOut = new FileOutputStream("/tmp/game.ser");
+    		ObjectOutputStream out = new ObjectOutputStream(fileOut);
+    		out.writeObject(game);
+    		out.close();
+    		fileOut.close();
+    		
+    		FileOutputStream fileOut1 = new FileOutputStream("/tmp/round.ser");
+    		ObjectOutputStream out1 = new ObjectOutputStream(fileOut1);
+    		out1.writeInt(game.getRound());
+    		out1.close();
+    		fileOut1.close();
+    		
+    		FileOutputStream fileOut2 = new FileOutputStream("/tmp/turn.ser");
+    		ObjectOutputStream out2 = new ObjectOutputStream(fileOut2);
+    		out2.writeInt(game.getTurn());
+    		out2.close();
+    		fileOut2.close();
+    		
+    		FileOutputStream fileOut3 = new FileOutputStream("/tmp/m.ser");
+    		ObjectOutputStream out3 = new ObjectOutputStream(fileOut3);
+    		out3.writeInt(game.getM());
+    		out3.close();
+    		fileOut3.close();
+    		System.out.println("save went through");
+    	} catch (IOException i) {
+    		i.printStackTrace();
     	}
     }
 }

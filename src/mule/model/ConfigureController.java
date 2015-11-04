@@ -1,7 +1,8 @@
 package mule.model;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,14 +14,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
-public final class ConfigureController {
+public final class ConfigureController implements java.io.Serializable{
 
 	//Everything labeled @FXML relates directly to the .fxml files
+
+	/**
+	 * 
+	 */
+	//private static final long serialVersionUID = 1L;
 
 	@FXML
 	private RadioButton standMap, randomMap, beginDiff, stndDiff, tourDiff;
@@ -42,7 +50,13 @@ public final class ConfigureController {
 
 	@FXML
 	private Button startGameButton;
+	
+	@FXML
+	private MenuItem load;
 
+	@FXML 
+	//private Tab playersTab;
+	
 	private String diff;
 
 	public static Game game;
@@ -58,10 +72,6 @@ public final class ConfigureController {
 	public static int maxPlayers;
 
 	public static int minNumPlayers = 2, maxNumPlayers = 4;
-
-
-	private ConfigureController() {
-	}
 
 	@FXML
 	private void initialize() {
@@ -96,10 +106,19 @@ public final class ConfigureController {
 				p2Name.setDisable(false);
 				p2Color.setDisable(false);
 				p2Race.setDisable(false);
+				p3Name.setDisable(true);
+				p3Color.setDisable(true);
+				p3Race.setDisable(true);
+				p4Name.setDisable(true);
+				p4Color.setDisable(true);
+				p4Race.setDisable(true);
 			} if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() >= minNumPlayers + 1) {
 				p3Name.setDisable(false);
 				p3Color.setDisable(false);
 				p3Race.setDisable(false);
+				p4Name.setDisable(true);
+				p4Color.setDisable(true);
+				p4Race.setDisable(true);
 			} if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == maxNumPlayers) {
 				p4Name.setDisable(false);
 				p4Color.setDisable(false);
@@ -159,5 +178,52 @@ public final class ConfigureController {
 		gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		gameStage.setScene(gameScene);
 		gameStage.show();
+	}
+	
+	@FXML
+	private void handleLoad(ActionEvent event) throws IOException {
+		try {
+    		FileInputStream fileIn = new FileInputStream("/tmp/game.ser");
+    		ObjectInputStream in = new ObjectInputStream(fileIn);
+    		game = (Game) in.readObject();
+    		playerList = game.getPlayerArr();
+    		in.close();
+    		fileIn.close();
+    		
+    		FileInputStream fileIn1 = new FileInputStream("/tmp/round.ser");
+    		ObjectInputStream in1 = new ObjectInputStream(fileIn1);
+    		game.setRound(in1.readInt());
+    		in1.close();
+    		fileIn1.close();
+    		
+    		FileInputStream fileIn2 = new FileInputStream("/tmp/turn.ser");
+    		ObjectInputStream in2 = new ObjectInputStream(fileIn2);
+    		game.setTurn(in2.readInt());
+    		in2.close();
+    		fileIn2.close();
+    		
+    		FileInputStream fileIn3 = new FileInputStream("/tmp/m.ser");
+    		ObjectInputStream in3 = new ObjectInputStream(fileIn3);
+    		game.setM(in3.readInt());
+    		in3.close();
+    		fileIn3.close();
+    		System.out.println("Load worked");
+    		
+    		for (int i = 0; i < playerList.size(); i++) {
+    			playerList.get(i).setColor(playerList.get(i).newColor);
+    		}
+    		
+    		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
+    		gameScene = new Scene(gameScreenParent);
+    		gameStage = (Stage) startGameButton.getScene().getWindow();
+    		gameStage.setScene(gameScene);
+    		gameStage.show();
+    	} catch (IOException i) {
+    		i.printStackTrace();
+    		return;
+    	} catch (ClassNotFoundException c) {
+    		c.printStackTrace();
+    		return;
+    	}
 	}
 }

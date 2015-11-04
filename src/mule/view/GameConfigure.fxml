@@ -5,15 +5,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="523.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.ConfigureController">
+<AnchorPane prefHeight="525.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.ConfigureController">
    <children>
-      <TabPane layoutX="-100.0" layoutY="-143.0" prefHeight="500.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar prefHeight="29.0" prefWidth="583.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="load" mnemonicParsing="false" onAction="#handleLoad" text="Load" />
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane layoutX="-100.0" layoutY="28.0" prefHeight="497.0" prefWidth="583.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
         <tabs>
           <Tab text="Players">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ChoiceBox id="numOfPlayers" fx:id="numOfPlayers" layoutX="14.0" layoutY="54.0" onKeyPressed="#handleNumSelect" prefWidth="150.0">
+                        <ChoiceBox id="numOfPlayers" fx:id="numOfPlayers" layoutX="14.0" layoutY="54.0" onKeyPressed="#handleNumSelect" onMouseMoved="#handleNumSelect" prefWidth="150.0">
                            <contextMenu>
                               <ContextMenu>
                                 <items>
@@ -55,7 +65,8 @@
                         <ChoiceBox fx:id="p3Race" disable="true" layoutX="355.0" layoutY="288.0" prefWidth="150.0" />
                         <ChoiceBox fx:id="p4Race" disable="true" layoutX="355.0" layoutY="358.0" prefWidth="150.0" />
                         <Label layoutX="178.0" layoutY="59.0" text="Select and Press Enter" />
-                     </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
             </content>
           </Tab>
           <Tab text="Map/Difficulty">
@@ -69,21 +80,22 @@
                         </RadioButton>
                         <RadioButton id="randomRadio" fx:id="randomMap" layoutX="16.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Random" toggleGroup="$mapType" />
                         <Label layoutX="37.0" layoutY="14.0" text="Choose Map Type" />
-                        <Label layoutX="121.0" layoutY="386.0" text="Select Difficulty" />
-                        <RadioButton id="beginnerRadio" fx:id="beginDiff" layoutX="16.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Beginner">
+                        <Label layoutX="118.0" layoutY="369.0" text="Select Difficulty" />
+                        <RadioButton id="beginnerRadio" fx:id="beginDiff" layoutX="15.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Beginner">
                            <toggleGroup>
                               <ToggleGroup fx:id="difficultyType" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton id="standDifRadio" fx:id="stndDiff" layoutX="114.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Standard" toggleGroup="$difficultyType" />
-                        <RadioButton id="tourRadio" fx:id="tourDiff" layoutX="211.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Tournament" toggleGroup="$difficultyType" />
+                        <RadioButton id="standDifRadio" fx:id="stndDiff" layoutX="109.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Standard" toggleGroup="$difficultyType" />
+                        <RadioButton id="tourRadio" fx:id="tourDiff" layoutX="208.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Tournament" toggleGroup="$difficultyType" />
                         <Pane layoutX="167.0" layoutY="14.0" prefHeight="355.0" prefWidth="406.0">
                            <children>
                               <Label layoutX="160.0" layoutY="170.0" text="Picture of Map" />
                            </children>
                         </Pane>
-                        <Button fx:id="startGameButton" disable="true" layoutX="457.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleStartGame" text="Start Game" />
-                     </children></AnchorPane>
+                        <Button fx:id="startGameButton" disable="true" layoutX="459.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleStartGame" text="Start Game" />
+                     </children>
+                  </AnchorPane>
             </content>
           </Tab>
         </tabs>

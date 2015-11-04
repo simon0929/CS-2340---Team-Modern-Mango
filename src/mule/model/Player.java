@@ -2,20 +2,25 @@ package mule.model;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+
 
 import java.util.ArrayList;
 
-public final class Player {
+public final class Player implements java.io.Serializable{
 
-    private String name, race, diff;
-    private Color color;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String name, race, diff;
+    private transient javafx.scene.paint.Color color;
+    public  java.awt.Color newColor;
     //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
-    private ArrayList<Pane> propertyList;
-    private ArrayList<Button> muleList;
+    private ArrayList<Object> propertyList;
+    private ArrayList<Object> muleList;
 
-    public Player(String n, String r, Color c, String d) {
+    public Player(String n, String r, javafx.scene.paint.Color c, String d) {
         name = n;
         race = r;
         color = c;
@@ -25,7 +30,9 @@ public final class Player {
         numOfFreeProperties = 2;
         propertyList = new ArrayList<>();
         muleList = new ArrayList<>();
-
+        
+        newColor = new java.awt.Color((int) c.getRed(), (int) c.getGreen(), (int) c.getBlue());
+        
         //Different races get different amounts of money
         if (race.equals("Flapper")) {
             money = 1600;
@@ -62,7 +69,7 @@ public final class Player {
         return diff;
     }
 
-    public Color getColor() {
+    public javafx.scene.paint.Color getColor() {
         return color;
     }
 
@@ -91,11 +98,11 @@ public final class Player {
 
     public int getNumOfFreeProperties() { return numOfFreeProperties; }
 
-    public ArrayList<Pane> getPropertyList() {
+    public ArrayList<Object> getPropertyList() {
         return propertyList;
     }
 
-    public ArrayList<Button> getMuleList() {
+    public ArrayList<Object> getMuleList() {
     	return muleList;
     }
 
@@ -117,6 +124,10 @@ public final class Player {
 
     public void setScore(int newScore) {
         score = newScore;
+    }
+    
+    public void setColor(java.awt.Color savedColor) {
+    	this.color = new javafx.scene.paint.Color(savedColor.getRed(), savedColor.getGreen(), savedColor.getBlue(), 1);
     }
 
     public void addToPropertyList(Pane pane) {

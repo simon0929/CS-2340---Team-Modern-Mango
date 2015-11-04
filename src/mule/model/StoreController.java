@@ -43,10 +43,13 @@ public final class StoreController {
     public Stage gameStage;
 
     public Scene gameScene;
+    
+    public Game game;
 
     @FXML
     private void initialize() {
         ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
+        this.game = ConfigureController.game;
 
         String s1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? String.valueOf(playerArr.get(0).getScore()) : "";
         String s2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? String.valueOf(playerArr.get(1).getScore()) : "";
@@ -75,15 +78,15 @@ public final class StoreController {
         name3.setText(n3);
         name4.setText(n4);
 
-        food.setText(String.valueOf(GameController.currentPlayer.getFood()));
-        money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
-        energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
-        ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
+        food.setText(String.valueOf(game.currentPlayer.getFood()));
+        money.setText(String.valueOf(game.currentPlayer.getMoney()));
+        energy.setText(String.valueOf(game.currentPlayer.getEnergy()));
+        ore.setText(String.valueOf(game.currentPlayer.getOre()));
 
-        storeOre.setText(String.valueOf(GameController.game.getStore().getOre()));
-        storeFood.setText(String.valueOf(GameController.game.getStore().getFood()));
-        storeEnergy.setText(String.valueOf(GameController.game.getStore().getEnergy()));
-        storeMule.setText(String.valueOf(GameController.game.getStore().getMule()));
+        storeOre.setText(String.valueOf(game.getStore().getOre()));
+        storeFood.setText(String.valueOf(game.getStore().getFood()));
+        storeEnergy.setText(String.valueOf(game.getStore().getEnergy()));
+        storeMule.setText(String.valueOf(game.getStore().getMule()));
         storeMessage.setText("");
 
 
@@ -197,14 +200,14 @@ public final class StoreController {
     }
 
     public void updateValues() {
-        food.setText(String.valueOf(GameController.currentPlayer.getFood()));
-        money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
-        energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
-        ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
-        storeOre.setText(String.valueOf(GameController.game.getStore().getOre()));
-        storeFood.setText(String.valueOf(GameController.game.getStore().getFood()));
-        storeEnergy.setText(String.valueOf(GameController.game.getStore().getEnergy()));
-        storeMule.setText(String.valueOf(GameController.game.getStore().getMule()));
+        food.setText(String.valueOf(game.currentPlayer.getFood()));
+        money.setText(String.valueOf(game.currentPlayer.getMoney()));
+        energy.setText(String.valueOf(game.currentPlayer.getEnergy()));
+        ore.setText(String.valueOf(game.currentPlayer.getOre()));
+        storeOre.setText(String.valueOf(game.getStore().getOre()));
+        storeFood.setText(String.valueOf(game.getStore().getFood()));
+        storeEnergy.setText(String.valueOf(game.getStore().getEnergy()));
+        storeMule.setText(String.valueOf(game.getStore().getMule()));
     }
     
     @FXML
