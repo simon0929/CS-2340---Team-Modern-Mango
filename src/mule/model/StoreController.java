@@ -23,7 +23,8 @@ public final class StoreController {
 
     @FXML
     private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
-            player4score, storeOre, storeEnergy, storeFood, storeMule, storeMessage, name1, name2, name3, name4;
+            player4score, storeOre, storeEnergy, storeFood, storeMule, storeMessage, name1, name2, name3, name4,
+            foodPrice, energyPrice, orePrice;
 
     @FXML
     private Button buyOre, buyEnergy, buyFood, buyMule, sellOre, sellEnergy, sellFood;
@@ -82,12 +83,15 @@ public final class StoreController {
         energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
         ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
 
+        foodPrice.setText(String.valueOf(Store.getResourceList().get("food")));
+        energyPrice.setText(String.valueOf(Store.getResourceList().get("energy")));
+        orePrice.setText(String.valueOf(Store.getResourceList().get("ore")));
+
         storeOre.setText(String.valueOf(ConfigureController.getGame().getStore().getOre()));
         storeFood.setText(String.valueOf(ConfigureController.getGame().getStore().getFood()));
         storeEnergy.setText(String.valueOf(ConfigureController.getGame().getStore().getEnergy()));
         storeMule.setText(String.valueOf(ConfigureController.getGame().getStore().getMule()));
         storeMessage.setText("");
-
 
         round.setText(String.valueOf(GameController.roundNumber));
         turn.setText(GameController.currentPlayer.getName());

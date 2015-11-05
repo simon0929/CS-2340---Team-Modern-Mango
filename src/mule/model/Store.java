@@ -51,7 +51,7 @@ public final class Store {
 
     public void setMule(int m) { mule = m; }
 
-    public Map<String, Integer> getResourceList() {return RESOURCE_LIST;}
+    public static  Map<String, Integer> getResourceList() {return RESOURCE_LIST;}
 
     public boolean canPurchase(String item) {
         switch(item) {
