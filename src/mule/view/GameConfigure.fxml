@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.layout.AnchorPane?>
 <AnchorPane prefHeight="523.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.ConfigureController">
    <children>
       <AnchorPane layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -40,7 +38,6 @@
                </toggleGroup>
             </RadioButton>
             <RadioButton id="standardRadio" fx:id="standMap" layoutX="64.0" layoutY="329.0" mnemonicParsing="false" onAction="#enableStartButton" text="Standard" toggleGroup="$mapType" />
-            <Label layoutX="22.0" layoutY="367.0" text="Select Difficulty" />
             <RadioButton id="tourRadio" fx:id="tourDiff" layoutX="292.0" layoutY="404.0" mnemonicParsing="false" onAction="#enableStartButton" text="Tournament">
                <toggleGroup>
                   <ToggleGroup fx:id="difficultyType" />
@@ -52,5 +49,6 @@
          </children>
       </AnchorPane>
       <Label layoutX="188.0" layoutY="46.0" text="Select and Press Enter" />
+      <Label layoutX="22.0" layoutY="388.0" text="Select Difficulty" />
    </children>
 </AnchorPane>

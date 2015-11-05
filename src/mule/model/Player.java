@@ -14,6 +14,9 @@ public final class Player {
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
     private final List<Pane> propertyList;
     private final List<Mule> muleList;
+    private static final int INIT_MONEY_F = 1600, INIT_MONEY_H = 600, INIT_MONEY_OTHER = 1000, INIT_FOOD_B = 8,
+            INIT_ENERGY_B = 4, INIT_ORE_B = 0, INIT_FOOD_OTHER = 4, INIT_ENERGY_OTHER = 2, INIT_ORE_OTHER = 0,
+            SCORE_CALC_MULTIPLIER = 500;
 
     public Player(String n, String r, Color c, String d) {
         name = n;
@@ -29,25 +32,25 @@ public final class Player {
         //Different races get different amounts of money
         switch (race) {
             case "Flapper":
-                money = 1600;
+                money = INIT_MONEY_F;
                 break;
             case "Human":
-                money = 600;
+                money = INIT_MONEY_H;
                 break;
             default:
-                money = 1000;
+                money = INIT_MONEY_OTHER;
                 break;
         }
 
         //Different difficulties get different resources
         if(diff.equals("beginner")) {
-            food = 8;
-            energy = 4;
-            ore = 0;
+            food = INIT_FOOD_B;
+            energy = INIT_ENERGY_B;
+            ore = INIT_ORE_B;
         } else {
-            food = 4;
-            energy = 2;
-            ore = 0;
+            food = INIT_FOOD_OTHER;
+            energy = INIT_ENERGY_OTHER;
+            ore = INIT_ORE_OTHER;
         }
     }
 
@@ -149,7 +152,7 @@ public final class Player {
     }
 
     public void calculateScore() {
-        score = money + (numOfProperties * 500) + food + energy + ore;
+        score = money + (numOfProperties * SCORE_CALC_MULTIPLIER) + food + energy + ore;
     }
 
     public String buyResource(String resource) {
@@ -160,7 +163,7 @@ public final class Player {
         if(!store.canPurchase(resource)) {
             message = "Not enough inventory in the store to make that purchase";
         } else {
-            int price = store.getResourceList().get(resource);
+            int price = Store.getResourceList().get(resource);
             if (price <= money) {
                 purchase(resource, price, store);
             } else {
@@ -208,7 +211,7 @@ public final class Player {
 
         Store store = ConfigureController.getGame().getStore();
         String message = "";
-        int price = store.getResourceList().get(resource);
+        int price = Store.getResourceList().get(resource);
         boolean sold = false;
 
         switch(resource) {

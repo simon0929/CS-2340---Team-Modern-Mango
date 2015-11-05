@@ -18,6 +18,8 @@ final class RandomEvent {
 		eventList.add("YOUR SPACE GYPSY IN-LAWS MADE A MESS OF THE TOWN. IT COST YOU $6*m TO CLEAN IT UP.");
 	}
 
+	private static final int RAND_MULTIPLIER = 4;
+
 	public String random(Game game, Player player) {
 		int m = game.getRandomFactor();
 		int randInt = calcRandInt(game);
@@ -54,7 +56,7 @@ final class RandomEvent {
 	private int calcRandInt(Game game) {
 		int randInt;
 		if (game.getTurn() == 1 && game.getRound() > 1) {
-			randInt = (int) (Math.random() * 4);
+			randInt = (int) (Math.random() * RAND_MULTIPLIER);
 		} else {
 			randInt = (int) (Math.random() * eventList.size());
 		}

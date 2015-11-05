@@ -7,20 +7,22 @@ public final class Store {
 
     private int food, energy, ore, mule;
     private static final int INIT_FOOD_B = 16, INIT_ENERGY_B = 16, INIT_ORE_B = 0, INIT_MULE_B = 25, INIT_FOOD_S = 8,
-            INIT_ENERGY_S = 8, INIT_ORE_S = 8, INIT_MULE_S = 14;
+            INIT_ENERGY_S = 8, INIT_ORE_S = 8, INIT_MULE_S = 14, FOOD_PRICE = 30, ENERGY_PRICE = 25, ORE_PRICE = 50,
+            E_MULE_PRICE = 150,F_MULE_PRICE = 125, O_MULE_PRICE = 175;
     private static final Map<String, Integer> RESOURCE_LIST = new HashMap<>();
-    {
-        RESOURCE_LIST.put("food", 30);
-        RESOURCE_LIST.put("energy", 25);
-        RESOURCE_LIST.put("ore", 50);
-        RESOURCE_LIST.put("energyMule", 150);
-        RESOURCE_LIST.put("foodMule", 125);
-        RESOURCE_LIST.put("oreMule", 175);
+    static {
+        RESOURCE_LIST.put("food", FOOD_PRICE);
+        RESOURCE_LIST.put("energy", ENERGY_PRICE);
+        RESOURCE_LIST.put("ore", ORE_PRICE);
+        RESOURCE_LIST.put("energyMule", E_MULE_PRICE);
+        RESOURCE_LIST.put("foodMule", F_MULE_PRICE);
+        RESOURCE_LIST.put("oreMule", O_MULE_PRICE);
     }
 
     public Store() {
         this("beginner");
     }
+
     public Store(String difficulty) {
         if (difficulty.equals("beginner")) {
             food = INIT_FOOD_B;

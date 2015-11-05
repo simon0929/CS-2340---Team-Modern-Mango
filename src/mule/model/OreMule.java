@@ -1,40 +1,34 @@
 package mule.model;
 
-public class OreMule implements Mule {
+import java.util.HashMap;
 
-    private final String propertyType;
-    private final Player currentPlayer;
+public class OreMule extends Mule {
+
+    static {
+
+        plainValue = 1;
+        riverValue = 0;
+        m1Value = 2;
+        m2Value = 3;
+        m3Value = 4;
+
+        productionValues = new HashMap<>(NUM_TYPES_OF_PROPERTY);
+        productionValues.put("River", riverValue);
+        productionValues.put("Plain", plainValue);
+        productionValues.put("M1", m1Value);
+        productionValues.put("M2", m2Value);
+        productionValues.put("M3", m3Value);
+    }
 
     public OreMule(String type) {
         this.propertyType = type;
         currentPlayer = GameController.currentPlayer;
     }
 
-    @Override
     public final void calculateResourceChanges() {
-        switch (propertyType) {
-            case "Plain":
-                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                currentPlayer.setOre(currentPlayer.getOre() + 1);
-                break;
-            case "M1":
-                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                currentPlayer.setOre(currentPlayer.getOre() + 2);
-                break;
-            case "M2":
-                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                currentPlayer.setOre(currentPlayer.getOre() + 3);
-                break;
-            case "M3":
-                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                currentPlayer.setOre(currentPlayer.getOre() + 4);
-                break;
+        if(!propertyType.equals("River")) {
+            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+            currentPlayer.setOre(currentPlayer.getEnergy() + productionValues.get(propertyType));
         }
     }
-
-    @Override
-    public final String getPropertyType() {
-        return propertyType;
-    }
-
 }

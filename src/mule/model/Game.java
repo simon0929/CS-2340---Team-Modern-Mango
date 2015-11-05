@@ -1,7 +1,9 @@
 package mule.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class Game {
 	private int round, turn;
@@ -10,6 +12,21 @@ public final class Game {
 	private final Store store;
 	private int randomFactor;
 	private static final int RAND_FACT_1 = 25, RAND_FACT_2 = 50, RAND_FACT_3 = 75, RAND_FACT_4 = 100;
+	private static final Map<Integer, Integer> RAND_FACTS = new HashMap<>();
+	static {
+		RAND_FACTS.put(1, RAND_FACT_1);
+		RAND_FACTS.put(2, RAND_FACT_1);
+		RAND_FACTS.put(3, RAND_FACT_1);
+		RAND_FACTS.put(4, RAND_FACT_2);
+		RAND_FACTS.put(5, RAND_FACT_2);
+		RAND_FACTS.put(6, RAND_FACT_2);
+		RAND_FACTS.put(7, RAND_FACT_2);
+		RAND_FACTS.put(8, RAND_FACT_3);
+		RAND_FACTS.put(9, RAND_FACT_3);
+		RAND_FACTS.put(10, RAND_FACT_3);
+		RAND_FACTS.put(11, RAND_FACT_3);
+		RAND_FACTS.put(12, RAND_FACT_4);
+	}
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 
@@ -48,21 +65,7 @@ public final class Game {
 		} else {
 			turn++;
 		}
-
-		if (turn <= 3) {
-			randomFactor = RAND_FACT_1;
-		} else {
-
-			if (turn >= 4 && turn <= 7) {
-				randomFactor = RAND_FACT_2;
-			} else {
-				if (turn >= 8 && turn <= 11) {
-				randomFactor = RAND_FACT_3;
-				} else {
-					randomFactor = RAND_FACT_4;
-				}
-			}
-		}
+		randomFactor = RAND_FACTS.get(turn);
 		selectedProp = false;
 	}
 

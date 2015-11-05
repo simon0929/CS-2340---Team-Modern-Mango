@@ -1,38 +1,33 @@
 package mule.model;
 
-public class EnergyMule implements Mule {
+import java.util.HashMap;
 
-    private final String propertyType;
-    private final Player currentPlayer;
+public class EnergyMule extends Mule {
+
+    static {
+
+        plainValue = 3;
+        riverValue = 2;
+        m1Value = 1;
+        m2Value = 1;
+        m3Value = 1;
+
+        productionValues = new HashMap<>(NUM_TYPES_OF_PROPERTY);
+        productionValues.put("River", riverValue);
+        productionValues.put("Plain", plainValue);
+        productionValues.put("M1", m1Value);
+        productionValues.put("M2", m2Value);
+        productionValues.put("M3", m3Value);
+    }
+
+    public final void calculateResourceChanges() {
+        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+        currentPlayer.setEnergy(currentPlayer.getEnergy() + productionValues.get(propertyType));
+    }
 
     public EnergyMule(String type) {
-        this.propertyType = type;
+        propertyType = type;
         currentPlayer = GameController.currentPlayer;
-    }
-
-    @Override
-    public final void calculateResourceChanges() {
-        switch (propertyType) {
-            case "Plain":
-                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
-                break;
-            case "River":
-                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                currentPlayer.setEnergy(currentPlayer.getEnergy() + 2);
-                break;
-            case "M1":
-            case "M2":
-            case "M3":
-                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-                currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
-                break;
-        }
-    }
-
-    @Override
-    public final String getPropertyType() {
-        return propertyType;
     }
 
 }

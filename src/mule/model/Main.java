@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 public final class Main extends Application {
 
 	private static final int WIDTH = 600, HEIGHT = 500;
@@ -19,7 +22,9 @@ public final class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			Logger logger = Logger.getLogger(Main.class.getName());
+			logger.log(Level.SEVERE, e.toString(), e);
 		}
 	}
 	
