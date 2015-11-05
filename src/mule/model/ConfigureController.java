@@ -26,8 +26,6 @@ public final class ConfigureController {
 	@FXML
 	private RadioButton standMap, beginDiff, standDiff;
 
-//	@FXML
-//	private ToggleGroup mapType, difficultyType;
 
 	@FXML
 	private ChoiceBox<Integer> numOfPlayers;
@@ -56,25 +54,27 @@ public final class ConfigureController {
 
 	private static final int MIN_NUM_PLAYERS = 2, MAX_NUM_PLAYERS = 4;
 
+
 	@FXML
 	private void initialize() {
-		final ObservableList<Integer> numPlay = FXCollections.observableArrayList();
-		for(int i = MIN_NUM_PLAYERS; i <= MAX_NUM_PLAYERS; i++) {
-			numPlay.add(i);
-		}
+        final ObservableList<Integer> numPlay = FXCollections.observableArrayList();
+        for (int i = MIN_NUM_PLAYERS; i <= MAX_NUM_PLAYERS; i++) {
+            numPlay.add(i);
+        }
 
-		numOfPlayers.setItems(numPlay);
-		final ObservableList<String> race = FXCollections.observableArrayList();
-		race.add("Human");
-		race.add("Flapper");
-		race.add("Bonzoid");
-		race.add("Ugaite");
-		race.add("Buzzite");
-		p1Race.setItems(race);
-		p2Race.setItems(race);
-		p3Race.setItems(race);
-		p4Race.setItems(race);
-		playerList = new ArrayList<>();
+        numOfPlayers.setItems(numPlay);
+        final ObservableList<String> race = FXCollections.observableArrayList();
+        race.add("Human");
+        race.add("Flapper");
+        race.add("Bonzoid");
+        race.add("Ugaite");
+        race.add("Buzzite");
+        p1Race.setItems(race);
+        p2Race.setItems(race);
+        p3Race.setItems(race);
+        p4Race.setItems(race);
+        playerList = new ArrayList<>();
+
 	}
 
 	//Selectively enables the correct number of Player entry fields based on max number of players
@@ -89,22 +89,29 @@ public final class ConfigureController {
 				p2Name.setDisable(false);
 				p2Color.setDisable(false);
 				p2Race.setDisable(false);
-			} if (numOfPlayers.getSelectionModel().getSelectedItem() >= MIN_NUM_PLAYERS + 1) {
+                p1Race.getSelectionModel().selectFirst();
+                p2Race.getSelectionModel().selectFirst();
+                beginDiff.setSelected(true);
+                standMap.setSelected(true);
+                startGameButton.setDisable(false);
+            } if (numOfPlayers.getSelectionModel().getSelectedItem() >= MIN_NUM_PLAYERS + 1) {
 				p3Name.setDisable(false);
 				p3Color.setDisable(false);
 				p3Race.setDisable(false);
+                p3Race.getSelectionModel().selectFirst();
 			} if (numOfPlayers.getSelectionModel().getSelectedItem() == MAX_NUM_PLAYERS) {
 				p4Name.setDisable(false);
 				p4Color.setDisable(false);
 				p4Race.setDisable(false);
+                p4Race.getSelectionModel().selectFirst();
 			}
 		}
 	}
 
-	//If the map difficulty and type of map have been chosen, it enables the start button.
-	@FXML
-	private void handleMapDiff() {
-		if (beginDiff.isSelected() && standMap.isSelected()) {
+    @FXML
+	private void enableStartButton() {
+		if (beginDiff.isSelected() && standMap.isSelected()
+                && numOfPlayers.getSelectionModel().getSelectedItem() != null) {
 			startGameButton.setDisable(false);
 		} else {
 			startGameButton.setDisable(true);
@@ -125,7 +132,6 @@ public final class ConfigureController {
 		} else {
 			diff = "tournament";
 		}
-
 
 		//Create new Game with correct number of players
 		Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
