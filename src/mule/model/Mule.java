@@ -1,9 +1,18 @@
 package mule.model;
 
-interface Mule {
+import java.util.Map;
 
-    void calculateResourceChanges();
+abstract class Mule {
 
-    String getPropertyType();
+    String propertyType;
+    Player currentPlayer;
+    static Map<String, Integer> productionValues;
+    static int plainValue, riverValue, m1Value, m2Value, m3Value;
+    static final int NUM_TYPES_OF_PROPERTY = 5;
+
+    public abstract void calculateResourceChanges();
+
+    public String getPropertyType() {return propertyType;}
+
 
 }

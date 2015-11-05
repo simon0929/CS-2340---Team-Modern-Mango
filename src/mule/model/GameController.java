@@ -82,7 +82,7 @@ public class GameController {
         List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
         playerList = ConfigureController.getPlayerList();
 
-        List<Player> basePlayerList = playerList;
+        //List<Player> basePlayerList = playerList;
 		currentPlayer = ConfigureController.getGame().getPlayerArr().get(0); //player1
 		turn.setText(currentPlayer.getName());
 		turnNumber = 1;
