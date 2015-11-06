@@ -43,6 +43,8 @@ public final class StoreController {
     public Stage gameStage;
 
     public Scene gameScene;
+    
+    public Game game;
 
     @FXML
     private void initialize() {
@@ -81,10 +83,10 @@ public final class StoreController {
             nameView.get(i).setText(n);
         }
 
-        food.setText(String.valueOf(GameController.currentPlayer.getFood()));
-        money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
-        energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
-        ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
+        food.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getFood()));
+        money.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getMoney()));
+        energy.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getEnergy()));
+        ore.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getOre()));
 
         storeOre.setText(String.valueOf(ConfigureController.getGame().getStore().getOre()));
         storeFood.setText(String.valueOf(ConfigureController.getGame().getStore().getFood()));

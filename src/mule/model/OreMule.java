@@ -1,9 +1,14 @@
 package mule.model;
 
-public class OreMule implements Mule {
+public class OreMule implements Mule, java.io.Serializable {
 
-    String propertyType;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String propertyType;
     Player currentPlayer;
+    public String type;
 
     public OreMule(String propertyType) {
         this.propertyType = propertyType;
@@ -36,4 +41,9 @@ public class OreMule implements Mule {
     public void setPropertyType() {
 
     }
+
+	@Override
+	public String getMuleType() {
+		return type = new String("ore");
+	}
 }

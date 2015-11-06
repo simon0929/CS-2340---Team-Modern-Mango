@@ -1,6 +1,9 @@
 package mule.model;
 
 public interface Mule {
+	
+	public String getMuleType();
+	
 
     public void calculateResourceChanges();
 

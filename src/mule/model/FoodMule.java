@@ -1,9 +1,14 @@
 package mule.model;
 
-public class FoodMule implements Mule {
+public class FoodMule implements Mule, java.io.Serializable {
 
-    String propertyType;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String propertyType;
     Player currentPlayer;
+    public String type;
 
     public FoodMule(String propertyType) {
         this.propertyType = propertyType;
@@ -33,4 +38,9 @@ public class FoodMule implements Mule {
     public void setPropertyType() {
 
     }
+
+	@Override
+	public String getMuleType() {
+		return type = new String("food");
+	}
 }

@@ -1,8 +1,12 @@
 package mule.model;
 
-public final class Store {
+public final class Store implements java.io.Serializable{
 
-    private int food, energy, ore, mule;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int food, energy, ore, mule;
 
     public Store() {
         this("beginner");

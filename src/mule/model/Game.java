@@ -5,12 +5,17 @@ import java.util.ArrayList;
 /**
  * Created by Hunter on 9/18/2015.
  */
-public final class Game {
+public final class Game implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int round, turn;
 	private ArrayList<Player> playerArr;
 	private boolean selectedProp;
 	private Store store;
 	private int m;
+	public Player currentPlayer;
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 
@@ -28,10 +33,12 @@ public final class Game {
 		round = 1;
 		selectedProp = false;
 		store = new Store(diff);
+		currentPlayer = playerArr.get(turn - 1);
 	}
 
 	public Player getCurrPlayer() {
-		return playerArr.get(turn - 1);
+		currentPlayer = playerArr.get(turn - 1);
+		return currentPlayer;
 	}
 
 	public boolean selectedProp() {
@@ -70,9 +77,17 @@ public final class Game {
 	public int getRound() {
 		return round;
 	}
+	
+	public void setRound(int round) {
+		this.round = round;
+	}
 
 	public int getTurn() {
 		return turn;
+	}
+	
+	public void setTurn(int turn) {
+		this.turn = turn;
 	}
 
 	public Store getStore() { return store; }
@@ -80,9 +95,17 @@ public final class Game {
 
 	public ArrayList<Player> getPlayerArr() {
 		return playerArr;
-		}
+	}
+	
+	public void setPlayerList(ArrayList<Player> newList) {
+		playerArr = newList;
+	}
 
 	public int getM() {
 		return m;
-		}
 	}
+	
+	public void setM(int m) {
+		this.m = m;
+	}
+}

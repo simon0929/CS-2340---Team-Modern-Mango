@@ -1,9 +1,15 @@
 package mule.model;
 
-public class EnergyMule implements Mule {
+public class EnergyMule implements Mule, java.io.Serializable {
 
-    String propertyType;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String propertyType;
     Player currentPlayer;
+    public String type;
+
 
     public EnergyMule(String propertyType) {
         this.propertyType = propertyType;
@@ -33,4 +39,8 @@ public class EnergyMule implements Mule {
     public void setPropertyType() {
 
     }
+	@Override
+	public String getMuleType() {
+		return type = new String("energy");
+	}
 }
