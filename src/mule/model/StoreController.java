@@ -82,6 +82,7 @@ public final class StoreController {
             String n = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getName() + ":" : "";
             nameView.get(i).setText(n);
         }
+
         food.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getFood()));
         money.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getMoney()));
         energy.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getEnergy()));

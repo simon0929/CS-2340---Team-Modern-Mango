@@ -10,6 +10,7 @@ public class EnergyMule implements Mule, java.io.Serializable {
     Player currentPlayer;
     public String type;
 
+
     public EnergyMule(String propertyType) {
         this.propertyType = propertyType;
         currentPlayer = GameController.currentPlayer;
@@ -38,7 +39,6 @@ public class EnergyMule implements Mule, java.io.Serializable {
     public void setPropertyType() {
 
     }
-
 	@Override
 	public String getMuleType() {
 		return type = new String("energy");

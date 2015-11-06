@@ -1,6 +1,5 @@
 package mule.model;
 
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 
@@ -17,7 +16,6 @@ public final class Player implements java.io.Serializable{
     public  java.awt.Color newColor;
     //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
-
     private ArrayList<String> propertyList;
     private ArrayList<Mule> muleList;
 
@@ -130,7 +128,6 @@ public final class Player implements java.io.Serializable{
     }
     
     public void setColor(java.awt.Color savedColor) {
-    	System.out.println(savedColor.getRed());
     	this.color = new javafx.scene.paint.Color(savedColor.getRed()/255.0, savedColor.getGreen()/255.0, savedColor.getBlue()/255.0, 1);
     }
 

@@ -1,6 +1,8 @@
 package mule.model;
 
 import java.io.*;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -54,9 +56,6 @@ public class GameController implements java.io.Serializable {
 	label30, label31, label32, label33, label34, label35, label36, label37, label38,
 	label40, label41, label42, label43, label44, label45, label46, label47, label48;
 
-//	@FXML
-//	private Pane pane;
-
     @FXML
     private Rectangle p1Color, p2Color, p3Color, p4Color;
     
@@ -86,7 +85,7 @@ public class GameController implements java.io.Serializable {
     private ArrayList<Label> scoreView;
     
     private ArrayList<Button> buttonList;
-    
+
     public Stage gameStage;
 
     public Scene gameScene;
@@ -105,6 +104,7 @@ public class GameController implements java.io.Serializable {
         	constantPlayerList.add(playerList.get(i));
         }
 		currentPlayer = game.getCurrPlayer();
+
 		turn.setText(currentPlayer.getName());
 		turnNumber = game.getTurn();
         roundNumber = game.getRound();
@@ -119,6 +119,12 @@ public class GameController implements java.io.Serializable {
 		ore.setText(String.valueOf(currentPlayer.getOre()));
 		round.setText(String.valueOf(roundNumber));
 		turn.setText(currentPlayer.getName());
+
+        scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        scoreView.add(player1score);
+        scoreView.add(player2score);
+        scoreView.add(player3score);
+        scoreView.add(player4score);
 
         scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
         scoreView.add(player1score);
@@ -153,6 +159,7 @@ public class GameController implements java.io.Serializable {
             String n = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getName() + ":" : "";
             nameView.get(i).setText(n);
         }
+
 
         turnTime = 50;
         startTurnTimer();
@@ -321,6 +328,7 @@ public class GameController implements java.io.Serializable {
     private void refreshScores() {
         ArrayList<Player> playerArr = constantPlayerList;
 
+
         for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
             String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";
             scoreView.get(i).setText(s);
@@ -456,6 +464,10 @@ public class GameController implements java.io.Serializable {
 
             if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
                     propertyOwnedList.contains("pane" + clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane" + clickedbtn.getParent().getId())) {
+            };
+
+            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
                 clickedbtn.setText("food");
                 clickedbtn.getParent();
                 mule = new FoodMule(propertyType);

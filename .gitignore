@@ -28,3 +28,5 @@ src/mule/GameController.class
 src/mule/Game.class
 
 *.class
+
+*.class

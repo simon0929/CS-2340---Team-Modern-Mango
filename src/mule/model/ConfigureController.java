@@ -23,12 +23,13 @@ import javafx.stage.Stage;
 
 public final class ConfigureController implements java.io.Serializable{
 
-	//Everything labeled @FXML relates directly to the .fxml files
-
 	/**
 	 * 
 	 */
-	//private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+
+	//Everything labeled @FXML relates directly to the .fxml files
+
 
 	@FXML
 	private RadioButton standMap, beginDiff, stndDiff;
@@ -74,6 +75,7 @@ public final class ConfigureController implements java.io.Serializable{
 	public static int minNumPlayers = 2, maxNumPlayers = 4;
 
 	public static boolean loaded = false;
+
 	@FXML
 	private void initialize() {
 		final ObservableList<Integer> numPlay = FXCollections.observableArrayList();
