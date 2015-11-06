@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -44,21 +46,25 @@ public class GameController implements java.io.Serializable {
 	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
             player4score, randomEvent, name1, name2, name3, name4;
 
-	@FXML
-	private Button label00, label10, label20, label30, label40, label50, label60, label70, label80,
-	label01, label11, label21, label31, label41, label51, label61, label71, label81,
-	label02, label12, label22, label32, label42, label52, label62, label72, label82,
-	label03, label13, label23, label33, label43, label53, label63, label73, label83,
-	label04, label14, label24, label34, label44, label54, label64, label74, label84;
+//	@FXML
+	private Button
+    label00, label01, label02, label03, label04, label05, label06, label07, label08,
+	label10, label11, label12, label13, label14, label15, label16, label17, label18,
+	label20, label21, label22, label23, label25, label26, label27, label28,
+	label30, label31, label32, label33, label34, label35, label36, label37, label38,
+	label40, label41, label42, label43, label44, label45, label46, label47, label48;
 
-	@FXML
-	private Pane pane;
+//	@FXML
+//	private Pane pane;
 
     @FXML
     private Rectangle p1Color, p2Color, p3Color, p4Color;
     
     @FXML
     private MenuItem save, load;
+    
+    @FXML
+    private GridPane grid;
 
 	public Game game;
 
@@ -75,8 +81,12 @@ public class GameController implements java.io.Serializable {
 	
 	private ArrayList<Player> constantPlayerList = new ArrayList<>();
 
-    private ArrayList<Pane> propertyOwnedList;
+    private ArrayList<String> propertyOwnedList;
 
+    private ArrayList<Label> scoreView;
+    
+    private ArrayList<Button> buttonList;
+    
     public Stage gameStage;
 
     public Scene gameScene;
@@ -87,16 +97,14 @@ public class GameController implements java.io.Serializable {
 
 	@FXML
 	private void initialize() {
-        ArrayList<Player> playerArr = ConfigureController.game.getPlayerArr();
-        playerList = ConfigureController.playerList;
-        this.game = ConfigureController.game;
+        ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
+        playerList = ConfigureController.getPlayerList();
+        this.game = ConfigureController.getGame();
         basePlayerList = playerList;
         for (int i = 0; i < playerList.size(); i++) {
         	constantPlayerList.add(playerList.get(i));
         }
-        System.out.println("PlayerArr:");
-        System.out.println(game.getPlayerArr());
-		currentPlayer = this.game.getCurrPlayer();
+		currentPlayer = game.getCurrPlayer();
 		turn.setText(currentPlayer.getName());
 		turnNumber = game.getTurn();
         roundNumber = game.getRound();
@@ -112,27 +120,40 @@ public class GameController implements java.io.Serializable {
 		round.setText(String.valueOf(roundNumber));
 		turn.setText(currentPlayer.getName());
 
+        scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        scoreView.add(player1score);
+        scoreView.add(player2score);
+        scoreView.add(player3score);
+        scoreView.add(player4score);
+
         refreshScores();
+        if (ConfigureController.loaded) {
+        	createButtonList();
+        	reDrawProperty();
+        }
 
-        Color c1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getColor() : Color.TRANSPARENT;
-        Color c2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getColor() : Color.TRANSPARENT;
-        Color c3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getColor() : Color.TRANSPARENT;
-        Color c4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getColor() : Color.TRANSPARENT;
-        p1Color.setFill(c1);
-        p2Color.setFill(c2);
-        p3Color.setFill(c3);
-        p4Color.setFill(c4);
+        ArrayList<Rectangle> colorView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        colorView.add(p1Color);
+        colorView.add(p2Color);
+        colorView.add(p3Color);
+        colorView.add(p4Color);
 
-        String n1 = (playerArr.size() >= 1 && playerArr.get(0) != null) ? playerArr.get(0).getName() + ":" : "";
-        String n2 = (playerArr.size() >= 2 && playerArr.get(1) != null) ? playerArr.get(1).getName() + ":" : "";
-        String n3 = (playerArr.size() >= 3 && playerArr.get(2) != null) ? playerArr.get(2).getName() + ":" : "";
-        String n4 = (playerArr.size() == 4 && playerArr.get(3) != null) ? playerArr.get(3).getName() + ":" : "";
-        name1.setText(n1);
-        name2.setText(n2);
-        name3.setText(n3);
-        name4.setText(n4);
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+            Color c = (constantPlayerList.size() >= i + 1 && constantPlayerList.get(i) != null) ? constantPlayerList.get(i).getColor() : Color.TRANSPARENT;
+            colorView.get(i).setFill(c);
+        }
 
-        game = ConfigureController.game;
+        ArrayList<Label> nameView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        nameView.add(name1);
+        nameView.add(name2);
+        nameView.add(name3);
+        nameView.add(name4);
+
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+            String n = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getName() + ":" : "";
+            nameView.get(i).setText(n);
+        }
+
         turnTime = 50;
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
@@ -160,12 +181,8 @@ public class GameController implements java.io.Serializable {
     }
 
     private void endTurn() {
-    	System.out.println("PlayerArr: Beginning of end turn:");
-        System.out.println(playerList);
-        System.out.println(turnNumber);
-        System.out.println();
         //refreshes screen
-        game.update();
+        ConfigureController.getGame().update();
         this.randomEvent.setText("");
         turnNumber++;
 
@@ -175,6 +192,7 @@ public class GameController implements java.io.Serializable {
         if (turnNumber > playerList.size()) {
             //Calculates all player scores and rearranges playerList for a new order for the next turn
             getTurnOrder();
+
             //Refreshes scores on GUI
             refreshScores();
 
@@ -197,53 +215,15 @@ public class GameController implements java.io.Serializable {
         turn.setText(currentPlayer.getName());
         if (Math.random() < .27) {
         	RandomEvent randEvent = new RandomEvent();
-        	this.randomEvent.setText(randEvent.random(game, currentPlayer));
+        	this.randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
         }
         updateTurnTime();
         if (currentPlayer.getMuleList().size() > 0) {
-            for(Object muleButton:currentPlayer.getMuleList()) {
-            	Button mule = (Button) muleButton;
+            for(Mule mule : currentPlayer.getMuleList()) {
+                System.out.println(currentPlayer.getMuleList().size());
+
                 if (currentPlayer.getEnergy() >= 1) {
-                	Label label = (Label)mule.getParent().getChildrenUnmodifiable().get(0);
-	                String propertyType = label.getText();
-	
-	                    if (mule.getText().equals( "food")) {
-	                    if (propertyType.equals("Plain")) {
-	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                        currentPlayer.setFood(currentPlayer.getFood() + 2);
-	                    } else if (propertyType.equals("River")) {
-	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                        currentPlayer.setFood(currentPlayer.getFood() + 4);
-	                        } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
-	                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                            currentPlayer.setFood(currentPlayer.getFood() + 1);
-	                        }
-	                } else if (mule.getText().equals("energy")) {
-	                    if (propertyType.equals("Plain")) {
-	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                        currentPlayer.setEnergy(currentPlayer.getEnergy() + 3);
-	                    } else if (propertyType.equals("River")) {
-	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                        currentPlayer.setEnergy(currentPlayer.getEnergy() + 2);
-	                    } else if (propertyType.equals("M1") || propertyType.equals("M2") || propertyType.equals("M3")) {
-	                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                            currentPlayer.setEnergy(currentPlayer.getEnergy() + 1);
-	                        }
-	                } else if (mule.getText().equals( "ore")) {
-	                    if (propertyType.equals("Plain")) {
-	                        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                        currentPlayer.setOre(currentPlayer.getOre() + 1);
-	                        } else if (propertyType.equals("M1")) {
-	                            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                            currentPlayer.setOre(currentPlayer.getOre() + 2);
-	                            } else if (propertyType.equals("M2")) {
-	                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                                currentPlayer.setOre(currentPlayer.getOre() + 3);
-	                            } else if (propertyType.equals("M3")) {
-	                                currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-	                                currentPlayer.setOre(currentPlayer.getOre() + 4);
-	                            }
-	                }
+                    mule.calculateResourceChanges();
                 }
             }
         }
@@ -259,12 +239,12 @@ public class GameController implements java.io.Serializable {
 	private void handleProperty(MouseEvent event) throws IOException {
         if (numOfPropBoughtInTurn == 0) {
             if (selectionPhase) {
-                if (!game.selectedProp()) {
-                    Color playerColor = game.getCurrPlayer().getColor();
+                if (!ConfigureController.getGame().selectedProp()) {
+                    Color playerColor = ConfigureController.getGame().getCurrPlayer().getColor();
 
                     //Gets the actual property object that was clicked so that things can be done to it
-                    Pane property = (Pane) event.getSource();
-
+                    Pane mapElement = (Pane) event.getSource();
+                    String property = "pane" + mapElement.getId();
                     if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= 300) {
                         currentPlayer.incrementPropertyOwned();
                         propertyOwnedList.add(property);
@@ -291,13 +271,35 @@ public class GameController implements java.io.Serializable {
             }
         }
 	}
+	
+	private void reDrawProperty() {
+		//System.out.println("reDraw");
+        for (int j = 0; j < constantPlayerList.size(); j++) {
+        	Color playerColor = constantPlayerList.get(j).getColor();
+        	//System.out.println(playerColor);
+			for (int i = 0; i < 45; i++) {
+				if (constantPlayerList.get(j).getPropertyList().contains(grid.getChildren().get(i).getId())) {
+					Region reg = (Region) grid.getChildren().get(i);
+	                reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
+	                /*if (constantPlayerList.get(j).getMuleList().get(0) != null) {
+	                	String buttonName = "label" + grid.getChildren().get(i).getId().charAt(4) + grid.getChildren().get(i).getId().charAt(5);
+	                	for (int m = 0; m < 43; m++) {
+	                		System.out.println(buttonList.get(0));
+		                	if (buttonList.get(m).getId().compareTo(buttonName) == 0) {
+		                		buttonList.get(m).setText(constantPlayerList.get(j).getMuleList().get(0).getMuleType());
+		                	}
+	                	}
+	                }*/
+				}
+			}
+        }
+	}
 
     private void getTurnOrder() {
         int minScore;
         int size = playerList.size();
         ArrayList<Player> tempList = playerList;
         playerList = new ArrayList<>();
-        System.out.println(tempList);
         int j;
         for (int i = 0; i < size; i++) {
             j = 0;
@@ -312,18 +314,17 @@ public class GameController implements java.io.Serializable {
             }
             playerList.add(tempList.get(minScore));
             tempList.remove(minScore);
-        }
+        }        
+        game.setPlayerList(playerList);
     }
 
     private void refreshScores() {
-        String s1 = (constantPlayerList.size() >= 1 && constantPlayerList.get(0) != null) ? String.valueOf(constantPlayerList.get(0).getScore()) : "";
-        String s2 = (constantPlayerList.size() >= 2 && constantPlayerList.get(1) != null) ? String.valueOf(constantPlayerList.get(1).getScore()) : "";
-        String s3 = (constantPlayerList.size() >= 3 && constantPlayerList.get(2) != null) ? String.valueOf(constantPlayerList.get(2).getScore()) : "";
-        String s4 = (constantPlayerList.size() == 4 && constantPlayerList.get(3) != null) ? String.valueOf(constantPlayerList.get(3).getScore()) : "";
-        player1score.setText(s1);
-        player2score.setText(s2);
-        player3score.setText(s3);
-        player4score.setText(s4);
+        ArrayList<Player> playerArr = constantPlayerList;
+
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+            String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";
+            scoreView.get(i).setText(s);
+        }
     }
 
     private void updateTurnTime() {
@@ -432,19 +433,43 @@ public class GameController implements java.io.Serializable {
     	if (placingMule) {
     		Object source = event.getSource();
     		Button clickedbtn = (Button) source;
-    		if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-    		    clickedbtn.setText("food");
-    		    clickedbtn.getParent();
-    		} else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-    			clickedbtn.setText("energy");
-    		} else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-    				propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-    			clickedbtn.setText("ore");
-    		}
+            Label label = (Label) clickedbtn.getParent().getChildrenUnmodifiable().get(0);
+            String propertyType = label.getText();
+
+            Mule mule = new Mule() {
+                @Override
+                public String getPropertyType() {
+                    return null;
+                }
+
+                @Override
+                public void setPropertyType() {}
+
+                @Override
+                public void calculateResourceChanges() {}
+
+				@Override
+				public String getMuleType() {
+					return null;
+				}
+            };
+
+            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane" + clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane" + clickedbtn.getParent().getId())) {
+                clickedbtn.setText("food");
+                clickedbtn.getParent();
+                mule = new FoodMule(propertyType);
+            } else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane"+clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedbtn.getParent().getId())) {
+                clickedbtn.setText("energy");
+                mule = new EnergyMule(propertyType);
+            } else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane"+clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedbtn.getParent().getId())) {
+                clickedbtn.setText("ore");
+                mule = new OreMule(propertyType);
+            }
 			placingMule = false;
-			currentPlayer.addToMuleList(clickedbtn);
+			currentPlayer.addToMuleList(mule);
     	}
     }
     
@@ -478,5 +503,53 @@ public class GameController implements java.io.Serializable {
     	} catch (IOException i) {
     		i.printStackTrace();
     	}
+    }
+    
+    private void createButtonList() {
+    	buttonList = new ArrayList<>();
+    	buttonList.add(label00);
+    	buttonList.add(label01);
+    	buttonList.add(label02);
+    	buttonList.add(label03);
+    	buttonList.add(label04);
+    	buttonList.add(label05);
+    	buttonList.add(label06);
+    	buttonList.add(label07);
+    	buttonList.add(label08);
+    	buttonList.add(label10);
+    	buttonList.add(label11);
+    	buttonList.add(label12);
+    	buttonList.add(label13);
+    	buttonList.add(label14);
+    	buttonList.add(label15);
+    	buttonList.add(label16);
+    	buttonList.add(label17);
+    	buttonList.add(label18);
+    	buttonList.add(label20);
+    	buttonList.add(label21);
+    	buttonList.add(label22);
+    	buttonList.add(label23);
+    	buttonList.add(label25);
+    	buttonList.add(label26);
+    	buttonList.add(label27);
+    	buttonList.add(label28);
+    	buttonList.add(label30);
+    	buttonList.add(label31);
+    	buttonList.add(label32);
+    	buttonList.add(label33);
+    	buttonList.add(label34);
+    	buttonList.add(label35);
+    	buttonList.add(label36);
+    	buttonList.add(label37);
+    	buttonList.add(label38);
+    	buttonList.add(label40);
+    	buttonList.add(label41);
+    	buttonList.add(label42);
+    	buttonList.add(label43);
+    	buttonList.add(label44);
+    	buttonList.add(label45);
+    	buttonList.add(label46);
+    	buttonList.add(label47);
+    	buttonList.add(label48);
     }
 }

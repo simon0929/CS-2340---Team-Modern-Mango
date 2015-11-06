@@ -96,6 +96,10 @@ public final class Game implements java.io.Serializable {
 	public ArrayList<Player> getPlayerArr() {
 		return playerArr;
 	}
+	
+	public void setPlayerList(ArrayList<Player> newList) {
+		playerArr = newList;
+	}
 
 	public int getM() {
 		return m;

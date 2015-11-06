@@ -31,10 +31,10 @@ public final class ConfigureController implements java.io.Serializable{
 	//private static final long serialVersionUID = 1L;
 
 	@FXML
-	private RadioButton standMap, randomMap, beginDiff, stndDiff, tourDiff;
+	private RadioButton standMap, beginDiff, stndDiff;
 
-	@FXML
-	private ToggleGroup mapType, difficultyType;
+//	@FXML
+//	private ToggleGroup mapType, difficultyType;
 
 	@FXML
 	private ChoiceBox<Integer> numOfPlayers;
@@ -59,11 +59,11 @@ public final class ConfigureController implements java.io.Serializable{
 	
 	private String diff;
 
-	public static Game game;
+	private static Game game;
 
-	public static Player currentPlayer, player1, player2, player3, player4;
+	private static Player currentPlayer;
 
-	public static ArrayList<Player> playerList;
+	private static ArrayList<Player> playerList;
 
 	public static Stage gameStage;
 
@@ -73,6 +73,7 @@ public final class ConfigureController implements java.io.Serializable{
 
 	public static int minNumPlayers = 2, maxNumPlayers = 4;
 
+	public static boolean loaded = false;
 	@FXML
 	private void initialize() {
 		final ObservableList<Integer> numPlay = FXCollections.observableArrayList();
@@ -153,10 +154,13 @@ public final class ConfigureController implements java.io.Serializable{
 
 
 		//Create new Game with correct number of players
-		player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-		player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+		Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+		Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
 		playerList.add(player1);
 		playerList.add(player2);
+
+		Player player3 = null;
+		Player player4 = null;
 
 		if(maxPlayers >= minNumPlayers + 1) {
 			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
@@ -179,9 +183,11 @@ public final class ConfigureController implements java.io.Serializable{
 		gameStage.setScene(gameScene);
 		gameStage.show();
 	}
+
 	
 	@FXML
 	private void handleLoad(ActionEvent event) throws IOException {
+		loaded = true;
 		try {
     		FileInputStream fileIn = new FileInputStream("/tmp/game.ser");
     		ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -207,7 +213,6 @@ public final class ConfigureController implements java.io.Serializable{
     		game.setM(in3.readInt());
     		in3.close();
     		fileIn3.close();
-    		System.out.println("Load worked");
     		
     		for (int i = 0; i < playerList.size(); i++) {
     			playerList.get(i).setColor(playerList.get(i).newColor);
@@ -226,4 +231,9 @@ public final class ConfigureController implements java.io.Serializable{
     		return;
     	}
 	}
+
+	public static Game getGame() {return game;}
+
+	public static ArrayList<Player> getPlayerList() { return playerList;}
+
 }

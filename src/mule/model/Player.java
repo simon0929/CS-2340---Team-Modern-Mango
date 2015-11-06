@@ -17,8 +17,10 @@ public final class Player implements java.io.Serializable{
     public  java.awt.Color newColor;
     //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
-    private ArrayList<Object> propertyList;
-    private ArrayList<Object> muleList;
+
+    private ArrayList<String> propertyList;
+    private ArrayList<Mule> muleList;
+
 
     public Player(String n, String r, javafx.scene.paint.Color c, String d) {
         name = n;
@@ -31,8 +33,9 @@ public final class Player implements java.io.Serializable{
         propertyList = new ArrayList<>();
         muleList = new ArrayList<>();
         
-        newColor = new java.awt.Color((int) c.getRed(), (int) c.getGreen(), (int) c.getBlue());
-        
+        newColor = new java.awt.Color((float) c.getRed(), (float)c.getGreen(), (float)c.getBlue());
+        System.out.println(newColor);
+        System.out.println(c.getBlue());
         //Different races get different amounts of money
         if (race.equals("Flapper")) {
             money = 1600;
@@ -98,11 +101,11 @@ public final class Player implements java.io.Serializable{
 
     public int getNumOfFreeProperties() { return numOfFreeProperties; }
 
-    public ArrayList<Object> getPropertyList() {
+    public ArrayList<String> getPropertyList() {
         return propertyList;
     }
 
-    public ArrayList<Object> getMuleList() {
+    public ArrayList<Mule> getMuleList() {
     	return muleList;
     }
 
@@ -127,14 +130,15 @@ public final class Player implements java.io.Serializable{
     }
     
     public void setColor(java.awt.Color savedColor) {
-    	this.color = new javafx.scene.paint.Color(savedColor.getRed(), savedColor.getGreen(), savedColor.getBlue(), 1);
+    	System.out.println(savedColor.getRed());
+    	this.color = new javafx.scene.paint.Color(savedColor.getRed()/255.0, savedColor.getGreen()/255.0, savedColor.getBlue()/255.0, 1);
     }
 
-    public void addToPropertyList(Pane pane) {
+    public void addToPropertyList(String pane) {
         propertyList.add(pane);
     }
 
-    public void addToMuleList(Button mule) {
+    public void addToMuleList(Mule mule) {
     	muleList.add(mule);
     }
 
@@ -142,7 +146,7 @@ public final class Player implements java.io.Serializable{
         propertyList.remove(pane);
     }
 
-    public boolean hasProperty(Pane pane) {
+    public boolean hasProperty(String pane) {
         return propertyList.contains(pane);
     }
 
@@ -165,7 +169,7 @@ public final class Player implements java.io.Serializable{
     public String buyResource(String resource) {
 
         int price;
-        Store store = ConfigureController.game.getStore();
+        Store store = ConfigureController.getGame().getStore();
         boolean bought = false;
         String message = "";
 
@@ -237,7 +241,7 @@ public final class Player implements java.io.Serializable{
     public String sellResource(String resource) {
 
         int price;
-        Store store = ConfigureController.game.getStore();
+        Store store = ConfigureController.getGame().getStore();
         String message = "";
         Boolean sold = false;
 
