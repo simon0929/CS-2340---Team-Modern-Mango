@@ -39,9 +39,13 @@ public final class StoreController {
 
     private Stage gameStage;
 
-    private Scene gameScene;
-
+<<<<<<< HEAD
+    public Scene gameScene;
+    
     public Game game;
+=======
+    private Scene gameScene;
+>>>>>>> origin/master
 
     @FXML
     private void initialize() {

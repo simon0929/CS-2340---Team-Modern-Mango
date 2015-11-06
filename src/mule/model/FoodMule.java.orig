@@ -1,7 +1,7 @@
 package mule.model;
 
-import java.util.HashMap;
-public class FoodMule extends Mule implements java.io.Serializable {
+<<<<<<< HEAD
+public class FoodMule implements Mule, java.io.Serializable {
 
     /**
 	 * 
@@ -10,11 +10,12 @@ public class FoodMule extends Mule implements java.io.Serializable {
 	String propertyType;
     Player currentPlayer;
     public String type;
+=======
+import java.util.HashMap;
 
-    public FoodMule(String propertyType) {
-        this.propertyType = propertyType;
-        currentPlayer = GameController.currentPlayer;
-    }
+public class FoodMule extends Mule {
+>>>>>>> origin/master
+
     static {
 
         plainValue = 2;
@@ -36,8 +37,16 @@ public class FoodMule extends Mule implements java.io.Serializable {
         currentPlayer.setFood(currentPlayer.getEnergy() + productionValues.get(propertyType));
     }
 
+    public FoodMule(String type) {
+        this.propertyType = type;
+        currentPlayer = GameController.currentPlayer;
+    }
+
+<<<<<<< HEAD
 	@Override
 	public String getMuleType() {
 		return type = new String("food");
 	}
+=======
+>>>>>>> origin/master
 }

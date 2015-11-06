@@ -1,8 +1,20 @@
 package mule.model;
 
+<<<<<<< HEAD
+public class OreMule implements Mule, java.io.Serializable {
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String propertyType;
+    Player currentPlayer;
+    public String type;
+=======
 import java.util.HashMap;
 
 public class OreMule extends Mule {
+>>>>>>> origin/master
 
     static {
 
@@ -32,7 +44,7 @@ public class OreMule extends Mule {
         }
     }
 
-    @Override
+	@Override
 	public String getMuleType() {
 		return type = new String("ore");
 	}

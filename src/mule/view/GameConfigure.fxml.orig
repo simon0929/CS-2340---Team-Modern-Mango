@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<<<<<<< HEAD
+
+<AnchorPane prefHeight="525.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.ConfigureController">
+   <children>
+      <MenuBar prefHeight="29.0" prefWidth="583.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="load" mnemonicParsing="false" onAction="#handleLoad" text="Load" />
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane layoutX="-100.0" layoutY="28.0" prefHeight="497.0" prefWidth="583.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+        <tabs>
+          <Tab text="Players">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ChoiceBox id="numOfPlayers" fx:id="numOfPlayers" layoutX="14.0" layoutY="54.0" onKeyPressed="#handleNumSelect" onMouseMoved="#handleNumSelect" prefWidth="150.0">
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </ChoiceBox>
+                        <Label layoutX="36.0" layoutY="29.0" text="Number of Players" />
+                        <Label layoutX="66.0" layoutY="122.0" text="Player 1" />
+                        <TextField fx:id="p1Name" disable="true" layoutX="22.0" layoutY="150.0" promptText="name" />
+                        <ColorPicker fx:id="p1Color" disable="true" layoutX="228.0" layoutY="150.0" />
+                        <Label layoutX="231.0" layoutY="122.0" text="Choose Color" />
+                        <ChoiceBox fx:id="p1Race" disable="true" layoutX="355.0" layoutY="150.0" prefWidth="150.0" />
+                        <Label layoutX="390.0" layoutY="122.0" text="Choose Race" />
+                        <TextField fx:id="p2Name" disable="true" layoutX="22.0" layoutY="219.0" promptText="name" />
+                        <ColorPicker fx:id="p2Color" disable="true" layoutX="229.0" layoutY="219.0" />
+                        <ChoiceBox fx:id="p2Race" disable="true" layoutX="355.0" layoutY="219.0" prefWidth="150.0" />
+                        <Label layoutX="66.0" layoutY="193.0" text="Player 2" />
+                        <Label layoutX="231.0" layoutY="193.0" text="Choose Color" />
+                        <Label layoutX="390.0" layoutY="193.0" text="Choose Race" />
+                        <TextField fx:id="p3Name" disable="true" layoutX="22.0" layoutY="288.0" promptText="name" />
+                        <TextField fx:id="p4Name" disable="true" layoutX="22.0" layoutY="358.0" promptText="name" />
+                        <Label layoutX="65.0" layoutY="263.0" text="Player 3" />
+                        <Label layoutX="66.0" layoutY="334.0" text="Player 4" />
+                        <Label layoutX="231.0" layoutY="263.0" text="Choose Color" />
+                        <Label layoutX="231.0" layoutY="334.0" text="Choose Color" />
+                        <Label layoutX="390.0" layoutY="263.0" text="Choose Race" />
+                        <Label layoutX="390.0" layoutY="334.0" text="Choose Race" />
+                        <ColorPicker fx:id="p3Color" disable="true" layoutX="228.0" layoutY="288.0" />
+                        <ColorPicker fx:id="p4Color" disable="true" layoutX="229.0" layoutY="358.0" />
+                        <ChoiceBox fx:id="p3Race" disable="true" layoutX="355.0" layoutY="288.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="p4Race" disable="true" layoutX="355.0" layoutY="358.0" prefWidth="150.0" />
+                        <Label layoutX="178.0" layoutY="59.0" text="Select and Press Enter" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Map/Difficulty">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton id="standardRadio" fx:id="standMap" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Standard">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="mapType" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton id="randomRadio" fx:id="randomMap" layoutX="16.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Random" toggleGroup="$mapType" />
+                        <Label layoutX="37.0" layoutY="14.0" text="Choose Map Type" />
+                        <Label layoutX="118.0" layoutY="369.0" text="Select Difficulty" />
+                        <RadioButton id="beginnerRadio" fx:id="beginDiff" layoutX="15.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Beginner">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="difficultyType" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton id="standDifRadio" fx:id="stndDiff" layoutX="109.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Standard" toggleGroup="$difficultyType" />
+                        <RadioButton id="tourRadio" fx:id="tourDiff" layoutX="208.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleMapDiff" text="Tournament" toggleGroup="$difficultyType" />
+                        <Pane layoutX="167.0" layoutY="14.0" prefHeight="355.0" prefWidth="406.0">
+                           <children>
+                              <Label layoutX="160.0" layoutY="170.0" text="Picture of Map" />
+                           </children>
+                        </Pane>
+                        <Button fx:id="startGameButton" disable="true" layoutX="459.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleStartGame" text="Start Game" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+=======
+<AnchorPane prefHeight="523.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.ConfigureController">
+   <children>
+      <AnchorPane layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <ChoiceBox id="numOfPlayers" fx:id="numOfPlayers" layoutX="22.0" layoutY="30.0" onKeyPressed="#handleNumSelect" prefWidth="150.0">
+               <contextMenu>
+                  <ContextMenu>
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                     </items>
+                  </ContextMenu>
+               </contextMenu>
+            </ChoiceBox>
+            <Label layoutX="22.0" layoutY="6.0" text="Number of Players" />
+            <Label layoutX="61.0" layoutY="75.0" text="Choose Name" />
+            <TextField fx:id="p1Name" disable="true" layoutX="22.0" layoutY="115.0" promptText="name" text="Player 1" />
+            <ColorPicker fx:id="p1Color" disable="true" layoutX="228.0" layoutY="115.0" />
+            <Label layoutX="231.0" layoutY="75.0" text="Choose Color" />
+            <ChoiceBox fx:id="p1Race" disable="true" layoutX="355.0" layoutY="115.0" prefWidth="150.0" />
+            <Label layoutX="390.0" layoutY="75.0" text="Choose Race" />
+            <TextField fx:id="p2Name" disable="true" layoutX="22.0" layoutY="155.0" promptText="name" text="Player 2" />
+            <ColorPicker fx:id="p2Color" disable="true" layoutX="228.0" layoutY="155.0" />
+            <ChoiceBox fx:id="p2Race" disable="true" layoutX="355.0" layoutY="155.0" prefWidth="150.0" />
+            <TextField fx:id="p3Name" disable="true" layoutX="22.0" layoutY="195.0" promptText="name" text="Player 3" />
+            <TextField fx:id="p4Name" disable="true" layoutX="22.0" layoutY="235.0" promptText="name" text="Player 4" />
+            <ColorPicker fx:id="p3Color" disable="true" layoutX="228.0" layoutY="196.0" />
+            <ColorPicker fx:id="p4Color" disable="true" layoutX="228.0" layoutY="235.0" />
+            <ChoiceBox fx:id="p3Race" disable="true" layoutX="355.0" layoutY="195.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="p4Race" disable="true" layoutX="355.0" layoutY="235.0" prefWidth="150.0" />
+            <Label layoutX="22.0" layoutY="304.0" text="Choose Map Type" />
+            <RadioButton id="randomRadio" fx:id="randomMap" layoutX="178.0" layoutY="329.0" mnemonicParsing="false" onAction="#enableStartButton" text="Random">
+               <toggleGroup>
+                  <ToggleGroup fx:id="mapType" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton id="standardRadio" fx:id="standMap" layoutX="64.0" layoutY="329.0" mnemonicParsing="false" onAction="#enableStartButton" text="Standard" toggleGroup="$mapType" />
+            <RadioButton id="tourRadio" fx:id="tourDiff" layoutX="292.0" layoutY="404.0" mnemonicParsing="false" onAction="#enableStartButton" text="Tournament">
+               <toggleGroup>
+                  <ToggleGroup fx:id="difficultyType" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton id="standDifRadio" fx:id="standDiff" layoutX="176.0" layoutY="404.0" mnemonicParsing="false" onAction="#enableStartButton" text="Standard" toggleGroup="$difficultyType" />
+            <RadioButton id="beginnerRadio" fx:id="beginDiff" layoutX="64.0" layoutY="404.0" mnemonicParsing="false" onAction="#enableStartButton" text="Beginner" toggleGroup="$difficultyType" />
+            <Button fx:id="startGameButton" disable="true" layoutX="470.0" layoutY="440.0" mnemonicParsing="false" onAction="#handleStartGame" text="Start Game" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="188.0" layoutY="46.0" text="Select and Press Enter" />
+      <Label layoutX="22.0" layoutY="388.0" text="Select Difficulty" />
+>>>>>>> origin/master
+   </children>
+</AnchorPane>

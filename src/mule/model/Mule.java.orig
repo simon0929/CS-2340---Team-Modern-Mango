@@ -1,11 +1,17 @@
 package mule.model;
 
+<<<<<<< HEAD
+public interface Mule {
+	
+	public String getMuleType();
+	
+=======
 import java.util.Map;
+>>>>>>> origin/master
 
 abstract class Mule {
 
     String propertyType;
-    String type;
     Player currentPlayer;
     static Map<String, Integer> productionValues;
     static int plainValue, riverValue, m1Value, m2Value, m3Value;
@@ -14,8 +20,6 @@ abstract class Mule {
     public abstract void calculateResourceChanges();
 
     public String getPropertyType() {return propertyType;}
-
-    public String getMuleType() {return type;}
 
 
 }
