@@ -11,11 +11,11 @@ final class RandomEvent {
 		eventList = new ArrayList<>();
 		eventList.add("YOU JUST RECEIVED A PACKAGE FROM THE GT ALUMNI CONTAINING 3 FOOD AND 2 ENERGY UNITS.");
 		eventList.add("A WANDERING TECH STUDENT REPAID YOUR HOSPITALITY BY LEAVING TWO BARS OF ORE.");
-		eventList.add("THE MUSEUM BOUGHT YOUR ANTIQUE PERSONAL COMPUTER FOR $ 8*m.");
-		eventList.add("YOU FOUND A DEAD MOOSE RAT AND SOLD THE HIDE FOR $2*m.");
-		eventList.add("FLYING CAT-BUGS ATE THE ROOF OFF YOUR HOUSE. REPAIRS COST $4*m.");
+		eventList.add("THE MUSEUM BOUGHT YOUR ANTIQUE PERSONAL COMPUTER FOR $");
+		eventList.add("YOU FOUND A DEAD MOOSE RAT AND SOLD THE HIDE FOR $");
+		eventList.add("FLYING CAT-BUGS ATE THE ROOF OFF YOUR HOUSE. REPAIRS COST $");
 		eventList.add("MISCHIEVOUS UGA STUDENTS BROKE INTO YOUR STORAGE SHED AND STOLE HALF YOUR FOOD.");
-		eventList.add("YOUR SPACE GYPSY IN-LAWS MADE A MESS OF THE TOWN. IT COST YOU $6*m TO CLEAN IT UP.");
+		eventList.add("YOUR SPACE GYPSY IN-LAWS MADE A MESS OF THE TOWN. CLEANING IT UP COST YOU $");
 	}
 
 	private static final int RAND_MULTIPLIER = 4;
@@ -23,6 +23,7 @@ final class RandomEvent {
 	public String random(Game game, Player player) {
 		int m = game.getRandomFactor();
 		int randInt = calcRandInt(game);
+		String eventModifier = "";
 
 		switch(randInt) {
 			case 0:
@@ -34,13 +35,16 @@ final class RandomEvent {
 				break;
 			case 2:
 				player.setMoney(player.getMoney() + (8 * m));
+				eventModifier = Integer.toString(8*m);
 				break;
 			case 3:
 				player.setMoney(player.getMoney() + (2 * m));
+				eventModifier = Integer.toString(2*m);
 				break;
 			case 4:
 				int money4 = player.getMoney() - (4 * m);
 				player.setMoney(money4 >= 0 ? money4 : 0);
+				eventModifier = Integer.toString(4*m);
 				break;
 			case 5:
 				player.setFood(player.getFood() / 2);
@@ -48,9 +52,10 @@ final class RandomEvent {
 			case 6:
 				int money5 = player.getMoney() - (6 * m);
 				player.setMoney(money5 >= 0 ? money5 : 0);
+				eventModifier = Integer.toString(6*m);
 				break;
 		}
-		return eventList.get(randInt);
+		return eventList.get(randInt) + eventModifier;
 	}
 
 	private int calcRandInt(Game game) {
