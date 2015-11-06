@@ -73,7 +73,10 @@
                   <Pane id="02" fx:id="pane02" onMouseClicked="#handleProperty" prefHeight="85.0" prefWidth="58.0">
                      <children>
                         <Label layoutX="20.0" layoutY="36.0" text="M1" />
-                        <Button fx:id="label02" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label02" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                           <font>
+                              <Font size="11.0" />
+                           </font></Button>
                      </children>
                   </Pane>
                </children>

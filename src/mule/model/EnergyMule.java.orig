@@ -1,7 +1,9 @@
 package mule.model;
 
+import java.util.HashMap;
+
 <<<<<<< HEAD
-public class EnergyMule implements Mule, java.io.Serializable {
+public class EnergyMule extends Mule implements java.io.Serializable {
 
     /**
 	 * 
@@ -12,13 +14,38 @@ public class EnergyMule implements Mule, java.io.Serializable {
     public String type;
 
 =======
-import java.util.HashMap;
-
 public class EnergyMule extends Mule {
 >>>>>>> origin/master
 
     static {
 
+<<<<<<< HEAD
+        static {
+	        plainValue = 3;
+	        riverValue = 2;
+	        m1Value = 1;
+	        m2Value = 1;
+	        m3Value = 1;
+	
+	        productionValues = new HashMap<>(NUM_TYPES_OF_PROPERTY);
+	        productionValues.put("River", riverValue);
+	        productionValues.put("Plain", plainValue);
+	        productionValues.put("M1", m1Value);
+	        productionValues.put("M2", m2Value);
+	        productionValues.put("M3", m3Value);
+        }
+        
+
+    public final void calculateResourceChanges() {
+        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
+        currentPlayer.setEnergy(currentPlayer.getEnergy() + productionValues.get(propertyType));
+    }
+
+	@Override
+	public String getMuleType() {
+		return type = new String("energy");
+	}
+=======
         plainValue = 3;
         riverValue = 2;
         m1Value = 1;
@@ -42,12 +69,6 @@ public class EnergyMule extends Mule {
         propertyType = type;
         currentPlayer = GameController.currentPlayer;
     }
-<<<<<<< HEAD
-	@Override
-	public String getMuleType() {
-		return type = new String("energy");
-	}
-=======
 
 >>>>>>> origin/master
 }

@@ -11,11 +11,7 @@
    <children>
       <AnchorPane layoutX="-1.0" layoutY="25.0" prefHeight="120.0" prefWidth="530.0">
          <children>
-<<<<<<< HEAD
-            <Button layoutX="385.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#handleEndTurn" text="  End Turn  " textAlignment="CENTER" />
-=======
             <Button layoutX="435.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#handleEndTurn" text="  End Turn  " textAlignment="CENTER" />
->>>>>>> origin/master
             <Label layoutX="40.0" layoutY="5.0" text="Scores" />
             <Label layoutX="225.0" layoutY="5.0" text="Current Player Resources" />
             <Label layoutX="225.0" layoutY="25.0" text="Food: " />
@@ -96,13 +92,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label03" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label03" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label30" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -114,13 +110,13 @@
                      <children>
                         <Label layoutX="16.0" layoutY="38.0" text="River" />
 <<<<<<< HEAD
-                        <Button fx:id="label04" layoutX="8.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label04" layoutX="8.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label40" layoutX="8.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -132,13 +128,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label10" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label10" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label01" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -164,13 +160,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label12" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label12" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label21" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -182,13 +178,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label13" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label13" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label31" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -200,13 +196,13 @@
                      <children>
                         <Label layoutX="14.0" layoutY="36.0" text="River" />
 <<<<<<< HEAD
-                        <Button fx:id="label14" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label14" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label41" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -218,13 +214,13 @@
                      <children>
                         <Label layoutX="20.0" layoutY="35.0" text="M3" />
 <<<<<<< HEAD
-                        <Button fx:id="label20" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label20" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label02" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -235,14 +231,10 @@
                   <Pane id="21" fx:id="pane21" onMouseClicked="#handleProperty" prefHeight="85.0" prefWidth="59.0">
                      <children>
                         <Label layoutX="16.0" layoutY="36.0" text="Plain" />
-<<<<<<< HEAD
-                        <Button fx:id="label21" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
-=======
                         <Button fx:id="label12" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -268,13 +260,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label23" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label23" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label32" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -291,13 +283,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label30" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label30" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label03" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -309,13 +301,13 @@
                      <children>
                         <Label layoutX="20.0" layoutY="35.0" text="M2" />
 <<<<<<< HEAD
-                        <Button fx:id="label31" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label31" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label13" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -327,13 +319,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label32" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label32" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label23" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -359,13 +351,13 @@
                      <children>
                         <Label layoutX="14.0" layoutY="35.0" text="River" />
 <<<<<<< HEAD
-                        <Button fx:id="label34" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label34" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label43" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -377,13 +369,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label40" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label40" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label04" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -395,13 +387,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label41" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label41" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label14" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -413,13 +405,13 @@
                      <children>
                         <Label layoutX="20.0" layoutY="35.0" text="M2" />
 <<<<<<< HEAD
-                        <Button fx:id="label42" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label42" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label24" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -431,13 +423,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label43" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label43" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label34" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -463,13 +455,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label05" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label05" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label50" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -481,13 +473,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label15" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label15" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label51" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -499,13 +491,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label25" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label25" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label52" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -517,13 +509,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label35" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label35" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label53" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -535,13 +527,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label45" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label45" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label54" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -553,13 +545,13 @@
                      <children>
                         <Label layoutX="20.0" layoutY="36.0" text="M3" />
 <<<<<<< HEAD
-                        <Button fx:id="label06" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label06" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label501" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -571,13 +563,13 @@
                      <children>
                         <Label layoutX="17.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label07" layoutX="9.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label07" layoutX="9.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label70" layoutX="9.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -589,13 +581,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label16" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label16" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label61" layoutX="5.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -607,13 +599,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label17" layoutX="6.0" layoutY="57.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label17" layoutX="6.0" layoutY="57.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label71" layoutX="6.0" layoutY="57.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -625,13 +617,13 @@
                      <children>
                         <Label layoutX="20.0" layoutY="36.0" text="M3" />
 <<<<<<< HEAD
-                        <Button fx:id="label18" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label18" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label81" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -643,13 +635,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label08" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label08" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label80" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -661,13 +653,13 @@
                      <children>
                         <Label layoutX="13.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label26" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label26" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label62" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -679,13 +671,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label27" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label27" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label72" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -697,13 +689,13 @@
                      <children>
                         <Label layoutX="20.0" layoutY="35.0" text="M1" />
 <<<<<<< HEAD
-                        <Button fx:id="label28" layoutX="7.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label28" layoutX="7.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label82" layoutX="7.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -715,13 +707,13 @@
                      <children>
                         <Label layoutX="20.0" layoutY="35.0" text="M2" />
 <<<<<<< HEAD
-                        <Button fx:id="label36" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label36" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label63" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -733,13 +725,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label37" layoutX="5.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label37" layoutX="5.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label73" layoutX="5.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -751,13 +743,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label38" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label38" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label83" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -769,13 +761,13 @@
                      <children>
                         <Label layoutX="16.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label46" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label46" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label64" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -787,13 +779,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="35.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label47" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label47" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label74" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -805,13 +797,13 @@
                      <children>
                         <Label layoutX="20.0" layoutY="35.0" text="M2" />
 <<<<<<< HEAD
-                        <Button fx:id="label48" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label48" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label84" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -823,13 +815,13 @@
                      <children>
                         <Label layoutX="15.0" layoutY="36.0" text="Plain" />
 <<<<<<< HEAD
-                        <Button fx:id="label01" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
+                        <Button fx:id="label01" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
 =======
                         <Button fx:id="label10" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+>>>>>>> origin/master
                            <font>
                               <Font size="11.0" />
                            </font></Button>
->>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -837,19 +829,10 @@
             <Pane id="00" fx:id="pane00" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-<<<<<<< HEAD
-                  <Pane fx:id="pane00" onMouseClicked="#handleProperty" prefHeight="86.0" prefWidth="59.0">
-                     <children>
-                        <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                        <Button fx:id="label00" layoutX="6.0" layoutY="59.0" mnemonicParsing="false" onAction="#placeMule" text="Mule" />
-                     </children>
-                  </Pane>
-=======
                   <Button fx:id="label00" layoutX="6.0" layoutY="58.0" mnemonicParsing="false" onAction="#placeMule" text="Mule">
                      <font>
                         <Font size="11.0" />
                      </font></Button>
->>>>>>> origin/master
                </children>
             </Pane>
          </children>

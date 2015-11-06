@@ -384,14 +384,11 @@ public class GameController implements java.io.Serializable {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (turnTime >= 0) {
-                            timeLeft.setText(String.valueOf(turnTime--));
-                        } else {
-                            handleEndTurn();
-                        }
+                Platform.runLater(() -> {
+                    if (turnTime >= 0) {
+                        timeLeft.setText(String.valueOf(turnTime--));
+                    } else {
+                        handleEndTurn();
                     }
                 });
             }
