@@ -195,13 +195,10 @@ public class GameController {
         updateTurnTime();
 
         if (currentPlayer.getMuleList().size() > 0) {
-            for(Mule mule : currentPlayer.getMuleList()) {
-                System.out.println(currentPlayer.getMuleList().size());
-
-                if (currentPlayer.getEnergy() >= 1) {
-                    mule.calculateResourceChanges();
-                }
-            }
+            currentPlayer.getMuleList().stream().filter(mule -> mule != null
+                    && currentPlayer.getEnergy() >= 1).forEach(mule -> {
+                mule.calculateResourceChanges();
+            });
         }
 
         food.setText(String.valueOf(currentPlayer.getFood()));
