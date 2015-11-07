@@ -1,9 +1,14 @@
 package mule.model;
 
+<<<<<<< HEAD
+public class EnergyMule implements Mule, java.io.Serializable {
+
+=======
 import java.util.HashMap;
 
 public class EnergyMule extends Mule implements java.io.Serializable {
 
+>>>>>>> master
     /**
 	 * 
 	 */
@@ -39,6 +44,13 @@ public class EnergyMule extends Mule implements java.io.Serializable {
         currentPlayer.setEnergy(currentPlayer.getEnergy() + productionValues.get(propertyType));
     }
 
+<<<<<<< HEAD
+    @Override
+    public void setPropertyType() {
+
+    }
+=======
+>>>>>>> master
 	@Override
 	public String getMuleType() {
 		return type = new String("energy");

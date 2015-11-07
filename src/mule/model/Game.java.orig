@@ -16,6 +16,11 @@ public final class Game implements java.io.Serializable {
 	private int round, turn;
 	private List<Player> playerArr;
 	private boolean selectedProp;
+<<<<<<< HEAD
+	private Store store;
+	private int m;
+	public Player currentPlayer;
+=======
 	private final Store store;
 	private int randomFactor;
     public Player currentPlayer;
@@ -35,6 +40,7 @@ public final class Game implements java.io.Serializable {
 		RAND_FACTS.put(11, RAND_FACT_3);
 		RAND_FACTS.put(12, RAND_FACT_4);
 	}
+>>>>>>> master
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 
@@ -102,6 +108,19 @@ public final class Game implements java.io.Serializable {
 		return playerArr;
 	}
 	
+<<<<<<< HEAD
+	public void setPlayerList(ArrayList<Player> newList) {
+		playerArr = newList;
+	}
+
+	public int getM() {
+		return m;
+	}
+	
+	public void setM(int m) {
+		this.m = m;
+	}
+=======
 	public void setPlayerList(List<Player> playerList) {
 		playerArr = playerList;
 	}
@@ -113,4 +132,5 @@ public final class Game implements java.io.Serializable {
 	public void setRandomFactor(int randomFactor) {
 		this.randomFactor = randomFactor;
 	}
+>>>>>>> master
 }

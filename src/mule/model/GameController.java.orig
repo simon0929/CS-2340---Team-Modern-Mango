@@ -78,9 +78,13 @@ public class GameController implements java.io.Serializable {
 
 	private boolean selectionPhase;
 
+<<<<<<< HEAD
+	public static ArrayList<Player> playerList, basePlayerList;
+=======
 	List<Player> playerList;
 
 	public static List<Player> basePlayerList;
+>>>>>>> master
 	
 	private ArrayList<Player> constantPlayerList = new ArrayList<>();
 
@@ -123,6 +127,15 @@ public class GameController implements java.io.Serializable {
 		ore.setText(String.valueOf(currentPlayer.getOre()));
 		round.setText(String.valueOf(roundNumber));
 		turn.setText(currentPlayer.getName());
+<<<<<<< HEAD
+
+        scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        scoreView.add(player1score);
+        scoreView.add(player2score);
+        scoreView.add(player3score);
+        scoreView.add(player4score);
+=======
+>>>>>>> master
 
         scoreView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
         scoreView.add(player1score);
@@ -148,7 +161,11 @@ public class GameController implements java.io.Serializable {
         colorView.add(p3Color);
         colorView.add(p4Color);
 
+<<<<<<< HEAD
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+=======
         for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
+>>>>>>> master
             Color c = (constantPlayerList.size() >= i + 1 && constantPlayerList.get(i) != null) ? constantPlayerList.get(i).getColor() : Color.TRANSPARENT;
             colorView.get(i).setFill(c);
         }
@@ -164,7 +181,12 @@ public class GameController implements java.io.Serializable {
             nameView.get(i).setText(n);
         }
 
+<<<<<<< HEAD
+
+        turnTime = 50;
+=======
         turnTime = timeLimit;
+>>>>>>> master
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
@@ -305,7 +327,11 @@ public class GameController implements java.io.Serializable {
     private void getTurnOrder() {
         int minScore;
         int size = playerList.size();
+<<<<<<< HEAD
+        ArrayList<Player> tempList = playerList;
+=======
         List<Player> tempList = playerList;
+>>>>>>> master
         playerList = new ArrayList<>();
         int j;
         for (int i = 0; i < size; i++) {
@@ -327,6 +353,10 @@ public class GameController implements java.io.Serializable {
 
     private void refreshScores() {
         ArrayList<Player> playerArr = constantPlayerList;
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 
         for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
             String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";
@@ -441,6 +471,42 @@ public class GameController implements java.io.Serializable {
             String propertyType = label.getText();
             Mule mule = null;
 
+<<<<<<< HEAD
+            Mule mule = new Mule() {
+                @Override
+                public String getPropertyType() {
+                    return null;
+                }
+
+                @Override
+                public void setPropertyType() {}
+
+                @Override
+                public void calculateResourceChanges() {}
+
+				@Override
+				public String getMuleType() {
+					return null;
+				}
+            };
+
+            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane" + clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane" + clickedbtn.getParent().getId())) {
+            };
+
+            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+                clickedbtn.setText("food");
+                clickedbtn.getParent();
+                mule = new FoodMule(propertyType);
+            } else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane"+clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedbtn.getParent().getId())) {
+                clickedbtn.setText("energy");
+                mule = new EnergyMule(propertyType);
+            } else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane"+clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedbtn.getParent().getId())) {
+                clickedbtn.setText("ore");
+=======
             if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
                     propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
                 clickedButton.setText("food");
@@ -453,6 +519,7 @@ public class GameController implements java.io.Serializable {
             } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
                     propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
                 clickedButton.setText("ore");
+>>>>>>> master
                 mule = new OreMule(propertyType);
             }
 			placingMule = false;
@@ -483,7 +550,11 @@ public class GameController implements java.io.Serializable {
     		
     		FileOutputStream fileOut3 = new FileOutputStream("/tmp/m.ser");
     		ObjectOutputStream out3 = new ObjectOutputStream(fileOut3);
+<<<<<<< HEAD
+    		out3.writeInt(game.getM());
+=======
     		out3.writeInt(game.getRandomFactor());
+>>>>>>> master
     		out3.close();
     		fileOut3.close();
     		System.out.println("save went through");
@@ -539,6 +610,9 @@ public class GameController implements java.io.Serializable {
     	buttonList.add(label47);
     	buttonList.add(label48);
     }
+<<<<<<< HEAD
+=======
 
     public static void setTypeOfMule(String type) { typeOfMule = type; }
+>>>>>>> master
 }

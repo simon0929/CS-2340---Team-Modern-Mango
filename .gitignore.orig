@@ -30,5 +30,8 @@ src/mule/Game.class
 *.class
 
 *.class
+<<<<<<< HEAD
+=======
 
 *.class
+>>>>>>> master
