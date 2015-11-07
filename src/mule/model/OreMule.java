@@ -8,9 +8,6 @@ public class OreMule extends Mule implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String propertyType;
-    Player currentPlayer;
-    public String type;
 
     static {
 
@@ -28,9 +25,10 @@ public class OreMule extends Mule implements java.io.Serializable {
         productionValues.put("M3", m3Value);
     }
 
-    public OreMule(String type) {
-        this.propertyType = type;
+    public OreMule(String pType) {
+        propertyType = pType;
         currentPlayer = GameController.currentPlayer;
+        muleType = "ore";
     }
 
     public final void calculateResourceChanges() {
@@ -40,8 +38,4 @@ public class OreMule extends Mule implements java.io.Serializable {
         }
     }
 
-    @Override
-	public String getMuleType() {
-		return type = new String("ore");
-	}
 }

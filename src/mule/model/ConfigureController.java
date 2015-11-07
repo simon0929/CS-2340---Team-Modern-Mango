@@ -3,6 +3,8 @@ package mule.model;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,9 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -51,14 +51,12 @@ public final class ConfigureController implements java.io.Serializable{
 	private Button startGameButton;
 	
 	@FXML
-	private MenuItem load;
+	//private MenuItem load;
 
-	@FXML 
+	//@FXML
 	//private Tab playersTab;
-	
-	private String diff;
 
-	private static Game game;
+    private static Game game;
 
 	private static Scene gameScene;
 
@@ -70,8 +68,7 @@ public final class ConfigureController implements java.io.Serializable{
 
 	private static final int MIN_NUM_PLAYERS = 2, MAX_NUM_PLAYERS = 4;
 
-
-	public static boolean loaded = false;
+	private static boolean loaded = false;
 
 	@FXML
 	private void initialize() {
@@ -142,8 +139,8 @@ public final class ConfigureController implements java.io.Serializable{
 		numPlayers = numOfPlayers.getSelectionModel().getSelectedItem();
 
 		//Initializes string objects containing the difficulty to add to Player objects later.
-		String diff;
-		if (beginDiff.isSelected()) {
+        String diff;
+        if (beginDiff.isSelected()) {
 			diff = "beginner";
 		} else if (standDiff.isSelected()) {
 			diff = "standard";
@@ -184,7 +181,7 @@ public final class ConfigureController implements java.io.Serializable{
 
 	
 	@FXML
-	private void handleLoad(ActionEvent event) throws IOException {
+	private void handleLoad(ActionEvent event) {
 		loaded = true;
 		try {
     		FileInputStream fileIn = new FileInputStream("/tmp/game.ser");
@@ -211,24 +208,21 @@ public final class ConfigureController implements java.io.Serializable{
     		game.setRandomFactor(in3.readInt());
     		in3.close();
     		fileIn3.close();
-    		
-    		for (int i = 0; i < playerList.size(); i++) {
-    			playerList.get(i).setColor(playerList.get(i).newColor);
-    		}
+
+    		for(Player player : playerList) {
+                player.setColor(player.getNewColor());
+            }
     		
     		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
     		gameScene = new Scene(gameScreenParent);
     		gameStage = (Stage) startGameButton.getScene().getWindow();
     		gameStage.setScene(gameScene);
     		gameStage.show();
-    	} catch (IOException i) {
-    		i.printStackTrace();
-    		return;
-    	} catch (ClassNotFoundException c) {
-    		c.printStackTrace();
-    		return;
+    	} catch (IOException | ClassNotFoundException i) {
+            Logger logger = Logger.getLogger(ConfigureController.class.getName());
+            logger.log(Level.SEVERE, i.toString(), i);
     	}
-	}
+    }
 
 	public static Game getGame() {return game;}
 
@@ -241,6 +235,8 @@ public final class ConfigureController implements java.io.Serializable{
 	public static Scene getGameScene() { return gameScene;}
 
 	public static int getNumPlayers() { return numPlayers; }
+
+    public static boolean getLoaded() { return loaded; }
 
 
 }

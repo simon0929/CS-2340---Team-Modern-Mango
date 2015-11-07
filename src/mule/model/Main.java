@@ -22,7 +22,6 @@ public final class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
-			//e.printStackTrace();
 			Logger logger = Logger.getLogger(Main.class.getName());
 			logger.log(Level.SEVERE, e.toString(), e);
 		}

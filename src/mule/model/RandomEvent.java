@@ -35,16 +35,16 @@ final class RandomEvent {
 				break;
 			case 2:
 				player.setMoney(player.getMoney() + (8 * m));
-				eventModifier = Integer.toString(8*m);
+				eventModifier = Integer.toString(8 * m);
 				break;
 			case 3:
 				player.setMoney(player.getMoney() + (2 * m));
-				eventModifier = Integer.toString(2*m);
+				eventModifier = Integer.toString(2 * m);
 				break;
 			case 4:
 				int money4 = player.getMoney() - (4 * m);
 				player.setMoney(money4 >= 0 ? money4 : 0);
-				eventModifier = Integer.toString(4*m);
+				eventModifier = Integer.toString(4 * m);
 				break;
 			case 5:
 				player.setFood(player.getFood() / 2);
@@ -52,7 +52,7 @@ final class RandomEvent {
 			case 6:
 				int money5 = player.getMoney() - (6 * m);
 				player.setMoney(money5 >= 0 ? money5 : 0);
-				eventModifier = Integer.toString(6*m);
+				eventModifier = Integer.toString(6 * m);
 				break;
 		}
 		return eventList.get(randInt) + eventModifier;
