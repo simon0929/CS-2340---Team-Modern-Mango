@@ -1,6 +1,8 @@
 package mule.model;
 
-public class EnergyMule implements Mule, java.io.Serializable {
+import java.util.HashMap;
+
+public class EnergyMule extends Mule implements java.io.Serializable {
 
     /**
 	 * 

@@ -43,8 +43,6 @@ public final class StoreController {
     
     public Game game;
 
-    public Game game;
-
     @FXML
     private void initialize() {
         List<Player> playerArr = ConfigureController.getGame().getPlayerArr();

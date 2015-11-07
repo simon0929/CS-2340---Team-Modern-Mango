@@ -1,6 +1,8 @@
 package mule.model;
 
-public class OreMule implements Mule, java.io.Serializable {
+import java.util.HashMap;
+
+public class OreMule extends Mule implements java.io.Serializable {
 
     /**
 	 * 
