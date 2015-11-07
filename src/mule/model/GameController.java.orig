@@ -79,9 +79,12 @@ public class GameController implements java.io.Serializable {
 	private boolean selectionPhase;
 
 <<<<<<< HEAD
+	public static ArrayList<Player> playerList, basePlayerList;
+=======
 	List<Player> playerList;
 
 	public static List<Player> basePlayerList;
+>>>>>>> master
 	
 	private ArrayList<Player> constantPlayerList = new ArrayList<>();
 
@@ -90,13 +93,6 @@ public class GameController implements java.io.Serializable {
     private ArrayList<Label> scoreView;
     
     private ArrayList<Button> buttonList;
-=======
-	private static List<Player> playerList;
-
-    private List<Pane> propertyOwnedList;
-
-    private List<Label> scoreView;
->>>>>>> origin/master
 
     public Stage gameStage;
 
@@ -110,7 +106,6 @@ public class GameController implements java.io.Serializable {
 	private void initialize() {
         List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
         playerList = ConfigureController.getPlayerList();
-<<<<<<< HEAD
         this.game = ConfigureController.getGame();
         basePlayerList = playerList;
         for (int i = 0; i < playerList.size(); i++) {
@@ -118,11 +113,6 @@ public class GameController implements java.io.Serializable {
         }
 		currentPlayer = game.getCurrPlayer();
 
-=======
-
-        //List<Player> basePlayerList = playerList;
-		currentPlayer = ConfigureController.getGame().getPlayerArr().get(0); //player1
->>>>>>> origin/master
 		turn.setText(currentPlayer.getName());
 		turnNumber = game.getTurn();
         roundNumber = game.getRound();
@@ -137,17 +127,23 @@ public class GameController implements java.io.Serializable {
 		ore.setText(String.valueOf(currentPlayer.getOre()));
 		round.setText(String.valueOf(roundNumber));
 		turn.setText(currentPlayer.getName());
+<<<<<<< HEAD
+
+        scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
+        scoreView.add(player1score);
+        scoreView.add(player2score);
+        scoreView.add(player3score);
+        scoreView.add(player4score);
+=======
+>>>>>>> master
 
         scoreView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
-<<<<<<< HEAD
         scoreView.add(player1score);
         scoreView.add(player2score);
         scoreView.add(player3score);
         scoreView.add(player4score);
 
         scoreView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
-=======
->>>>>>> origin/master
         scoreView.add(player1score);
         scoreView.add(player2score);
         scoreView.add(player3score);
@@ -165,12 +161,12 @@ public class GameController implements java.io.Serializable {
         colorView.add(p3Color);
         colorView.add(p4Color);
 
-        for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
 <<<<<<< HEAD
-            Color c = (constantPlayerList.size() >= i + 1 && constantPlayerList.get(i) != null) ? constantPlayerList.get(i).getColor() : Color.TRANSPARENT;
+        for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
 =======
-            Color c = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getColor() : Color.TRANSPARENT;
->>>>>>> origin/master
+        for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
+>>>>>>> master
+            Color c = (constantPlayerList.size() >= i + 1 && constantPlayerList.get(i) != null) ? constantPlayerList.get(i).getColor() : Color.TRANSPARENT;
             colorView.get(i).setFill(c);
         }
 
@@ -185,7 +181,12 @@ public class GameController implements java.io.Serializable {
             nameView.get(i).setText(n);
         }
 
+<<<<<<< HEAD
+
+        turnTime = 50;
+=======
         turnTime = timeLimit;
+>>>>>>> master
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
 	}
@@ -220,11 +221,7 @@ public class GameController implements java.io.Serializable {
         numOfPropBoughtInRound += numOfPropBoughtInTurn;
 
         //if the number of turns exceeds the number of players, the round ends
-<<<<<<< HEAD
         if (turnNumber > playerList.size()) {
-=======
-        if (turnNumber > ConfigureController.getNumPlayers()) {
->>>>>>> origin/master
             //Calculates all player scores and rearranges playerList for a new order for the next turn
             getTurnOrder();
 
@@ -275,15 +272,9 @@ public class GameController implements java.io.Serializable {
                     Color playerColor = ConfigureController.getGame().getCurrPlayer().getColor();
 
                     //Gets the actual property object that was clicked so that things can be done to it
-<<<<<<< HEAD
                     Pane mapElement = (Pane) event.getSource();
                     String property = "pane" + mapElement.getId();
                     if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= 300) {
-=======
-                    Pane property = (Pane) event.getSource();
-
-                    if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= propertyPrice) {
->>>>>>> origin/master
                         currentPlayer.incrementPropertyOwned();
                         propertyOwnedList.add(property);
 
@@ -335,19 +326,15 @@ public class GameController implements java.io.Serializable {
 
     private void getTurnOrder() {
         int minScore;
-<<<<<<< HEAD
         int size = playerList.size();
+<<<<<<< HEAD
+        ArrayList<Player> tempList = playerList;
+=======
         List<Player> tempList = playerList;
+>>>>>>> master
         playerList = new ArrayList<>();
         int j;
         for (int i = 0; i < size; i++) {
-=======
-        List<Player> tempList = playerList;
-        playerList = new ArrayList<>();
-        int j;
-
-        for (int i = 0; i < ConfigureController.getNumPlayers(); i++) {
->>>>>>> origin/master
             j = 0;
             minScore = 0;
 
@@ -365,11 +352,11 @@ public class GameController implements java.io.Serializable {
     }
 
     private void refreshScores() {
-<<<<<<< HEAD
         ArrayList<Player> playerArr = constantPlayerList;
+<<<<<<< HEAD
+
 =======
-        List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
->>>>>>> origin/master
+>>>>>>> master
 
         for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
             String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";
@@ -484,6 +471,42 @@ public class GameController implements java.io.Serializable {
             String propertyType = label.getText();
             Mule mule = null;
 
+<<<<<<< HEAD
+            Mule mule = new Mule() {
+                @Override
+                public String getPropertyType() {
+                    return null;
+                }
+
+                @Override
+                public void setPropertyType() {}
+
+                @Override
+                public void calculateResourceChanges() {}
+
+				@Override
+				public String getMuleType() {
+					return null;
+				}
+            };
+
+            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane" + clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane" + clickedbtn.getParent().getId())) {
+            };
+
+            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
+                clickedbtn.setText("food");
+                clickedbtn.getParent();
+                mule = new FoodMule(propertyType);
+            } else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane"+clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedbtn.getParent().getId())) {
+                clickedbtn.setText("energy");
+                mule = new EnergyMule(propertyType);
+            } else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane"+clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedbtn.getParent().getId())) {
+                clickedbtn.setText("ore");
+=======
             if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
                     propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
                 clickedButton.setText("food");
@@ -496,13 +519,13 @@ public class GameController implements java.io.Serializable {
             } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
                     propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
                 clickedButton.setText("ore");
+>>>>>>> master
                 mule = new OreMule(propertyType);
             }
 			placingMule = false;
 			currentPlayer.addToMuleList(mule);
     	}
     }
-<<<<<<< HEAD
     
     @FXML
     private void handleSave (ActionEvent event) throws IOException {
@@ -527,7 +550,11 @@ public class GameController implements java.io.Serializable {
     		
     		FileOutputStream fileOut3 = new FileOutputStream("/tmp/m.ser");
     		ObjectOutputStream out3 = new ObjectOutputStream(fileOut3);
+<<<<<<< HEAD
+    		out3.writeInt(game.getM());
+=======
     		out3.writeInt(game.getRandomFactor());
+>>>>>>> master
     		out3.close();
     		fileOut3.close();
     		System.out.println("save went through");
@@ -583,8 +610,9 @@ public class GameController implements java.io.Serializable {
     	buttonList.add(label47);
     	buttonList.add(label48);
     }
+<<<<<<< HEAD
 =======
->>>>>>> origin/master
 
     public static void setTypeOfMule(String type) { typeOfMule = type; }
+>>>>>>> master
 }

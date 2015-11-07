@@ -1,0 +1,37 @@
+bin/*
+.idea/*
+build/*
+*.iml
+*.xml
+out/*
+.metadata/*
+.classpath
+.project
+*.class
+
+*.class
+
+*.class
+
+src/mule/TownController.class
+
+src/mule/PubController.java
+
+src/mule/Property.class
+
+src/mule/Player.class
+
+src/mule/Main.class
+
+src/mule/GameController.class
+
+src/mule/Game.class
+
+*.class
+
+*.class
+<<<<<<< HEAD
+=======
+
+*.class
+>>>>>>> master

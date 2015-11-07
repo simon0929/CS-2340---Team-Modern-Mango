@@ -53,6 +53,11 @@ public final class ConfigureController implements java.io.Serializable{
 	@FXML
 	private MenuItem load;
 
+	@FXML 
+	//private Tab playersTab;
+	
+	private String diff;
+
 	private static Game game;
 
 	private static Scene gameScene;

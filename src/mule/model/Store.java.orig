@@ -1,22 +1,22 @@
 package mule.model;
 
+<<<<<<< HEAD
+public final class Store implements java.io.Serializable{
+
+=======
 import java.util.HashMap;
 import java.util.Map;
-<<<<<<< HEAD
 
 public final class Store implements java.io.Serializable {
 
+>>>>>>> master
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int food, energy, ore, mule;
+<<<<<<< HEAD
 =======
-
-public final class Store {
-
-    private int food, energy, ore, mule;
->>>>>>> origin/master
     private static final int INIT_FOOD_B = 16, INIT_ENERGY_B = 16, INIT_ORE_B = 0, INIT_MULE_B = 25, INIT_FOOD_S = 8,
             INIT_ENERGY_S = 8, INIT_ORE_S = 8, INIT_MULE_S = 14, FOOD_PRICE = 30, ENERGY_PRICE = 25, ORE_PRICE = 50,
             E_MULE_PRICE = 150,F_MULE_PRICE = 125, O_MULE_PRICE = 175;
@@ -29,6 +29,7 @@ public final class Store {
         RESOURCE_LIST.put("foodMule", F_MULE_PRICE);
         RESOURCE_LIST.put("oreMule", O_MULE_PRICE);
     }
+>>>>>>> master
 
     public Store() {
         this("beginner");

@@ -1,8 +1,14 @@
 package mule.model;
 
-import java.util.HashMap;
+public class OreMule implements Mule, java.io.Serializable {
 
-public class OreMule extends Mule {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String propertyType;
+    Player currentPlayer;
+    public String type;
 
     static {
 

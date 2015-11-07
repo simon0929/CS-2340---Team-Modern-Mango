@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD
 /**
  * Created by Hunter on 9/18/2015.
  */
@@ -17,17 +16,14 @@ public final class Game implements java.io.Serializable {
 	private int round, turn;
 	private List<Player> playerArr;
 	private boolean selectedProp;
+<<<<<<< HEAD
+	private Store store;
+	private int m;
+	public Player currentPlayer;
+=======
 	private final Store store;
 	private int randomFactor;
     public Player currentPlayer;
-=======
-public final class Game {
-	private int round, turn;
-	private final List<Player> playerArr;
-	private boolean selectedProp;
-	private final Store store;
-	private int randomFactor;
->>>>>>> origin/master
 	private static final int RAND_FACT_1 = 25, RAND_FACT_2 = 50, RAND_FACT_3 = 75, RAND_FACT_4 = 100;
 	private static final Map<Integer, Integer> RAND_FACTS = new HashMap<>();
 	static {
@@ -44,6 +40,7 @@ public final class Game {
 		RAND_FACTS.put(11, RAND_FACT_3);
 		RAND_FACTS.put(12, RAND_FACT_4);
 	}
+>>>>>>> master
 
 	public Game(Player p1, Player p2, Player p3, Player p4, String diff) {
 
@@ -65,7 +62,8 @@ public final class Game {
 	}
 
 	public Player getCurrPlayer() {
-		return playerArr.get(turn - 1);
+		currentPlayer = playerArr.get(turn - 1);
+		return currentPlayer;
 	}
 
 	public boolean selectedProp() {
@@ -110,19 +108,29 @@ public final class Game {
 		return playerArr;
 	}
 	
+<<<<<<< HEAD
+	public void setPlayerList(ArrayList<Player> newList) {
+		playerArr = newList;
+	}
+
+	public int getM() {
+		return m;
+	}
+	
+	public void setM(int m) {
+		this.m = m;
+	}
+=======
 	public void setPlayerList(List<Player> playerList) {
 		playerArr = playerList;
 	}
 
 	public int getRandomFactor() {
 		return randomFactor;
-<<<<<<< HEAD
 	}
 	
 	public void setRandomFactor(int randomFactor) {
 		this.randomFactor = randomFactor;
-=======
-		}
->>>>>>> origin/master
 	}
+>>>>>>> master
 }

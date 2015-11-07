@@ -2,7 +2,10 @@ package mule.model;
 
 import java.io.*;
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
 import java.util.List;
+>>>>>>> master
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,17 +52,21 @@ public final class ConfigureController implements java.io.Serializable{
 
 	@FXML
 	private Button startGameButton;
-<<<<<<< HEAD
 	
 	@FXML
 	private MenuItem load;
+<<<<<<< HEAD
+
+	@FXML 
+	//private Tab playersTab;
+	
+	private String diff;
 =======
->>>>>>> origin/master
+>>>>>>> master
 
 	private static Game game;
 
 	private static Scene gameScene;
-<<<<<<< HEAD
 
 	private static Stage gameStage;
 
@@ -69,16 +76,6 @@ public final class ConfigureController implements java.io.Serializable{
 
 	private static final int MIN_NUM_PLAYERS = 2, MAX_NUM_PLAYERS = 4;
 
-=======
-
-	private static Stage gameStage;
-
-	private static List<Player> playerList;
-
-	private static int numPlayers;
-
-	private static final int MIN_NUM_PLAYERS = 2, MAX_NUM_PLAYERS = 4;
->>>>>>> origin/master
 
 	public static boolean loaded = false;
 
@@ -116,6 +113,22 @@ public final class ConfigureController implements java.io.Serializable{
 				p2Name.setDisable(false);
 				p2Color.setDisable(false);
 				p2Race.setDisable(false);
+<<<<<<< HEAD
+				p3Name.setDisable(true);
+				p3Color.setDisable(true);
+				p3Race.setDisable(true);
+				p4Name.setDisable(true);
+				p4Color.setDisable(true);
+				p4Race.setDisable(true);
+			} if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() >= minNumPlayers + 1) {
+				p3Name.setDisable(false);
+				p3Color.setDisable(false);
+				p3Race.setDisable(false);
+				p4Name.setDisable(true);
+				p4Color.setDisable(true);
+				p4Race.setDisable(true);
+			} if (numOfPlayers.getSelectionModel().getSelectedItem().intValue() == maxNumPlayers) {
+=======
                 p1Race.getSelectionModel().selectFirst();
                 p2Race.getSelectionModel().selectFirst();
                 beginDiff.setSelected(true);
@@ -127,6 +140,7 @@ public final class ConfigureController implements java.io.Serializable{
 				p3Race.setDisable(false);
                 p3Race.getSelectionModel().selectFirst();
 			} if (numOfPlayers.getSelectionModel().getSelectedItem() == MAX_NUM_PLAYERS) {
+>>>>>>> master
 				p4Name.setDisable(false);
 				p4Color.setDisable(false);
 				p4Race.setDisable(false);
@@ -135,10 +149,17 @@ public final class ConfigureController implements java.io.Serializable{
 		}
 	}
 
+<<<<<<< HEAD
+	//If the map difficulty and type of map have been chosen, it enables the start button.
+	@FXML
+	private void enableStartButton() {
+		if (beginDiff.isSelected() && standMap.isSelected()) {
+=======
     @FXML
 	private void enableStartButton() {
 		if (beginDiff.isSelected() && standMap.isSelected()
                 && numOfPlayers.getSelectionModel().getSelectedItem() != null) {
+>>>>>>> master
 			startGameButton.setDisable(false);
 		} else {
 			startGameButton.setDisable(true);
@@ -191,7 +212,6 @@ public final class ConfigureController implements java.io.Serializable{
 		gameStage.show();
 	}
 
-<<<<<<< HEAD
 	
 	@FXML
 	private void handleLoad(ActionEvent event) throws IOException {
@@ -218,7 +238,11 @@ public final class ConfigureController implements java.io.Serializable{
     		
     		FileInputStream fileIn3 = new FileInputStream("/tmp/m.ser");
     		ObjectInputStream in3 = new ObjectInputStream(fileIn3);
+<<<<<<< HEAD
+    		game.setM(in3.readInt());
+=======
     		game.setRandomFactor(in3.readInt());
+>>>>>>> master
     		in3.close();
     		fileIn3.close();
     		
@@ -252,19 +276,5 @@ public final class ConfigureController implements java.io.Serializable{
 
 	public static int getNumPlayers() { return numPlayers; }
 
-=======
-	public static Game getGame() { return game; }
-
-	public static List<Player> getPlayerList() { return playerList;}
-
-	public static int getMaxNumPlayers() { return MAX_NUM_PLAYERS;}
-
-	public static Stage getGameStage() { return gameStage;}
-
-	public static Scene getGameScene() { return gameScene;}
-
-	public static int getNumPlayers() { return numPlayers; }
-
->>>>>>> origin/master
 
 }

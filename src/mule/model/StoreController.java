@@ -40,6 +40,8 @@ public final class StoreController {
     private Stage gameStage;
 
     private Scene gameScene;
+    
+    public Game game;
 
     public Game game;
 

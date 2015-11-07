@@ -39,12 +39,14 @@ public final class StoreController {
 
     private Stage gameStage;
 
-    private Scene gameScene;
 <<<<<<< HEAD
-
-    public Game game;
+    public Scene gameScene;
+    
 =======
->>>>>>> origin/master
+    private Scene gameScene;
+
+>>>>>>> master
+    public Game game;
 
     @FXML
     private void initialize() {
@@ -87,14 +89,13 @@ public final class StoreController {
         money.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getMoney()));
         energy.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getEnergy()));
         ore.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getOre()));
+<<<<<<< HEAD
+=======
 
         foodPrice.setText(String.valueOf(Store.getResourceList().get("food")));
         energyPrice.setText(String.valueOf(Store.getResourceList().get("energy")));
         orePrice.setText(String.valueOf(Store.getResourceList().get("ore")));
-
-        foodPrice.setText(String.valueOf(Store.getResourceList().get("food")));
-        energyPrice.setText(String.valueOf(Store.getResourceList().get("energy")));
-        orePrice.setText(String.valueOf(Store.getResourceList().get("ore")));
+>>>>>>> master
 
         storeOre.setText(String.valueOf(ConfigureController.getGame().getStore().getOre()));
         storeFood.setText(String.valueOf(ConfigureController.getGame().getStore().getFood()));

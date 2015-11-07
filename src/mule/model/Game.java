@@ -56,7 +56,8 @@ public final class Game implements java.io.Serializable {
 	}
 
 	public Player getCurrPlayer() {
-		return playerArr.get(turn - 1);
+		currentPlayer = playerArr.get(turn - 1);
+		return currentPlayer;
 	}
 
 	public boolean selectedProp() {
