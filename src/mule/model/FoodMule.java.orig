@@ -1,7 +1,11 @@
 package mule.model;
 
+<<<<<<< HEAD
+public class FoodMule implements Mule, java.io.Serializable {
+=======
 import java.util.HashMap;
 public class FoodMule extends Mule implements java.io.Serializable {
+>>>>>>> master
 
     /**
 	 * 

@@ -2,6 +2,7 @@ package mule.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -33,43 +33,43 @@ public class TownController {
 
 	private int turnTime;
 
-	public Stage gameStage;
+	private Stage gameStage;
 
-	public Scene gameScene;
+	private Scene gameScene;
 
 	@FXML
 	private void initialize() {
-		ArrayList<Player> playerArr = ConfigureController.getGame().getPlayerArr();
+		List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
 
-		ArrayList<Label> scoreView = new ArrayList<>(ConfigureController.maxNumPlayers);
+		ArrayList<Label> scoreView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
 		scoreView.add(player1score);
 		scoreView.add(player2score);
 		scoreView.add(player3score);
 		scoreView.add(player4score);
 
-		for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+		for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
 			String s = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? String.valueOf(playerArr.get(i).getScore()) : "";
 			scoreView.get(i).setText(s);
 		}
 
-		ArrayList<Rectangle> colorView = new ArrayList<>(ConfigureController.maxNumPlayers);
+		ArrayList<Rectangle> colorView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
 		colorView.add(p1Color);
 		colorView.add(p2Color);
 		colorView.add(p3Color);
 		colorView.add(p4Color);
 
-		for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+		for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
 			Color c = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getColor() : Color.TRANSPARENT;
 			colorView.get(i).setFill(c);
 		}
 
-		ArrayList<Label> nameView = new ArrayList<>(ConfigureController.maxNumPlayers);
+		ArrayList<Label> nameView = new ArrayList<>(ConfigureController.getMaxNumPlayers());
 		nameView.add(name1);
 		nameView.add(name2);
 		nameView.add(name3);
 		nameView.add(name4);
 
-		for (int i = 0; i < ConfigureController.maxNumPlayers; i++) {
+		for (int i = 0; i < ConfigureController.getMaxNumPlayers(); i++) {
 			String n = (playerArr.size() >= i + 1 && playerArr.get(i) != null) ? playerArr.get(i).getName() + ":" : "";
 			nameView.get(i).setText(n);
 		}
@@ -88,31 +88,28 @@ public class TownController {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						if (turnTime >= 1) {
-							timeLeft.setText(String.valueOf(turnTime--));
-						} else {
-							handleEndTurn();
-						}
-					}
-				});
+				Platform.runLater(() -> {
+                    if (turnTime >= 1) {
+                        timeLeft.setText(String.valueOf(turnTime--));
+                    } else {
+                        handleEndTurn();
+                    }
+                });
 			}
 		}, 0, 1000);
 	}
 
 	@FXML
-	private void handleReturnToMap(ActionEvent event) throws IOException {
-		gameScene = ConfigureController.gameScene;
-		gameStage = ConfigureController.gameStage;
+	private void handleReturnToMap(ActionEvent event) {
+		gameScene = ConfigureController.getGameScene();
+		gameStage = ConfigureController.getGameStage();
 		gameStage.setScene(gameScene);
 	}
 
 	@FXML
 	private void handleReturnToMap() {
-		gameScene = ConfigureController.gameScene;
-		gameStage = ConfigureController.gameStage;
+		gameScene = ConfigureController.getGameScene();
+		gameStage = ConfigureController.getGameStage();
 		gameStage.setScene(gameScene);
 	}
 

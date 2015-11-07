@@ -17,11 +17,16 @@ public final class Player implements java.io.Serializable{
     public  java.awt.Color newColor;
     //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
+<<<<<<< HEAD
+    private ArrayList<String> propertyList;
+    private ArrayList<Mule> muleList;
+=======
     private final List<String> propertyList;
     private final List<Mule> muleList;
     private static final int INIT_MONEY_F = 1600, INIT_MONEY_H = 600, INIT_MONEY_OTHER = 1000, INIT_FOOD_B = 8,
             INIT_ENERGY_B = 4, INIT_ORE_B = 0, INIT_FOOD_OTHER = 4, INIT_ENERGY_OTHER = 2, INIT_ORE_OTHER = 0,
             SCORE_CALC_MULTIPLIER = 500;
+>>>>>>> master
 
 
     public Player(String n, String r, javafx.scene.paint.Color c, String d) {
@@ -104,7 +109,11 @@ public final class Player implements java.io.Serializable{
 
     public int getNumOfFreeProperties() { return numOfFreeProperties; }
 
+<<<<<<< HEAD
+    public ArrayList<String> getPropertyList() {
+=======
     public List<String> getPropertyList() {
+>>>>>>> master
         return propertyList;
     }
 

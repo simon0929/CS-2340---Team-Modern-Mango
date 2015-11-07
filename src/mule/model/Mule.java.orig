@@ -1,6 +1,13 @@
 package mule.model;
 
+<<<<<<< HEAD
+public interface Mule {
+	
+	public String getMuleType();
+	
+=======
 import java.util.Map;
+>>>>>>> master
 
 abstract class Mule {
 
