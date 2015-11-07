@@ -80,10 +80,10 @@ public final class StoreController {
             nameView.get(i).setText(n);
         }
 
-        food.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getFood()));
-        money.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getMoney()));
-        energy.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getEnergy()));
-        ore.setText(String.valueOf(ConfigureController.getGame().currentPlayer.getOre()));
+        food.setText(String.valueOf(ConfigureController.getGame().getCurrentPlayer().getFood()));
+        money.setText(String.valueOf(ConfigureController.getGame().getCurrentPlayer().getMoney()));
+        energy.setText(String.valueOf(ConfigureController.getGame().getCurrentPlayer().getEnergy()));
+        ore.setText(String.valueOf(ConfigureController.getGame().getCurrentPlayer().getOre()));
 
         foodPrice.setText(String.valueOf(Store.getResourceList().get("food")));
         energyPrice.setText(String.valueOf(Store.getResourceList().get("energy")));

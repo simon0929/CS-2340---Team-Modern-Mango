@@ -7,13 +7,11 @@ public class FoodMule extends Mule implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String propertyType;
-    Player currentPlayer;
-    public String type;
 
-    public FoodMule(String propertyType) {
-        this.propertyType = propertyType;
+    public FoodMule(String pType) {
+        propertyType = pType;
         currentPlayer = GameController.currentPlayer;
+        muleType = "food";
     }
     static {
 
@@ -36,8 +34,4 @@ public class FoodMule extends Mule implements java.io.Serializable {
         currentPlayer.setFood(currentPlayer.getEnergy() + productionValues.get(propertyType));
     }
 
-	@Override
-	public String getMuleType() {
-		return type = new String("food");
-	}
 }

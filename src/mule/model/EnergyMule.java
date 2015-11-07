@@ -8,14 +8,12 @@ public class EnergyMule extends Mule implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String propertyType;
-    Player currentPlayer;
-    public String type;
 
 
-    public EnergyMule(String propertyType) {
-        this.propertyType = propertyType;
+    public EnergyMule(String pType) {
+        propertyType = pType;
         currentPlayer = GameController.currentPlayer;
+		muleType = "energy";
     }
 
         static {
@@ -39,8 +37,4 @@ public class EnergyMule extends Mule implements java.io.Serializable {
         currentPlayer.setEnergy(currentPlayer.getEnergy() + productionValues.get(propertyType));
     }
 
-	@Override
-	public String getMuleType() {
-		return type = new String("energy");
-	}
 }

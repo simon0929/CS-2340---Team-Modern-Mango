@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Hunter on 9/18/2015.
- */
 public final class Game implements java.io.Serializable {
 	/**
 	 * 
@@ -18,7 +15,7 @@ public final class Game implements java.io.Serializable {
 	private boolean selectedProp;
 	private final Store store;
 	private int randomFactor;
-    public Player currentPlayer;
+    private Player currentPlayer;
 	private static final int RAND_FACT_1 = 25, RAND_FACT_2 = 50, RAND_FACT_3 = 75, RAND_FACT_4 = 100;
 	private static final Map<Integer, Integer> RAND_FACTS = new HashMap<>();
 	static {
@@ -83,16 +80,16 @@ public final class Game implements java.io.Serializable {
 		return round;
 	}
 	
-	public void setRound(int round) {
-		this.round = round;
+	public void setRound(int roundNumber) {
+		round = roundNumber;
 	}
 
 	public int getTurn() {
 		return turn;
 	}
 	
-	public void setTurn(int turn) {
-		this.turn = turn;
+	public void setTurn(int turnNumber) {
+		turn = turnNumber;
 	}
 
 	public Store getStore() { return store; }
@@ -110,7 +107,9 @@ public final class Game implements java.io.Serializable {
 		return randomFactor;
 	}
 	
-	public void setRandomFactor(int randomFactor) {
-		this.randomFactor = randomFactor;
+	public void setRandomFactor(int randFact) {
+		randomFactor = randFact;
 	}
+
+	public Player getCurrentPlayer() { return currentPlayer; }
 }

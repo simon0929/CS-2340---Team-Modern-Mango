@@ -5,7 +5,7 @@ import java.util.Map;
 abstract class Mule {
 
     String propertyType;
-    String type;
+    static String muleType;
     Player currentPlayer;
     static Map<String, Integer> productionValues;
     static int plainValue, riverValue, m1Value, m2Value, m3Value;
@@ -15,7 +15,7 @@ abstract class Mule {
 
     public String getPropertyType() {return propertyType;}
 
-    public String getMuleType() {return type;}
+    public String getMuleType() {return muleType;}
 
 
 }
