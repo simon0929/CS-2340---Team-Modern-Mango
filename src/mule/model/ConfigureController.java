@@ -132,7 +132,7 @@ public final class ConfigureController implements java.io.Serializable{
 
 	//If the map difficulty and type of map have been chosen, it enables the start button.
 	@FXML
-	private void handleMapDiff() {
+	private void enableStartButton() {
 		if (beginDiff.isSelected() && standMap.isSelected()) {
 			startGameButton.setDisable(false);
 		} else {
