@@ -215,7 +215,8 @@ public final class StoreController {
     @FXML
     private void changeScreen(ActionEvent event) {
     	GameController.placingMule = true;
-    	gameScene = ConfigureController.getGameScene();
+        GameController.enableButtons(true);
+        gameScene = ConfigureController.getGameScene();
         gameStage = ConfigureController.getGameStage();
         gameStage.setScene(gameScene);
     }

@@ -2,9 +2,6 @@ package mule.model;
 
 public class EnergyMule extends Mule implements java.io.Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static final int PLAIN_VALUE = 3, RIVER_VALUE = 2, M1_VALUE = 1, M2_VALUE = 1, M3_VALUE = 1;
 
