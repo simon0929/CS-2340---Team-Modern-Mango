@@ -1,28 +1,17 @@
 package mule.model;
 
-import java.util.HashMap;
-
 public class OreMule extends Mule implements java.io.Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+    private static final int PLAIN_VALUE = 1, RIVER_VALUE = 0, M1_VALUE = 2, M2_VALUE = 3, M3_VALUE = 4;
 
     static {
 
-        plainValue = 1;
-        riverValue = 0;
-        m1Value = 2;
-        m2Value = 3;
-        m3Value = 4;
-
-        productionValues = new HashMap<>(NUM_TYPES_OF_PROPERTY);
-        productionValues.put("River", riverValue);
-        productionValues.put("Plain", plainValue);
-        productionValues.put("M1", m1Value);
-        productionValues.put("M2", m2Value);
-        productionValues.put("M3", m3Value);
+        PRODUCTION_VALUES.put("River", RIVER_VALUE);
+        PRODUCTION_VALUES.put("Plain", PLAIN_VALUE);
+        PRODUCTION_VALUES.put("M1", M1_VALUE);
+        PRODUCTION_VALUES.put("M2", M2_VALUE);
+        PRODUCTION_VALUES.put("M3", M3_VALUE);
     }
 
     public OreMule(String pType) {
@@ -34,7 +23,7 @@ public class OreMule extends Mule implements java.io.Serializable {
     public final void calculateResourceChanges() {
         if(!propertyType.equals("River")) {
             currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-            currentPlayer.setOre(currentPlayer.getEnergy() + productionValues.get(propertyType));
+            currentPlayer.setOre(currentPlayer.getEnergy() + PRODUCTION_VALUES.get(propertyType));
         }
     }
 

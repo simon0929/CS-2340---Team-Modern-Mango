@@ -23,9 +23,6 @@ import javafx.stage.Stage;
 
 public final class ConfigureController implements java.io.Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	//Everything labeled @FXML relates directly to the .fxml files
@@ -49,12 +46,6 @@ public final class ConfigureController implements java.io.Serializable{
 
 	@FXML
 	private Button startGameButton;
-	
-	@FXML
-	//private MenuItem load;
-
-	//@FXML
-	//private Tab playersTab;
 
     private static Game game;
 
@@ -224,7 +215,7 @@ public final class ConfigureController implements java.io.Serializable{
     	}
     }
 
-	public static Game getGame() {return game;}
+	public static Game getGame() { return game; }
 
 	public static List<Player> getPlayerList() { return playerList;}
 

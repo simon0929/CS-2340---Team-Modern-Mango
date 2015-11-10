@@ -1,5 +1,6 @@
 package mule.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 abstract class Mule {
@@ -7,15 +8,14 @@ abstract class Mule {
     String propertyType;
     static String muleType;
     Player currentPlayer;
-    static Map<String, Integer> productionValues;
-    static int plainValue, riverValue, m1Value, m2Value, m3Value;
-    static final int NUM_TYPES_OF_PROPERTY = 5;
+    static final  Map<String, Integer> PRODUCTION_VALUES = new HashMap<>(5);
+
 
     public abstract void calculateResourceChanges();
 
     public String getPropertyType() {return propertyType;}
 
-    public String getMuleType() {return muleType;}
+    //public String getMuleType() {return muleType;}
 
 
 }

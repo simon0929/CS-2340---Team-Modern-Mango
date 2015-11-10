@@ -490,22 +490,22 @@ public class GameController implements java.io.Serializable {
 				}
             };
 
-            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains("pane" + clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane" + clickedbtn.getParent().getId())) {
+            if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane" + clickedButton.getParent().getId()) && currentPlayer.getPropertyList().contains("pane" + clickedButton.getParent().getId())) {
             };
 
-            if (typeOfMule.compareTo("food") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains(clickedbtn.getParent()) && currentPlayer.getPropertyList().contains(clickedbtn.getParent())) {
-                clickedbtn.setText("food");
-                clickedbtn.getParent();
+            if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
+                clickedButton.setText("food");
+                clickedButton.getParent();
                 mule = new FoodMule(propertyType);
-            } else if (typeOfMule.compareTo("energy") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains("pane"+clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedbtn.getParent().getId())) {
-                clickedbtn.setText("energy");
+            } else if (typeOfMule.compareTo("energy") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane"+clickedButton.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedButton.getParent().getId())) {
+                clickedButton.setText("energy");
                 mule = new EnergyMule(propertyType);
-            } else if (typeOfMule.compareTo("ore") == 0 && clickedbtn.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains("pane"+clickedbtn.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedbtn.getParent().getId())) {
-                clickedbtn.setText("ore");
+            } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+                    propertyOwnedList.contains("pane"+clickedButton.getParent().getId()) && currentPlayer.getPropertyList().contains("pane"+clickedButton.getParent().getId())) {
+                clickedButton.setText("ore");
 =======
             if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
                     propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
