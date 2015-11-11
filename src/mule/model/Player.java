@@ -1,10 +1,9 @@
 package mule.model;
 
-import javafx.scene.layout.Pane;
-
 
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 public final class Player implements java.io.Serializable{
 
@@ -12,9 +11,9 @@ public final class Player implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String name, race, diff;
+	private final String name, race, diff;
     private transient javafx.scene.paint.Color color;
-    public  java.awt.Color newColor;
+    private final Color newColor;
     //numOfFreeProperties = number of free land grants left (only nonzero for first two land choices)
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
     private final List<String> propertyList;
@@ -22,6 +21,7 @@ public final class Player implements java.io.Serializable{
     private static final int INIT_MONEY_F = 1600, INIT_MONEY_H = 600, INIT_MONEY_OTHER = 1000, INIT_FOOD_B = 8,
             INIT_ENERGY_B = 4, INIT_ORE_B = 0, INIT_FOOD_OTHER = 4, INIT_ENERGY_OTHER = 2, INIT_ORE_OTHER = 0,
             SCORE_CALC_MULTIPLIER = 500;
+    private static final double COLOR_CONSTANT = 255.0;
 
 
     public Player(String n, String r, javafx.scene.paint.Color c, String d) {
@@ -36,8 +36,7 @@ public final class Player implements java.io.Serializable{
         muleList = new ArrayList<>();
         
         newColor = new java.awt.Color((float) c.getRed(), (float)c.getGreen(), (float)c.getBlue());
-        System.out.println(newColor);
-        System.out.println(c.getBlue());
+
         //Different races get different amounts of money
         switch (race) {
             case "Flapper":
@@ -133,7 +132,8 @@ public final class Player implements java.io.Serializable{
     }
     
     public void setColor(java.awt.Color savedColor) {
-    	this.color = new javafx.scene.paint.Color(savedColor.getRed()/255.0, savedColor.getGreen()/255.0, savedColor.getBlue()/255.0, 1);
+    	this.color = new javafx.scene.paint.Color(savedColor.getRed() / COLOR_CONSTANT, savedColor.getGreen() / COLOR_CONSTANT,
+                savedColor.getBlue() / COLOR_CONSTANT, 1);
     }
 
     public void addToPropertyList(String pane) {
@@ -144,7 +144,7 @@ public final class Player implements java.io.Serializable{
     	muleList.add(mule);
     }
 
-    public void removeFromPropertyList(Pane pane) {
+    public void removeFromPropertyList(String pane) {
         propertyList.remove(pane);
     }
 
@@ -261,4 +261,6 @@ public final class Player implements java.io.Serializable{
         }
         return message;
     }
+
+    public Color getNewColor() { return newColor; }
 }

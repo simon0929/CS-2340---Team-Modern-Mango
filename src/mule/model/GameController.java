@@ -2,11 +2,11 @@ package mule.model;
 
 import java.io.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -17,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
@@ -48,7 +47,7 @@ public class GameController implements java.io.Serializable {
 	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
             player4score, randomEvent, name1, name2, name3, name4;
 
-//	@FXML
+	@FXML
 	private Button
     label00, label01, label02, label03, label04, label05, label06, label07, label08,
 	label10, label11, label12, label13, label14, label15, label16, label17, label18,
@@ -65,7 +64,7 @@ public class GameController implements java.io.Serializable {
     @FXML
     private GridPane grid;
 
-	public Game game;
+	private Game game;
 
 	public static Player currentPlayer;
 
@@ -74,21 +73,17 @@ public class GameController implements java.io.Serializable {
 
     public static int turnTime, roundNumber;
 
-    private static final int propertyPrice = 300, timeLimit = 50;
+    private static final int PROPERTY_PRICE = 300, TIME_LIMIT = 50, MAP_SIZE = 45;
 
 	private boolean selectionPhase;
 
-	List<Player> playerList;
+	private List<Player> playerList;
 
-	public static List<Player> basePlayerList;
-	
-	private ArrayList<Player> constantPlayerList = new ArrayList<>();
+	private final ArrayList<Player> constantPlayerList = new ArrayList<>();
 
     private ArrayList<String> propertyOwnedList;
 
     private ArrayList<Label> scoreView;
-    
-    private ArrayList<Button> buttonList;
 
     public Stage gameStage;
 
@@ -98,15 +93,16 @@ public class GameController implements java.io.Serializable {
 
     private static String typeOfMule;
 
-	@FXML
+    private static Button[] buttonArr;
+
+
+    @FXML
 	private void initialize() {
         List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
         playerList = ConfigureController.getPlayerList();
         this.game = ConfigureController.getGame();
-        basePlayerList = playerList;
-        for (int i = 0; i < playerList.size(); i++) {
-        	constantPlayerList.add(playerList.get(i));
-        }
+        //basePlayerList = playerList;
+        constantPlayerList.addAll(playerList.stream().collect(Collectors.toList()));
 		currentPlayer = game.getCurrPlayer();
 
 		turn.setText(currentPlayer.getName());
@@ -137,8 +133,8 @@ public class GameController implements java.io.Serializable {
         scoreView.add(player4score);
 
         refreshScores();
-        if (ConfigureController.loaded) {
-        	createButtonList();
+        if (ConfigureController.getLoaded()) {
+        	//createButtonList();
         	reDrawProperty();
         }
 
@@ -164,9 +160,18 @@ public class GameController implements java.io.Serializable {
             nameView.get(i).setText(n);
         }
 
-        turnTime = timeLimit;
+        turnTime = TIME_LIMIT;
         startTurnTimer();
         propertyOwnedList = new ArrayList<>();
+
+        buttonArr = new Button[]
+                {label00, label01, label02, label03, label04, label05, label06, label07, label08,
+                        label10, label11, label12, label13, label14, label15, label16, label17, label18,
+                        label20, label21, label22, label23, label25, label26, label27, label28,
+                        label30, label31, label32, label33, label34, label35, label36, label37, label38,
+                        label40, label41, label42, label43, label44, label45, label46, label47, label48 };
+
+        enableButtons(false);
 	}
 
     //Calls the Town.fxml file and constructs the Town GUI.
@@ -230,9 +235,7 @@ public class GameController implements java.io.Serializable {
         updateTurnTime();
         if (currentPlayer.getMuleList().size() > 0) {
             currentPlayer.getMuleList().stream().filter(mule -> mule != null
-                    && currentPlayer.getEnergy() >= 1).forEach(mule -> {
-                mule.calculateResourceChanges();
-            });
+                    && currentPlayer.getEnergy() >= 1).forEach(mule -> mule.calculateResourceChanges());
         }
 
         food.setText(String.valueOf(currentPlayer.getFood()));
@@ -252,13 +255,14 @@ public class GameController implements java.io.Serializable {
                     //Gets the actual property object that was clicked so that things can be done to it
                     Pane mapElement = (Pane) event.getSource();
                     String property = "pane" + mapElement.getId();
-                    if (!propertyOwnedList.contains(property) && currentPlayer.getMoney() >= 300) {
+                    if (!propertyOwnedList.contains(property) && (currentPlayer.getNumOfFreeProperties() != 0
+                            || currentPlayer.getMoney() >= PROPERTY_PRICE)) {
                         currentPlayer.incrementPropertyOwned();
                         propertyOwnedList.add(property);
 
                         if (currentPlayer.getNumOfFreeProperties() == 0) {
                             //Automatically updates player's money and on the GUI
-                            currentPlayer.setMoney(currentPlayer.getMoney() - propertyPrice);
+                            currentPlayer.setMoney(currentPlayer.getMoney() - PROPERTY_PRICE);
                             money.setText(String.valueOf(currentPlayer.getMoney()));
                         }
                         else {
@@ -280,15 +284,13 @@ public class GameController implements java.io.Serializable {
 	}
 	
 	private void reDrawProperty() {
-		//System.out.println("reDraw");
-        for (int j = 0; j < constantPlayerList.size(); j++) {
-        	Color playerColor = constantPlayerList.get(j).getColor();
-        	//System.out.println(playerColor);
-			for (int i = 0; i < 45; i++) {
-				if (constantPlayerList.get(j).getPropertyList().contains(grid.getChildren().get(i).getId())) {
-					Region reg = (Region) grid.getChildren().get(i);
-	                reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
-	                /*if (constantPlayerList.get(j).getMuleList().get(0) != null) {
+        for (Player player : constantPlayerList) {
+            Color playerColor = player.getColor();
+            for (int i = 0; i < MAP_SIZE; i++) {
+                if (player.getPropertyList().contains(grid.getChildren().get(i).getId())) {
+                    Region reg = (Region) grid.getChildren().get(i);
+                    reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
+                    /*if (constantPlayerList.get(j).getMuleList().get(0) != null) {
 	                	String buttonName = "label" + grid.getChildren().get(i).getId().charAt(4) + grid.getChildren().get(i).getId().charAt(5);
 	                	for (int m = 0; m < 43; m++) {
 	                		System.out.println(buttonList.get(0));
@@ -297,8 +299,8 @@ public class GameController implements java.io.Serializable {
 		                	}
 	                	}
 	                }*/
-				}
-			}
+                }
+            }
         }
 	}
 
@@ -440,28 +442,33 @@ public class GameController implements java.io.Serializable {
             Label label = (Label) clickedButton.getParent().getChildrenUnmodifiable().get(0);
             String propertyType = label.getText();
             Mule mule = null;
+            String id = "pane" + clickedButton.getParent().getId();
 
             if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
+                    propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("food");
-                clickedButton.getParent();
                 mule = new FoodMule(propertyType);
             } else if (typeOfMule.compareTo("energy") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
+                    propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("energy");
                 mule = new EnergyMule(propertyType);
             } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
-                    propertyOwnedList.contains(clickedButton.getParent()) && currentPlayer.getPropertyList().contains(clickedButton.getParent())) {
+                    propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("ore");
                 mule = new OreMule(propertyType);
             }
 			placingMule = false;
-			currentPlayer.addToMuleList(mule);
+
+            if (mule != null) {
+                currentPlayer.addToMuleList(mule);
+            }
+
+            enableButtons(false);
     	}
     }
     
     @FXML
-    private void handleSave (ActionEvent event) throws IOException {
+    private void handleSave (ActionEvent event) {
     	try {
     		FileOutputStream fileOut = new FileOutputStream("/tmp/game.ser");
     		ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -486,59 +493,22 @@ public class GameController implements java.io.Serializable {
     		out3.writeInt(game.getRandomFactor());
     		out3.close();
     		fileOut3.close();
-    		System.out.println("save went through");
     	} catch (IOException i) {
     		i.printStackTrace();
     	}
     }
-    
-    private void createButtonList() {
-    	buttonList = new ArrayList<>();
-    	buttonList.add(label00);
-    	buttonList.add(label01);
-    	buttonList.add(label02);
-    	buttonList.add(label03);
-    	buttonList.add(label04);
-    	buttonList.add(label05);
-    	buttonList.add(label06);
-    	buttonList.add(label07);
-    	buttonList.add(label08);
-    	buttonList.add(label10);
-    	buttonList.add(label11);
-    	buttonList.add(label12);
-    	buttonList.add(label13);
-    	buttonList.add(label14);
-    	buttonList.add(label15);
-    	buttonList.add(label16);
-    	buttonList.add(label17);
-    	buttonList.add(label18);
-    	buttonList.add(label20);
-    	buttonList.add(label21);
-    	buttonList.add(label22);
-    	buttonList.add(label23);
-    	buttonList.add(label25);
-    	buttonList.add(label26);
-    	buttonList.add(label27);
-    	buttonList.add(label28);
-    	buttonList.add(label30);
-    	buttonList.add(label31);
-    	buttonList.add(label32);
-    	buttonList.add(label33);
-    	buttonList.add(label34);
-    	buttonList.add(label35);
-    	buttonList.add(label36);
-    	buttonList.add(label37);
-    	buttonList.add(label38);
-    	buttonList.add(label40);
-    	buttonList.add(label41);
-    	buttonList.add(label42);
-    	buttonList.add(label43);
-    	buttonList.add(label44);
-    	buttonList.add(label45);
-    	buttonList.add(label46);
-    	buttonList.add(label47);
-    	buttonList.add(label48);
-    }
 
     public static void setTypeOfMule(String type) { typeOfMule = type; }
+
+    public Game getGame(){ return game; }
+
+    public List<Player> getPlayerList() { return playerList; }
+
+    public static void enableButtons(Boolean bool) {
+        for (Button button : buttonArr) {
+            if (button.getText().equals("Mule")) {
+                button.setVisible(bool);
+            }
+        }
+    }
 }
