@@ -35,9 +35,7 @@ public class GameController implements java.io.Serializable {
 
     //Everything labeled @FXML relates directly to the .fxml files
 
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@FXML
@@ -66,12 +64,12 @@ public class GameController implements java.io.Serializable {
 
 	private Game game;
 
-	public static Player currentPlayer;
+	private static Player currentPlayer;
 
     //numOfPropBuyInRound = number of properties bought this round, if 0 then land selection phase ends
 	private int turnNumber, numOfPropBoughtInTurn, numOfPropBoughtInRound;
 
-    public static int turnTime, roundNumber;
+    private static int turnTime, roundNumber;
 
     private static final int PROPERTY_PRICE = 300, TIME_LIMIT = 50, MAP_SIZE = 45;
 
@@ -85,11 +83,11 @@ public class GameController implements java.io.Serializable {
 
     private ArrayList<Label> scoreView;
 
-    public Stage gameStage;
+    private Stage gameStage;
 
-    public Scene gameScene;
+    private Scene gameScene;
 
-    public static boolean placingMule = false;
+    private static boolean placingMule = false;
 
     private static String typeOfMule;
 
@@ -228,11 +226,13 @@ public class GameController implements java.io.Serializable {
         numOfPropBoughtInTurn = 0;
         currentPlayer = playerList.get(turnNumber - 1);
         turn.setText(currentPlayer.getName());
+
         if (Math.random() < .27) {
         	RandomEvent randEvent = new RandomEvent();
         	this.randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
         }
         updateTurnTime();
+
         if (currentPlayer.getMuleList().size() > 0) {
             currentPlayer.getMuleList().stream().filter(mule -> mule != null
                     && currentPlayer.getEnergy() >= 1).forEach(mule -> mule.calculateResourceChanges());
@@ -255,6 +255,7 @@ public class GameController implements java.io.Serializable {
                     //Gets the actual property object that was clicked so that things can be done to it
                     Pane mapElement = (Pane) event.getSource();
                     String property = "pane" + mapElement.getId();
+
                     if (!propertyOwnedList.contains(property) && (currentPlayer.getNumOfFreeProperties() != 0
                             || currentPlayer.getMoney() >= PROPERTY_PRICE)) {
                         currentPlayer.incrementPropertyOwned();
@@ -336,7 +337,7 @@ public class GameController implements java.io.Serializable {
         }
     }
 
-    private void updateTurnTime() {
+    public void updateTurnTime() {
         if (roundNumber == 1) {
             turnTime = 50;
         }
@@ -504,6 +505,21 @@ public class GameController implements java.io.Serializable {
 
     public List<Player> getPlayerList() { return playerList; }
 
+    public static Player getCurrentPlayer() { return currentPlayer; }
+
+    public static int getTurnTime() { return turnTime; }
+
+    public static int getRoundNumber() { return roundNumber; }
+
+    public static void setTurnTime(int time) { turnTime = time; }
+
+    public static void setPlacingMule(boolean bool) { placingMule = bool; }
+
+    public static void setRoundNumber(int round) { roundNumber = round; }
+
+    public static void setCurrentPlayer(Player cp) { currentPlayer = cp; }
+
+
     public static void enableButtons(Boolean bool) {
         for (Button button : buttonArr) {
             if (button.getText().equals("Mule")) {
@@ -511,4 +527,5 @@ public class GameController implements java.io.Serializable {
             }
         }
     }
+
 }

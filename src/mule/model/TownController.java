@@ -74,15 +74,15 @@ public class TownController {
 			nameView.get(i).setText(n);
 		}
 
-		food.setText(String.valueOf(GameController.currentPlayer.getFood()));
-		money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
-		energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
-		ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
+		food.setText(String.valueOf(GameController.getCurrentPlayer().getFood()));
+		money.setText(String.valueOf(GameController.getCurrentPlayer().getMoney()));
+		energy.setText(String.valueOf(GameController.getCurrentPlayer().getEnergy()));
+		ore.setText(String.valueOf(GameController.getCurrentPlayer().getOre()));
 
-		round.setText(String.valueOf(GameController.roundNumber));
-		turn.setText(GameController.currentPlayer.getName());
+		round.setText(String.valueOf(GameController.getRoundNumber()));
+		turn.setText(GameController.getCurrentPlayer().getName());
 
-		turnTime = GameController.turnTime;
+		turnTime = GameController.getTurnTime();
 
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {

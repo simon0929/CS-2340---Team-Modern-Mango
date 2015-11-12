@@ -94,7 +94,6 @@ public final class Game implements java.io.Serializable {
 
 	public Store getStore() { return store; }
 
-
 	public List<Player> getPlayerArr() {
 		return playerArr;
 	}

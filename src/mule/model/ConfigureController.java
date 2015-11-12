@@ -21,6 +21,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 public final class ConfigureController implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
