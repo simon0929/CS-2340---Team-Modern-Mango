@@ -5,15 +5,13 @@ import java.util.Map;
 
 public final class Store implements java.io.Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int food, energy, ore, mule;
     private static final int INIT_FOOD_B = 16, INIT_ENERGY_B = 16, INIT_ORE_B = 0, INIT_MULE_B = 25, INIT_FOOD_S = 8,
             INIT_ENERGY_S = 8, INIT_ORE_S = 8, INIT_MULE_S = 14, FOOD_PRICE = 30, ENERGY_PRICE = 25, ORE_PRICE = 50,
             E_MULE_PRICE = 150,F_MULE_PRICE = 125, O_MULE_PRICE = 175;
     private static final Map<String, Integer> RESOURCE_LIST = new HashMap<>();
+
     static {
         RESOURCE_LIST.put("food", FOOD_PRICE);
         RESOURCE_LIST.put("energy", ENERGY_PRICE);
@@ -28,6 +26,7 @@ public final class Store implements java.io.Serializable {
     }
 
     public Store(String difficulty) {
+
         if (difficulty.equals("beginner")) {
             food = INIT_FOOD_B;
             energy = INIT_ENERGY_B;

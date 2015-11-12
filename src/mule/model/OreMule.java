@@ -15,15 +15,16 @@ public class OreMule extends Mule implements java.io.Serializable {
     }
 
     public OreMule(String pType) {
-        propertyType = pType;
-        currentPlayer = GameController.currentPlayer;
-        muleType = "ore";
+        setPropertyType(pType);
+        setCurrentPlayer(GameController.getCurrentPlayer());
+        setMuleType("ore");
     }
 
     public final void calculateResourceChanges() {
-        if(!propertyType.equals("River")) {
-            currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-            currentPlayer.setOre(currentPlayer.getEnergy() + PRODUCTION_VALUES.get(propertyType));
+        if(!getPropertyType().equals("River")) {
+            Player player = getCurrentPlayer();
+            player.setEnergy(player.getEnergy() - 1);
+            player.setOre(player.getEnergy() + PRODUCTION_VALUES.get(getPropertyType()));
         }
     }
 

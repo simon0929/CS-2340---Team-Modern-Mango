@@ -6,9 +6,9 @@ public class FoodMule extends Mule implements java.io.Serializable {
     private static final int PLAIN_VALUE = 2, RIVER_VALUE = 4, M1_VALUE = 1, M2_VALUE = 1, M3_VALUE = 1;
 
     public FoodMule(String pType) {
-        propertyType = pType;
-        currentPlayer = GameController.currentPlayer;
-        muleType = "food";
+        setPropertyType(pType);
+        setCurrentPlayer(GameController.getCurrentPlayer());
+        setMuleType("food");
     }
     static {
 
@@ -20,8 +20,9 @@ public class FoodMule extends Mule implements java.io.Serializable {
     }
 
     public final void calculateResourceChanges() {
-        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-        currentPlayer.setFood(currentPlayer.getEnergy() + PRODUCTION_VALUES.get(propertyType));
+        Player player = getCurrentPlayer();
+        player.setEnergy(player.getEnergy() - 1);
+        player.setFood(player.getEnergy() + PRODUCTION_VALUES.get(getPropertyType()));
     }
 
 }

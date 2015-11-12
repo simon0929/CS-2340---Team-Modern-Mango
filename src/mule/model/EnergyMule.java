@@ -6,9 +6,9 @@ public class EnergyMule extends Mule implements java.io.Serializable {
 	private static final int PLAIN_VALUE = 3, RIVER_VALUE = 2, M1_VALUE = 1, M2_VALUE = 1, M3_VALUE = 1;
 
 	public EnergyMule(String pType) {
-        propertyType = pType;
-        currentPlayer = GameController.currentPlayer;
-		muleType = "energy";
+        setPropertyType(pType);
+        setCurrentPlayer(GameController.getCurrentPlayer());
+        setMuleType("energy");
     }
 
         static {
@@ -22,8 +22,9 @@ public class EnergyMule extends Mule implements java.io.Serializable {
         
 
     public final void calculateResourceChanges() {
-        currentPlayer.setEnergy(currentPlayer.getEnergy() - 1);
-        currentPlayer.setEnergy(currentPlayer.getEnergy() + PRODUCTION_VALUES.get(propertyType));
+        Player player = getCurrentPlayer();
+        player.setEnergy(player.getEnergy() - 1);
+        player.setEnergy(player.getEnergy() + PRODUCTION_VALUES.get(getPropertyType()));
     }
 
 }
