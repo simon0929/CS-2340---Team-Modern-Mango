@@ -19,6 +19,14 @@ import java.util.TimerTask;
 
 import javafx.scene.control.Button;
 
+/**
+ * Class that communicates the store functions
+ * (purchasing, selling, etc) and updated values
+ * with the view
+ *
+ * @author ModernMango
+ *
+ */
 public final class StoreController {
 
     @FXML
@@ -28,7 +36,7 @@ public final class StoreController {
 
     @FXML
     private Button buyOre, buyEnergy, buyFood, buyMule, sellOre, sellEnergy, sellFood;
-    
+
     @FXML
     private ChoiceBox<String> muleType;
 
@@ -40,7 +48,7 @@ public final class StoreController {
     private Stage gameStage;
 
     private Scene gameScene;
-    
+
     private Game game;
 
     @FXML
@@ -102,6 +110,7 @@ public final class StoreController {
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
+
             @Override
             public void run() {
                 Platform.runLater(() -> {
@@ -113,7 +122,7 @@ public final class StoreController {
                 });
             }
         }, 0, 1000);
-        
+
         final ObservableList<String> type = FXCollections.observableArrayList();
 		type.add("food (+25)");
 		type.add("energy (+50)");
@@ -214,7 +223,7 @@ public final class StoreController {
         storeEnergy.setText(String.valueOf(store.getEnergy()));
         storeMule.setText(String.valueOf(store.getMule()));
     }
-    
+
     @FXML
     private void changeScreen(ActionEvent event) {
     	GameController.setPlacingMule(true);

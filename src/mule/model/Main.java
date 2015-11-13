@@ -1,5 +1,5 @@
 package mule.model;
-	
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -9,6 +9,13 @@ import javafx.fxml.FXMLLoader;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
+/**
+ * Class that handles the launch of
+ * the application
+ *
+ * @author ModernMango
+ *
+ */
 public final class Main extends Application {
 
 	private static final int WIDTH = 600, HEIGHT = 500;
@@ -26,7 +33,11 @@ public final class Main extends Application {
 			logger.log(Level.SEVERE, e.toString(), e);
 		}
 	}
-	
+
+	/**
+	 * Entry point for application
+	 * @param args Used to access command line arguments
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
