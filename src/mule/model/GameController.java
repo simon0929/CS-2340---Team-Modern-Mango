@@ -31,6 +31,13 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Class that handles communications
+ * between Game and the view (GUI)
+ *
+ * @author ModernMango
+ *
+ */
 public class GameController implements java.io.Serializable {
 
     //Everything labeled @FXML relates directly to the .fxml files
@@ -55,10 +62,10 @@ public class GameController implements java.io.Serializable {
 
     @FXML
     private Rectangle p1Color, p2Color, p3Color, p4Color;
-    
+
     @FXML
     private MenuItem save, load;
-    
+
     @FXML
     private GridPane grid;
 
@@ -109,7 +116,7 @@ public class GameController implements java.io.Serializable {
         numOfPropBoughtInTurn = 0;
         numOfPropBoughtInRound = 0;
 		selectionPhase = true;
-		
+
 
         food.setText(String.valueOf(currentPlayer.getFood()));
 		money.setText(String.valueOf(currentPlayer.getMoney()));
@@ -283,7 +290,7 @@ public class GameController implements java.io.Serializable {
             }
         }
 	}
-	
+
 	private void reDrawProperty() {
         for (Player player : constantPlayerList) {
             Color playerColor = player.getColor();
@@ -324,7 +331,7 @@ public class GameController implements java.io.Serializable {
             }
             playerList.add(tempList.get(minScore));
             tempList.remove(minScore);
-        }        
+        }
         game.setPlayerList(playerList);
     }
 
@@ -337,6 +344,9 @@ public class GameController implements java.io.Serializable {
         }
     }
 
+    /**
+     * Updates the game's turn time based on the player's stats
+     */
     public void updateTurnTime() {
         if (roundNumber == 1) {
             turnTime = 50;
@@ -385,7 +395,8 @@ public class GameController implements java.io.Serializable {
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
+
+        	@Override
             public void run() {
                 Platform.runLater(() -> {
                     if (turnTime >= 0) {
@@ -467,7 +478,7 @@ public class GameController implements java.io.Serializable {
             enableButtons(false);
     	}
     }
-    
+
     @FXML
     private void handleSave (ActionEvent event) {
     	try {
@@ -476,19 +487,19 @@ public class GameController implements java.io.Serializable {
     		out.writeObject(game);
     		out.close();
     		fileOut.close();
-    		
+
     		FileOutputStream fileOut1 = new FileOutputStream("/tmp/round.ser");
     		ObjectOutputStream out1 = new ObjectOutputStream(fileOut1);
     		out1.writeInt(game.getRound());
     		out1.close();
     		fileOut1.close();
-    		
+
     		FileOutputStream fileOut2 = new FileOutputStream("/tmp/turn.ser");
     		ObjectOutputStream out2 = new ObjectOutputStream(fileOut2);
     		out2.writeInt(game.getTurn());
     		out2.close();
     		fileOut2.close();
-    		
+
     		FileOutputStream fileOut3 = new FileOutputStream("/tmp/m.ser");
     		ObjectOutputStream out3 = new ObjectOutputStream(fileOut3);
     		out3.writeInt(game.getRandomFactor());
@@ -499,27 +510,76 @@ public class GameController implements java.io.Serializable {
     	}
     }
 
+    /**
+     * Sets the mule type to the type passed in
+     * @param type New type to set mule type to
+     */
     public static void setTypeOfMule(String type) { typeOfMule = type; }
 
+    /**
+     * Gets the game
+     * @return Game
+     */
     public Game getGame(){ return game; }
 
+    /**
+     * Gets the lists of players playing
+     * @return List of players in the game
+     */
     public List<Player> getPlayerList() { return playerList; }
 
+    /**
+     * Gets the current player
+     * @return Current player
+     */
     public static Player getCurrentPlayer() { return currentPlayer; }
 
+    /**
+     * Returns the amount of time in the turn
+     * @return time left in the turn
+     */
     public static int getTurnTime() { return turnTime; }
 
+    /**
+     * Gets the current round number
+     * @return Round number
+     */
     public static int getRoundNumber() { return roundNumber; }
 
+    /**
+     * Sets the turn time to the value passed in
+     * @param time Value to set the turn time to
+     */
     public static void setTurnTime(int time) { turnTime = time; }
 
+    /**
+     * Sets whether the player is placing a mule to the boolean passed in
+     *
+     * @param bool New boolean value for placingMule
+     * True is a mule is being placed and false if a mule isn't
+     */
     public static void setPlacingMule(boolean bool) { placingMule = bool; }
 
+    /**
+     * Sets round number to the value passed in
+     * @param round new round number
+     */
     public static void setRoundNumber(int round) { roundNumber = round; }
 
+    /**
+     * Sets current player to the player passed in
+     * @param cp New player to set the current player to
+     */
     public static void setCurrentPlayer(Player cp) { currentPlayer = cp; }
 
 
+    /**
+     * Sets visibility of buttons (representing mules)
+     * based on the boolean value passed in
+     *
+     * @param bool Boolean value to set visibility of mule buttons
+     * If true mule buttons are visible, otherwise they aren't visible
+     */
     public static void enableButtons(Boolean bool) {
         for (Button button : buttonArr) {
             if (button.getText().equals("Mule")) {

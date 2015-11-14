@@ -16,6 +16,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.control.Button;
 
+/**
+ * Handles function for the Pub
+ * such as gambling
+ *
+ * @author ModernMango
+ *
+ */
 public class PubController {
     @FXML
     private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
@@ -82,6 +89,7 @@ public class PubController {
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
+
             @Override
             public void run() {
                 Platform.runLater(() -> {

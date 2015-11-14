@@ -19,6 +19,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * Class that handles communication of town
+ * functions/navigation (change screens) to the view
+ *
+ * @author ModernMango
+ *
+ */
 public class TownController {
 
 //	@FXML
@@ -86,6 +93,7 @@ public class TownController {
 
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
+
 			@Override
 			public void run() {
 				Platform.runLater(() -> {

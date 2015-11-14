@@ -21,7 +21,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
+/**
+ * Class that handles the configuration of the Mule game
+ * @author Team Modern Mango
+ *
+ */
 public final class ConfigureController implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -171,7 +175,7 @@ public final class ConfigureController implements java.io.Serializable{
 		gameStage.show();
 	}
 
-	
+
 	@FXML
 	private void handleLoad(ActionEvent event) {
 		loaded = true;
@@ -182,19 +186,19 @@ public final class ConfigureController implements java.io.Serializable{
     		playerList = game.getPlayerArr();
     		in.close();
     		fileIn.close();
-    		
+
     		FileInputStream fileIn1 = new FileInputStream("/tmp/round.ser");
     		ObjectInputStream in1 = new ObjectInputStream(fileIn1);
     		game.setRound(in1.readInt());
     		in1.close();
     		fileIn1.close();
-    		
+
     		FileInputStream fileIn2 = new FileInputStream("/tmp/turn.ser");
     		ObjectInputStream in2 = new ObjectInputStream(fileIn2);
     		game.setTurn(in2.readInt());
     		in2.close();
     		fileIn2.close();
-    		
+
     		FileInputStream fileIn3 = new FileInputStream("/tmp/m.ser");
     		ObjectInputStream in3 = new ObjectInputStream(fileIn3);
     		game.setRandomFactor(in3.readInt());
@@ -204,7 +208,7 @@ public final class ConfigureController implements java.io.Serializable{
     		for(Player player : playerList) {
                 player.setColor(player.getNewColor());
             }
-    		
+
     		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
     		gameScene = new Scene(gameScreenParent);
     		gameStage = (Stage) startGameButton.getScene().getWindow();
@@ -216,18 +220,47 @@ public final class ConfigureController implements java.io.Serializable{
     	}
     }
 
+	/**
+	 * Gets the Game
+	 * @return Game created
+	 */
 	public static Game getGame() { return game; }
 
+	/**
+	 * Gets the players playing in the game
+	 * @return List of players playing
+	 */
 	public static List<Player> getPlayerList() { return playerList;}
 
+	/**
+	 * Gets the maximum number of players allowed to play
+	 * @return Maximum number of players allowed
+	 */
 	public static int getMaxNumPlayers() { return MAX_NUM_PLAYERS;}
 
+	/**
+	 * Gets the game stage
+	 * @return Game stage
+	 */
 	public static Stage getGameStage() { return gameStage;}
 
+	/**
+	 * Gets the game scene
+	 * @return Game scene
+	 */
 	public static Scene getGameScene() { return gameScene;}
 
+	/**
+	 * Gets the number of players playing
+	 * @return Number of players playing
+	 */
 	public static int getNumPlayers() { return numPlayers; }
 
+	/**
+	 * Gets whether a game was loaded
+	 * @return True if a game was loaded
+	 *         False if a game wasn't loaded
+	 */
     public static boolean getLoaded() { return loaded; }
 
 

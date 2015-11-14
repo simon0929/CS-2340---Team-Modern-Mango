@@ -1,5 +1,12 @@
 package mule.model;
 
+/**
+ * Ore mule class that produces ore
+ * based on what property it's on
+ *
+ * @author Modern Mango
+ *
+ */
 public class OreMule extends Mule implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -14,12 +21,21 @@ public class OreMule extends Mule implements java.io.Serializable {
         PRODUCTION_VALUES.put("M3", M3_VALUE);
     }
 
+    /**
+     * Constructs OreMule with a specific property type
+     *
+     * @param pType Type of property
+     */
     public OreMule(String pType) {
         setPropertyType(pType);
         setCurrentPlayer(GameController.getCurrentPlayer());
         setMuleType("ore");
     }
 
+    /**
+     * Calculates production rate based on type of mule
+     * and type of land
+     */
     public final void calculateResourceChanges() {
         if(!getPropertyType().equals("River")) {
             Player player = getCurrentPlayer();

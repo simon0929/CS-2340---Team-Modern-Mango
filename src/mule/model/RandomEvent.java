@@ -3,10 +3,22 @@ package mule.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Random event class that keeps track of different
+ * events and updates stats according to what the
+ * event is.
+ *
+ * @author ModernMango
+ *
+ */
 final class RandomEvent {
 
 	private final List<String> eventList;
 
+	/**
+	 * Constructs RandomEvent object which has
+	 * a list of bad and good events
+	 */
 	public RandomEvent() {
 		eventList = new ArrayList<>();
 		eventList.add("YOU JUST RECEIVED A PACKAGE FROM THE GT ALUMNI CONTAINING 3 FOOD AND 2 ENERGY UNITS.");
@@ -20,6 +32,16 @@ final class RandomEvent {
 
 	private static final int RAND_MULTIPLIER = 4;
 
+	/**
+	 * Gets a random event and changes a player's
+	 * based on what the event is
+	 *
+	 * @param game Game to get random factor from
+	 *
+	 * @param player Player to have random event happen to
+	 *
+	 * @return Random event that happened
+	 */
 	public String random(Game game, Player player) {
 		int m = game.getRandomFactor();
 		int randInt = calcRandInt(game);
@@ -58,6 +80,14 @@ final class RandomEvent {
 		return eventList.get(randInt) + eventModifier;
 	}
 
+	/**
+	 * Calculate random integer to use as the index to
+	 * get random event from list
+	 *
+	 * @param game Game to calculate random integer for
+	 *
+	 * @return Random integer to get random event
+	 */
 	private int calcRandInt(Game game) {
 		int randInt;
 		if (game.getTurn() == 1 && game.getRound() > 1) {
