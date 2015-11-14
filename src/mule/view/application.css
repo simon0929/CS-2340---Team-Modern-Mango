@@ -1,1 +1,12 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+
+@font-face {
+     font-family: 'Pacifico';
+     src: url('resources/Pacifico.ttf');
+ }
+
+@font-face {
+     font-family: 'Spastic';
+     src: url('resources/Besom-free-font.ttf');
+}
