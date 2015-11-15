@@ -86,6 +86,9 @@ public final class ConfigureController implements java.io.Serializable{
         p4Race.setItems(race);
         playerList = new ArrayList<>();
 
+		startGameButton.setDisable(true);
+		startGameButton2.setDisable(true);
+
 	}
 
 	//Selectively enables the correct number of Player entry fields based on max number of players
@@ -117,6 +120,8 @@ public final class ConfigureController implements java.io.Serializable{
                 p4Race.getSelectionModel().selectFirst();
 			}
 		}
+		startGameButton.setDisable(false);
+		startGameButton2.setDisable(false);
 	}
 
     @FXML
@@ -136,47 +141,47 @@ public final class ConfigureController implements java.io.Serializable{
 	//Runs when the start button is clicked. Sets up the main game screen and objects.
 	@FXML
 	private void handleStartGame(ActionEvent event) throws IOException {
-		numPlayers = numOfPlayers.getSelectionModel().getSelectedItem();
+			numPlayers = numOfPlayers.getSelectionModel().getSelectedItem();
 
-		//Initializes string objects containing the difficulty to add to Player objects later.
-        String diff;
-        if (beginDiff.isSelected()) {
-			diff = "beginner";
-		} else if (standDiff.isSelected()) {
-			diff = "standard";
-		} else {
-			diff = "tournament";
-		}
+			//Initializes string objects containing the difficulty to add to Player objects later.
+			String diff;
+			if (beginDiff.isSelected()) {
+				diff = "beginner";
+			} else if (standDiff.isSelected()) {
+				diff = "standard";
+			} else {
+				diff = "tournament";
+			}
 
-		//Create new Game with correct number of players
-		Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-		Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
-		playerList.add(player1);
-		playerList.add(player2);
+			//Create new Game with correct number of players
+			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+			playerList.add(player1);
+			playerList.add(player2);
 
-		Player player3 = null;
-		Player player4 = null;
+			Player player3 = null;
+			Player player4 = null;
 
-		if(numPlayers >= MIN_NUM_PLAYERS + 1) {
-			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
-			playerList.add(player3);
+			if (numPlayers >= MIN_NUM_PLAYERS + 1) {
+				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+				playerList.add(player3);
 
-		}
-		if(numPlayers == MAX_NUM_PLAYERS) {
-			player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
-			playerList.add(player4);
+			}
+			if (numPlayers == MAX_NUM_PLAYERS) {
+				player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
+				playerList.add(player4);
 
-		}
+			}
 
-		game = new Game(player1, player2, player3, player4, diff);
+			game = new Game(player1, player2, player3, player4, diff);
 
 
-		//Calls the Game.fxml file and actually constructs the GUI.
-		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
-		gameScene = new Scene(gameScreenParent);
-		gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		gameStage.setScene(gameScene);
-		gameStage.show();
+			//Calls the Game.fxml file and actually constructs the GUI.
+			Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
+			gameScene = new Scene(gameScreenParent);
+			gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			gameStage.setScene(gameScene);
+			gameStage.show();
 	}
 
 
