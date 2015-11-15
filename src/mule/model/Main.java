@@ -23,7 +23,7 @@ public final class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = FXMLLoader.load(getClass().getResource("/mule/view/titleScreen.fxml"));
+			AnchorPane root = FXMLLoader.load(getClass().getResource("/mule/view/TitleScreen.fxml"));
 			Scene scene = new Scene(root, WIDTH, HEIGHT);
 			scene.getStylesheets().add(getClass().getResource("/mule/view/application.css").toExternalForm());
 			primaryStage.setScene(scene);

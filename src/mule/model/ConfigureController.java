@@ -50,7 +50,7 @@ public final class ConfigureController implements java.io.Serializable{
 	private ChoiceBox<String> p1Race, p2Race, p3Race, p4Race;
 
 	@FXML
-	private Button startGameButton;
+	private Button startGameButton, startGameButton2;
 
     private static Game game;
 
@@ -124,8 +124,12 @@ public final class ConfigureController implements java.io.Serializable{
 		if (beginDiff.isSelected() && standMap.isSelected()
                 && numOfPlayers.getSelectionModel().getSelectedItem() != null) {
 			startGameButton.setDisable(false);
+			startGameButton2.setDisable(false);
+
 		} else {
 			startGameButton.setDisable(true);
+			startGameButton2.setDisable(true);
+
 		}
 	}
 
