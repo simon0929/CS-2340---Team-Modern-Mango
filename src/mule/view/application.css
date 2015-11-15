@@ -8,5 +8,10 @@
 
 @font-face {
      font-family: 'Besom';
-     src: url('resources/Besom-free-font.ttf');
+     src: url('resources/Besom-Handwritten-Brush-Font.ttf');
+}
+
+@font-face {
+     font-family: 'Spastic';
+     src: url('resources/Spastic-Regular.otf');
 }
