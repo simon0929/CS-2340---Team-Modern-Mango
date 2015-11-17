@@ -69,7 +69,7 @@ public class GameController implements java.io.Serializable {
 	public static Player currentPlayer;
 
     //numOfPropBuyInRound = number of properties bought this round, if 0 then land selection phase ends
-	private int turnNumber, numOfPropBoughtInTurn, numOfPropBoughtInRound;
+	public int turnNumber, numOfPropBoughtInTurn, numOfPropBoughtInRound;
 
     public static int turnTime, roundNumber;
 
@@ -336,7 +336,7 @@ public class GameController implements java.io.Serializable {
         }
     }
 
-    private void updateTurnTime() {
+    public void updateTurnTime() {
         if (roundNumber == 1) {
             turnTime = 50;
         }
@@ -376,7 +376,7 @@ public class GameController implements java.io.Serializable {
             }
         }
 
-        timeLeft.setText(String.valueOf(turnTime));
+        //timeLeft.setText(String.valueOf(turnTime));
     }
 
     private void startTurnTimer() {
