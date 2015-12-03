@@ -103,11 +103,19 @@ public final class ConfigureController implements java.io.Serializable{
 				p2Name.setDisable(false);
 				p2Color.setDisable(false);
 				p2Race.setDisable(false);
-                p1Race.getSelectionModel().selectFirst();
+				p1Race.getSelectionModel().selectFirst();
                 p2Race.getSelectionModel().selectFirst();
-                beginDiff.setSelected(true);
+
+				beginDiff.setSelected(true);
                 standMap.setSelected(true);
-                startGameButton.setDisable(false);
+
+				p3Name.setDisable(true);
+				p3Color.setDisable(true);
+				p3Race.setDisable(true);
+
+				p4Name.setDisable(true);
+				p4Color.setDisable(true);
+				p4Race.setDisable(true);
             } if (numOfPlayers.getSelectionModel().getSelectedItem() >= MIN_NUM_PLAYERS + 1) {
 				p3Name.setDisable(false);
 				p3Color.setDisable(false);

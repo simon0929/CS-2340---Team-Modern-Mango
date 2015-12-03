@@ -35,7 +35,7 @@ public final class StoreController {
             foodPrice, energyPrice, orePrice;
 
     @FXML
-    private Button buyOre, buyEnergy, buyFood, buyMule, sellOre, sellEnergy, sellFood;
+    private Button buyOre, buyEnergy, buyFood, buyMule, sellOre, sellEnergy, sellFood, placeMule;
 
     @FXML
     private ChoiceBox<String> muleType;
@@ -129,6 +129,7 @@ public final class StoreController {
         type.add("ore (+75)");
 
         muleType.setItems(type);
+        placeMule.setDisable(true);
     }
 
     @FXML
@@ -192,6 +193,7 @@ public final class StoreController {
         storeMessage.setText(message);
 
     	if(muleType.getValue() != null && buyMule.isPressed()) {
+            placeMule.setDisable(false);
     		if (muleType.getSelectionModel().getSelectedItem().compareTo("food (+25)") == 0) {
     			message = GameController.getCurrentPlayer().buyResource("foodMule");
     			GameController.setTypeOfMule("food");

@@ -15,7 +15,7 @@
             <Image url="@resources/background.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="307.0" fitWidth="329.0" layoutX="558.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="307.0" fitWidth="329.0" layoutX="556.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <DropShadow color="WHITE" height="124.22" radius="52.5025" width="87.79" />
          </effect>
@@ -23,7 +23,7 @@
             <Image url="@resources/circle1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="384.0" fitWidth="406.0" layoutX="516.0" layoutY="-5.0" pickOnBounds="true">
+      <ImageView fitHeight="384.0" fitWidth="406.0" layoutX="514.0" pickOnBounds="true">
          <image>
             <Image url="@resources/dots.png" />
          </image>
@@ -253,7 +253,7 @@
       </TextField>
       <Label layoutX="199.0" layoutY="60.0" style="-fx-font-family: Spastic; -fx-font-size: 18;" text="Select number of players and Press Enter" textFill="#fff9e2">
          <font>
-            <Font name="Besom" size="20.0" />
+            <Font name="Spastic" size="20.0" />
          </font>
       </Label>
       <TextField fx:id="p1Name" disable="true" layoutX="34.0" layoutY="150.0" prefHeight="26.0" prefWidth="163.0" promptText="name" style="-fx-background-color: C2BFD6;" text="Player 1">
@@ -278,10 +278,10 @@
             </ContextMenu>
          </contextMenu>
          <effect>
-            <DropShadow color="#50e84d" height="46.8" radius="58.19" spread="0.28" width="187.96" />
+            <DropShadow color="#50e84d" height="117.38" radius="75.83500000000001" spread="0.21" width="187.96" />
          </effect>
       </ChoiceBox>
-      <Button fx:id="startGameButton2" cacheShape="false" contentDisplay="TOP" layoutX="15.0" layoutY="589.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" style="-fx-background-color: #FFF9E2; -fx-font-family: Spastic; -fx-font-size: 20;" text="Start Game">
+      <Button fx:id="startGameButton2" cacheShape="false" contentDisplay="TOP" layoutX="15.0" layoutY="589.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" style="-fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1; -fx-font-family: Spastic; -fx-font-size: 27;" stylesheets="@application.css" text="Start Game">
          <effect>
             <DropShadow height="124.22" radius="60.09" spread="0.12" width="118.14" />
          </effect>
@@ -473,9 +473,9 @@
             <Image url="@resources/star5.png" />
          </image>
       </ImageView>
-      <MenuBar prefHeight="25.0" prefWidth="900.0" style="-fx-background-color: #817E91;">
+      <MenuBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" prefWidth="900.0" style="-fx-background-color: #817E91;" stylesheets="@application.css">
          <effect>
-            <InnerShadow color="#260b4a" height="36.18" radius="13.795" />
+            <InnerShadow choke="0.23" color="#140112" height="54.39" radius="31.2475" width="72.6" />
          </effect>
          <menus>
             <Menu mnemonicParsing="false" text="File">
