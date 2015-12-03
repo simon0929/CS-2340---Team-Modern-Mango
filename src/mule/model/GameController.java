@@ -18,6 +18,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -459,14 +461,23 @@ public class GameController implements java.io.Serializable {
             if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("food");
+                clickedButton.setVisible(false);
+                ImageView foodMuleView = (ImageView) clickedButton.getParent().getChildrenUnmodifiable().get(1);
+                foodMuleView.setVisible(true);
                 mule = new FoodMule(propertyType);
             } else if (typeOfMule.compareTo("energy") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("energy");
+                clickedButton.setVisible(false);
+                ImageView energyMuleView = (ImageView) clickedButton.getParent().getChildrenUnmodifiable().get(2);
+                energyMuleView.setVisible(true);
                 mule = new EnergyMule(propertyType);
             } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("ore");
+                clickedButton.setVisible(false);
+                ImageView oreMuleView = (ImageView) clickedButton.getParent().getChildrenUnmodifiable().get(3);
+                oreMuleView.setVisible(true);
                 mule = new OreMule(propertyType);
             }
 			placingMule = false;
