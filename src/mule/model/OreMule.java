@@ -10,7 +10,7 @@ package mule.model;
 public class OreMule extends Mule implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-    private static final int PLAIN_VALUE = 1, RIVER_VALUE = 0, M1_VALUE = 2, M2_VALUE = 3, M3_VALUE = 4;
+    private static final int PLAIN_VALUE = 1, RIVER_VALUE = 0, M1_VALUE = 2, M2_VALUE = 3, M3_VALUE = 4, FOREST_VALUE = 4;
 
     static {
 
@@ -19,6 +19,8 @@ public class OreMule extends Mule implements java.io.Serializable {
         PRODUCTION_VALUES.put("M1", M1_VALUE);
         PRODUCTION_VALUES.put("M2", M2_VALUE);
         PRODUCTION_VALUES.put("M3", M3_VALUE);
+        PRODUCTION_VALUES.put("Forest", FOREST_VALUE);
+
     }
 
     /**

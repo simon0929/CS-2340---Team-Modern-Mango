@@ -16,7 +16,7 @@ abstract class Mule {
     private String propertyType;
     private static String muleType;
     private Player currentPlayer;
-    static final  Map<String, Integer> PRODUCTION_VALUES = new HashMap<>(5);
+    static final  Map<String, Integer> PRODUCTION_VALUES = new HashMap<>(6);
 
 
     /**

@@ -456,15 +456,15 @@ public class GameController implements java.io.Serializable {
             Mule mule = null;
             String id = "pane" + clickedButton.getParent().getId();
 
-            if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+            if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("food");
                 mule = new FoodMule(propertyType);
-            } else if (typeOfMule.compareTo("energy") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+            } else if (typeOfMule.compareTo("energy") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("energy");
                 mule = new EnergyMule(propertyType);
-            } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
+            } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("ore");
                 mule = new OreMule(propertyType);
@@ -582,7 +582,7 @@ public class GameController implements java.io.Serializable {
      */
     public static void enableButtons(Boolean bool) {
         for (Button button : buttonArr) {
-            if (button.getText().equals("Mule")) {
+            if (button.getText().equals("Place Mule")) {
                 button.setVisible(bool);
             }
         }

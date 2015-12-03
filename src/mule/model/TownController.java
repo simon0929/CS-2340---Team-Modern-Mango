@@ -144,5 +144,6 @@ public class TownController {
 		storeStage.setScene(storeScene);
 		storeStage.show();
 	}
+	
 
 }
