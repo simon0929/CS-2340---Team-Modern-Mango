@@ -34,7 +34,7 @@ public final class ConfigureController implements java.io.Serializable{
 
 
 	@FXML
-	private RadioButton standMap, beginDiff, standDiff;
+	private RadioButton standMap, beginDiff, standDiff, tourDiff, noobDiff, legendDiff;
 
 
 	@FXML
@@ -80,6 +80,8 @@ public final class ConfigureController implements java.io.Serializable{
         race.add("Bonzoid");
         race.add("Ugaite");
         race.add("Buzzite");
+        race.add("Sozon");
+        race.add("Dracanoid");
         p1Race.setItems(race);
         p2Race.setItems(race);
         p3Race.setItems(race);
@@ -106,7 +108,7 @@ public final class ConfigureController implements java.io.Serializable{
 				p1Race.getSelectionModel().selectFirst();
                 p2Race.getSelectionModel().selectFirst();
 
-				beginDiff.setSelected(true);
+				noobDiff.setSelected(true);
                 standMap.setSelected(true);
 
 				p3Name.setDisable(true);
@@ -134,7 +136,8 @@ public final class ConfigureController implements java.io.Serializable{
 
     @FXML
 	private void enableStartButton() {
-		if (beginDiff.isSelected() && standMap.isSelected()
+    	if ((noobDiff.isSelected() || beginDiff.isSelected() || standDiff.isSelected() || tourDiff.isSelected()
+    		    || legendDiff.isSelected()) && standMap.isSelected()
                 && numOfPlayers.getSelectionModel().getSelectedItem() != null) {
 			startGameButton.setDisable(false);
 			startGameButton2.setDisable(false);
@@ -157,8 +160,12 @@ public final class ConfigureController implements java.io.Serializable{
 				diff = "beginner";
 			} else if (standDiff.isSelected()) {
 				diff = "standard";
-			} else {
+			} else if (tourDiff.isSelected()) {
 				diff = "tournament";
+			} else if (noobDiff.isSelected()) {
+				diff = "noobie";
+			} else {
+				diff = "legendary";
 			}
 
 			//Create new Game with correct number of players
