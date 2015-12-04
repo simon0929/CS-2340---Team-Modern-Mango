@@ -15,3 +15,66 @@
      font-family: 'Spastic';
      src: url('resources/Spastic-Regular.otf');
 }
+
+.slider .axis {
+      -fx-font-size: 30px;
+      -fx-tick-label-font: .9em Pacifico;
+      -fx-tick-label-fill: #540335;
+}
+
+.slider .axis .axis-tick-mark {
+    -fx-fill: null;
+    -fx-stroke: #DEB171;
+}
+
+.slider .thumb {
+    -fx-background-color:
+            #A10063,
+            linear-gradient(#fafdfe, #e8f5fc),
+            linear-gradient(#F5EFD5 0%, #FAEFC0 25%, #DEBB8A 50%, #DEB171 100%);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: .6em;
+    -fx-background-radius: 1.0em;
+}
+
+.slider .track {
+    -fx-background-color:
+        #fff9e2,
+        linear-gradient(#fafdfe, #e8f5fc),
+        linear-gradient(#F5EFD5 0%, #FAEFC0 40%, #DEBB8A 50%, #DEB171 100%);
+    -fx-background-insets: 0,0.5,1;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: .3em;
+}
+
+
+.menu-bar .label {
+    -fx-font-size: 15 pt;
+    -fx-font-family: Spastic;
+    -fx-text-fill: #dedede;
+    -fx-background-color: #817E91;
+
+}
+
+.menu-item .label{
+     -fx-font-size: 15 pt;
+     -fx-background-color: #817E91;
+}
+
+.menu-bar {
+    -fx-background-color:  #817E91;
+}
+
+.menu-item {
+    -fx-background-color: #817E91;
+    -fx-padding: 0.333333em 0.41777em 0.333333em 0.41777em;  /* 4 5 4 5 */
+}
+
+.menu-item:focused {
+     -fx-background: -fx-accent;
+     -fx-background-color: #59495C;
+     -fx-text-fill: -fx-selection-bar-text;
+}
+
+

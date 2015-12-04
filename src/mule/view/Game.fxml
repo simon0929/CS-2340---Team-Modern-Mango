@@ -1,525 +1,1965 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.GameController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.GameController">
    <children>
-      <AnchorPane layoutX="-1.0" layoutY="25.0" prefHeight="120.0" prefWidth="530.0">
-         <children>
-            <Button layoutX="435.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#handleEndTurn" text="  End Turn  " textAlignment="CENTER" />
-            <Label layoutX="40.0" layoutY="5.0" text="Scores" />
-            <Label layoutX="225.0" layoutY="5.0" text="Current Player Resources" />
-            <Label layoutX="225.0" layoutY="25.0" text="Food: " />
-            <Label layoutX="215.0" layoutY="45.0" text="Money: " />
-            <Label layoutX="215.0" layoutY="65.0" text="Energy: " />
-            <Label layoutX="232.0" layoutY="85.0" text="Ore: " />
-            <Label fx:id="food" layoutX="265.0" layoutY="25.0" text="" />
-            <Label fx:id="money" layoutX="265.0" layoutY="45.0" text="" />
-            <Label fx:id="energy" layoutX="265.0" layoutY="65.0" text="" />
-            <Label fx:id="ore" layoutX="265.0" layoutY="85.0" text="" />
-            <Label layoutX="419.0" layoutY="17.0" text="Round: " />
-            <Label layoutX="429.0" layoutY="45.0" text="Turn:" />
-            <Label layoutX="380.0" layoutY="74.0" text="Turn Time Left: " />
-            <Label fx:id="round" layoutX="470.0" layoutY="17.0" text="1" />
-            <Label fx:id="turn" layoutX="470.0" layoutY="45.0" text="" />
-            <Label fx:id="timeLeft" layoutX="470.0" layoutY="75.0" text="" />
-            <Label fx:id="randomEvent" layoutX="8.0" layoutY="114.0" prefHeight="17.0" prefWidth="420.0">
-               <font>
-                  <Font size="8.0" />
-               </font>
-            </Label>
-            <Rectangle fx:id="p4Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="9.0" layoutY="86.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
-            <Rectangle fx:id="p3Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="9.0" layoutY="66.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
-            <Rectangle fx:id="p2Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="9.0" layoutY="46.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
-            <Rectangle fx:id="p1Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="9.0" layoutY="26.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
-            <Label fx:id="player4score" layoutX="130.0" layoutY="86.0" text="" />
-            <Label fx:id="player3score" layoutX="130.0" layoutY="66.0" text="" />
-            <Label fx:id="player2score" layoutX="130.0" layoutY="46.0" text="" />
-            <Label fx:id="player1score" layoutX="130.0" layoutY="26.0" text="" />
-            <Label fx:id="name4" layoutX="49.0" layoutY="86.0" text="Player 4:" />
-            <Label fx:id="name3" layoutX="49.0" layoutY="66.0" text="Player 3:" />
-            <Label fx:id="name2" layoutX="49.0" layoutY="46.0" text="Player 2:" />
-            <Label fx:id="name1" layoutX="49.0" layoutY="26.0" text="Player 1:" />
-         </children>
-      </AnchorPane>
-      <GridPane fx:id="grid" gridLinesVisible="true" layoutY="157.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="411.0" prefWidth="528.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="157.0">
+      <ImageView fitHeight="679.0" fitWidth="950.0" layoutY="26.0" pickOnBounds="true">
+         <image>
+            <Image url="@resources/background.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="500.0" fitWidth="900.0" layoutX="25.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#ffffff82" height="75.77" radius="41.9075" width="93.86" />
+         </effect>
+         <image>
+            <Image url="@resources/map.png" />
+         </image>
+      </ImageView>
+      <MenuBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" prefWidth="950.0" style="-fx-background-color: #817E91;" stylesheets="@application.css">
+         <effect>
+            <InnerShadow choke="0.23" color="#140112" height="54.39" radius="31.2475" width="72.6" />
+         </effect>
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem fx:id="save" mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <GridPane fx:id="grid" gridLinesVisible="true" layoutX="25.0" layoutY="190.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="190.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="100.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane fx:id="pane02" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+            <Pane fx:id="pane02" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="2">
                <children>
-                  <Label layoutX="20.0" layoutY="36.0" text="M1" />
-                  <Button fx:id="label02" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="20.0" layoutY="36.0" text="M1" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label02" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane03" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
+            <Pane fx:id="pane03" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="3">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label03" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label03" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane04" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
+            <Pane fx:id="pane04" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="4">
                <children>
-                  <Label layoutX="16.0" layoutY="38.0" text="River" />
-                  <Button fx:id="label04" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="16.0" layoutY="38.0" text="River" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label04" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane10" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <Pane fx:id="pane10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label10" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label10" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane11" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Pane fx:id="pane11" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="21.0" layoutY="37.0" text="M1" />
-                  <Button fx:id="label11" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="21.0" layoutY="37.0" text="M1" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label11" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane12" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Pane fx:id="pane12" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label12" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label12" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane13" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Pane fx:id="pane13" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label13" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label13" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane14" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Pane fx:id="pane14" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="14.0" layoutY="36.0" text="River" />
-                  <Button fx:id="label14" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="14.0" layoutY="36.0" text="River" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label14" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane20" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <Pane fx:id="pane20" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="20.0" layoutY="35.0" text="M3" />
-                  <Button fx:id="label20" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="20.0" layoutY="35.0" text="M3" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label20" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane21" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Pane fx:id="pane21" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="16.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label21" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="16.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label21" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane22" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Pane fx:id="pane22" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label22" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label22" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane23" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Pane fx:id="pane23" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label23" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label23" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane onMouseClicked="#handleTown" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleTown" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="townLabel" layoutX="13.0" layoutY="35.0" text="Town" />
+                  <Label fx:id="townLabel" layoutX="13.0" layoutY="35.0" text="Town" textFill="TRANSPARENT" />
                </children>
             </Pane>
-            <Pane fx:id="pane30" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+            <Pane fx:id="pane30" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.rowIndex="3">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label30" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label30" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane31" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Pane fx:id="pane31" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Label layoutX="20.0" layoutY="35.0" text="M2" />
-                  <Button fx:id="label31" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="20.0" layoutY="35.0" text="M2" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label31" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane32" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Pane fx:id="pane32" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label32" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label32" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane33" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <Pane fx:id="pane33" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label33" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Forest" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label33" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane24" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <Pane fx:id="pane24" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <children>
-                  <Label layoutX="14.0" layoutY="35.0" text="River" />
-                  <Button fx:id="label34" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="14.0" layoutY="35.0" text="River" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label34" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane40" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+            <Pane fx:id="pane40" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.rowIndex="4">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label40" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label40" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane41" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Pane fx:id="pane41" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label41" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label41" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane42" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Pane fx:id="pane42" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <children>
-                  <Label layoutX="20.0" layoutY="35.0" text="M2" />
-                  <Button fx:id="label42" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="20.0" layoutY="35.0" text="M2" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label42" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane43" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <Pane fx:id="pane43" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label43" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Forest" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label43" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane44" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <Pane fx:id="pane44" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <children>
-                  <Label layoutX="14.0" layoutY="35.0" text="River" />
-                  <Button fx:id="label44" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="14.0" layoutY="35.0" text="River" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label44" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane05" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+            <Pane fx:id="pane05" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="5">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label05" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Forest" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label05" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane15" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Pane fx:id="pane15" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label15" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Forest" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label15" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane25" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <Pane fx:id="pane25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label25" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label25" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane35" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <Pane fx:id="pane35" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label35" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label35" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane45" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <Pane fx:id="pane45" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label45" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label45" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane06" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
+            <Pane fx:id="pane06" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="6">
                <children>
-                  <Label layoutX="20.0" layoutY="36.0" text="M3" />
-                  <Button fx:id="label06" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="20.0" layoutY="36.0" text="M3" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label06" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane07" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7">
+            <Pane fx:id="pane07" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="7">
                <children>
-                  <Label layoutX="17.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label07" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="17.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label07" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane16" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <Pane fx:id="pane16" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label16" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Forest" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label16" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane17" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <Pane fx:id="pane17" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label17" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label17" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane18" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+            <Pane fx:id="pane18" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="20.0" layoutY="36.0" text="M3" />
-                  <Button fx:id="label18" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="20.0" layoutY="36.0" text="M3" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label18" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane08" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8">
+            <Pane fx:id="pane08" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="8">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label08" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label08" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
+                     <graphic />
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane26" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            <Pane fx:id="pane26" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="13.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label26" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="13.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label26" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane27" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+            <Pane fx:id="pane27" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label27" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label27" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane28" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
+            <Pane fx:id="pane28" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="20.0" layoutY="35.0" text="M1" />
-                  <Button fx:id="label28" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="20.0" layoutY="35.0" text="M1" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label28" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane63" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+            <Pane fx:id="pane63" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <children>
-                  <Label layoutX="20.0" layoutY="35.0" text="M2" />
-                  <Button fx:id="label36" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="20.0" layoutY="35.0" text="M2" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label36" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane37" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+            <Pane fx:id="pane37" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label37" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label37" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane38" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
+            <Pane fx:id="pane38" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label38" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label38" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane46" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+            <Pane fx:id="pane46" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <children>
-                  <Label layoutX="16.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label46" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="16.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label46" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane47" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
+            <Pane fx:id="pane47" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label47" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label47" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane48" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
+            <Pane fx:id="pane48" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
                <children>
-                  <Label layoutX="20.0" layoutY="35.0" text="M2" />
-                  <Button fx:id="label48" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="20.0" layoutY="35.0" text="M2" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label48" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="pane01" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+            <Pane fx:id="pane01" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1">
                <children>
-                  <Label layoutX="15.0" layoutY="36.0" text="Plain" />
-                  <Button fx:id="label01" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="36.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label01" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
-            <Pane id="00" fx:id="pane00" onMouseClicked="#handleProperty" prefHeight="200.0" prefWidth="200.0">
+            <Pane id="00" fx:id="pane00" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleProperty" prefHeight="100.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="15.0" layoutY="35.0" text="Plain" />
-                  <Button fx:id="label00" mnemonicParsing="false" onAction="#placeMule" text="Mule">
+                  <Label layoutX="15.0" layoutY="35.0" text="Plain" textFill="TRANSPARENT" />
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/foodmule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/energymule.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <effect>
+                        <DropShadow color="#1aee07" height="54.4" radius="24.4225" spread="0.17" width="45.29" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/oremule.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="label00" mnemonicParsing="false" onAction="#placeMule" style="-fx-font-family: Spastic; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" stylesheets="@application.css" text="Place Mule" translateX="8.0" translateY="65.0">
                      <font>
                         <Font size="11.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="39.21" radius="19.105" spread="0.23" width="39.21" />
+                     </effect>
                   </Button>
                </children>
             </Pane>
          </children>
+         <effect>
+            <DropShadow color="#29ab05" height="68.02" radius="34.66" width="72.62" />
+         </effect>
       </GridPane>
-      <MenuBar prefHeight="29.0" prefWidth="900.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-                  <MenuItem fx:id="save" mnemonicParsing="false" onAction="#handleSave" text="Save" />
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+      <AnchorPane layoutY="31.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="158.0" prefWidth="950.0">
+         <children>
+            <AnchorPane layoutX="287.0" layoutY="131.0" prefHeight="23.0" prefWidth="570.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff9e2" height="23.0" stroke="#e0008b" strokeType="INSIDE" strokeWidth="1.5" style="-fx-stroke-dash-array: 5 10 5 10;" width="570.0">
+                     <effect>
+                        <DropShadow color="WHITE" height="39.21" radius="19.865000000000002" spread="0.32" width="42.25" />
+                     </effect>
+                  </Rectangle>
+                  <Label fx:id="randomEvent" layoutX="8.0" layoutY="2.0" prefHeight="17.0" prefWidth="567.0">
+                     <font>
+                        <Font name="Spastic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="137.0" prefHeight="100.0" prefWidth="159.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff9e2" height="100.0" layoutY="9.0" stroke="#e0008b" strokeType="INSIDE" strokeWidth="2.0" style="-fx-stroke-dash-array: 5 10 5 10;" width="159.0">
+                     <effect>
+                        <DropShadow color="WHITE" height="39.21" radius="19.865000000000002" spread="0.32" width="42.25" />
+                     </effect>
+                  </Rectangle>
+                  <Label layoutX="10.0" layoutY="12.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Round: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="42.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Turn:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="72.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Turn Time: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="round" layoutX="131.0" layoutY="15.0" text="1" />
+                  <Label fx:id="turn" alignment="CENTER_RIGHT" layoutX="61.0" layoutY="42.0" prefHeight="17.0" prefWidth="87.0" />
+                  <Label fx:id="timeLeft" layoutX="131.0" layoutY="73.0" text="" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="326.0" layoutY="6.0" prefHeight="115.0" prefWidth="237.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff9e2" height="115.0" layoutX="3.0" stroke="#e0008b" strokeType="INSIDE" strokeWidth="2.0" style="-fx-stroke-dash-array: 5 10 5 10;" width="237.0">
+                     <effect>
+                        <DropShadow color="WHITE" height="39.21" radius="19.865000000000002" spread="0.32" width="42.25" />
+                     </effect>
+                  </Rectangle>
+                  <Label layoutX="29.0" layoutY="-3.0" style="-fx-font-family: Pacifico; -fx-font-size: 18;" text="Current Player Resources">
+                     <font>
+                        <Font name="Pacifico" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="32.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Food: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="52.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Money: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="72.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Energy: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="92.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Ore: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="food" layoutX="100.0" layoutY="32.0" style="-fx-font-size: 15;" text="" />
+                  <Label fx:id="money" layoutX="100.0" layoutY="52.0" style="-fx-font-size: 15;" text="" />
+                  <Label fx:id="energy" layoutX="100.0" layoutY="72.0" style="-fx-font-size: 15;" text="" />
+                  <Label fx:id="ore" layoutX="100.0" layoutY="92.0" style="-fx-font-size: 15;" text="" />
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </AnchorPane>
+            <AnchorPane layoutX="602.0" layoutY="6.0" prefHeight="115.0" prefWidth="197.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff9e2" height="115.0" stroke="#e0008b" strokeType="INSIDE" strokeWidth="2.0" style="-fx-stroke-dash-array: 5 10 5 10;" width="197.0">
+                     <effect>
+                        <DropShadow color="WHITE" height="39.21" radius="19.865000000000002" spread="0.32" width="42.25" />
+                     </effect>
+                  </Rectangle>
+                  <Rectangle fx:id="p4Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="10.0" layoutY="92.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
+                  <Rectangle fx:id="p3Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="10.0" layoutY="72.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
+                  <Rectangle fx:id="p2Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="10.0" layoutY="52.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
+                  <Rectangle fx:id="p1Color" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="16.0" layoutX="10.0" layoutY="32.0" stroke="TRANSPARENT" strokeType="INSIDE" width="29.0" />
+                  <Label fx:id="player4score" layoutX="131.0" layoutY="92.0" style="-fx-font-size: 15;" text="" />
+                  <Label fx:id="player3score" layoutX="131.0" layoutY="72.0" style="-fx-font-size: 15;" text="" />
+                  <Label fx:id="player2score" layoutX="131.0" layoutY="52.0" style="-fx-font-size: 15;" text="" />
+                  <Label fx:id="player1score" layoutX="131.0" layoutY="32.0" style="-fx-font-size: 15;" text="" />
+                   <Label fx:id="player4winner" layoutX="14.0" layoutY="89.0" style="-fx-font-size: 15;" text="" />
+                   <Label fx:id="player3winner" layoutX="14.0" layoutY="69.0" style="-fx-font-size: 15;" text="" />
+                   <Label fx:id="player2winner" layoutX="14.0" layoutY="49.0" style="-fx-font-size: 15;" text="" />
+                   <Label fx:id="player1winner" layoutX="14.0" layoutY="29.0" style="-fx-font-size: 15;" text="" />
+                  <Label fx:id="name4" layoutX="50.0" layoutY="92.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Player 4:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="name3" layoutX="50.0" layoutY="72.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Player 3:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="name2" layoutX="50.0" layoutY="52.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Player 2:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="name1" layoutX="50.0" layoutY="32.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Player 1:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="-3.0" prefHeight="28.0" prefWidth="52.0" style="-fx-font-family: Pacifico; -fx-font-size: 18;" text="Scores">
+                     <font>
+                        <Font name="Pacifico" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <Button alignment="CENTER" layoutX="111.0" layoutY="118.0" mnemonicParsing="false" onMouseClicked="#handleEndTurn" prefHeight="32.0" prefWidth="165.0" style="-fx-font-family: Spastic; -fx-font-size: 20; -fx-padding: 2; -fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%);" text="End Turn  " textAlignment="CENTER">
+               <effect>
+                  <DropShadow color="#053c07" height="36.18" radius="22.1425" spread="0.1" width="54.39" />
+               </effect>
+            </Button>
+            <AnchorPane layoutX="29.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="125.0">
+               <children>
+                  <ImageView fitHeight="29.0" fitWidth="28.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#fffcfce1" height="61.98" radius="40.7375" spread="0.71" width="102.97" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="23.0" fitWidth="28.0" layoutX="19.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="WHITE" radius="19.17" width="57.68" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star5.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="37.0" fitWidth="28.0" layoutX="44.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#fffbfb" height="0.0" radius="12.4025" spread="0.03" width="51.61" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star6.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="38.0" fitWidth="28.0" layoutX="72.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="WHITE" height="36.94" radius="22.395" spread="0.71" width="54.64" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star5.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="100.0" layoutX="41.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#ffffffd7" radius="22.1425" spread="0.7" width="69.57" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="21.0" layoutX="23.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="WHITE" radius="20.625" spread="0.48" width="63.5" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star9.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="65.0" layoutX="44.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="WHITE" height="77.17" radius="30.872500000000002" spread="0.69" width="48.32" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star7.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="800.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="125.0">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="21.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="WHITE" height="6.07" radius="16.8925" spread="0.3" width="63.5" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star6.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="65.0" layoutX="46.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#ffffffc8" height="57.43" radius="37.3225" spread="0.69" width="93.86" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star7.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="38.0" fitWidth="28.0" layoutX="79.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#fffcfce1" height="61.98" radius="40.7375" spread="0.71" width="102.97" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="19.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#ffffffc1" height="45.29" radius="28.214999999999996" spread="0.73" width="69.57" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="28.0" layoutX="65.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#ffffffef" height="46.81" radius="29.355" spread="0.65" width="72.61" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="100.0" layoutX="28.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#ffffffd7" radius="22.1425" spread="0.7" width="69.57" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star5.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="39.0" layoutX="38.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#fffbfb" height="86.27" radius="68.8175" spread="0.73" width="191.0" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star6.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="39.0" layoutX="48.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <DropShadow color="#fffbfb" height="0.0" radius="12.4025" spread="0.03" width="51.61" />
+                     </effect>
+                     <image>
+                        <Image url="@resources/star6.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

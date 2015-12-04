@@ -10,7 +10,7 @@ package mule.model;
 public class EnergyMule extends Mule implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final int PLAIN_VALUE = 3, RIVER_VALUE = 2, M1_VALUE = 1, M2_VALUE = 1, M3_VALUE = 1;
+	private static final int PLAIN_VALUE = 3, RIVER_VALUE = 2, M1_VALUE = 1, M2_VALUE = 1, M3_VALUE = 1, FOREST_VALUE = 2;
 
 	/**
      * Construct EnergyMule with a specific property type
@@ -30,6 +30,8 @@ public class EnergyMule extends Mule implements java.io.Serializable {
 			PRODUCTION_VALUES.put("M1", M1_VALUE);
 			PRODUCTION_VALUES.put("M2", M2_VALUE);
 			PRODUCTION_VALUES.put("M3", M3_VALUE);
+            PRODUCTION_VALUES.put("Forest", FOREST_VALUE);
+
         }
 
 

@@ -8,14 +8,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.ConfigureController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.ConfigureController">
    <children>
       <ImageView fitHeight="650.0" fitWidth="900.0" layoutY="26.0" pickOnBounds="true">
          <image>
             <Image url="@resources/background.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="307.0" fitWidth="329.0" layoutX="558.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="307.0" fitWidth="329.0" layoutX="556.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <DropShadow color="WHITE" height="124.22" radius="52.5025" width="87.79" />
          </effect>
@@ -23,7 +23,7 @@
             <Image url="@resources/circle1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="384.0" fitWidth="406.0" layoutX="516.0" layoutY="-5.0" pickOnBounds="true">
+      <ImageView fitHeight="384.0" fitWidth="406.0" layoutX="514.0" pickOnBounds="true">
          <image>
             <Image url="@resources/dots.png" />
          </image>
@@ -187,47 +187,47 @@
             <Font name="Besom" size="30.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="p1Race" disable="true" layoutX="375.0" layoutY="150.0" prefWidth="150.0" style="-fx-background-color: C2BFD6;">
+      <ChoiceBox fx:id="p1Race" disable="true" layoutX="375.0" layoutY="150.0" pickOnBounds="false" prefWidth="150.0" style="-fx-background-color: C2BFD6;">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
       </ChoiceBox>
-      <ChoiceBox fx:id="p2Race" disable="true" layoutX="375.0" layoutY="205.0" prefWidth="150.0" style="-fx-background-color: C2BFD6;">
+      <ChoiceBox fx:id="p2Race" disable="true" layoutX="375.0" layoutY="205.0" pickOnBounds="false" prefWidth="150.0" style="-fx-background-color: C2BFD6;">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
       </ChoiceBox>
-      <ChoiceBox fx:id="p3Race" disable="true" layoutX="375.0" layoutY="260.0" prefWidth="150.0" style="-fx-background-color: C2BFD6;">
+      <ChoiceBox fx:id="p3Race" disable="true" layoutX="375.0" layoutY="260.0" pickOnBounds="false" prefWidth="150.0" style="-fx-background-color: C2BFD6;">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
       </ChoiceBox>
-      <ChoiceBox fx:id="p4Race" disable="true" layoutX="375.0" layoutY="315.0" prefWidth="150.0" style="-fx-background-color: C2BFD6;">
+      <ChoiceBox fx:id="p4Race" disable="true" layoutX="375.0" layoutY="315.0" pickOnBounds="false" prefWidth="150.0" style="-fx-background-color: C2BFD6;">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
       </ChoiceBox>
-      <ColorPicker fx:id="p1Color" disable="true" layoutX="240.0" layoutY="150.0" style="-fx-background-color: C2BFD6;">
+      <ColorPicker fx:id="p1Color" disable="true" layoutX="240.0" layoutY="150.0" pickOnBounds="false" style="-fx-background-color: C2BFD6;">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
       </ColorPicker>
-      <ColorPicker fx:id="p2Color" disable="true" layoutX="240.0" layoutY="205.0" style="-fx-background-color: C2BFD6;">
+      <ColorPicker fx:id="p2Color" disable="true" layoutX="240.0" layoutY="205.0" pickOnBounds="false" style="-fx-background-color: C2BFD6;">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
       </ColorPicker>
-      <ColorPicker fx:id="p3Color" disable="true" layoutX="240.0" layoutY="260.0" style="-fx-background-color: C2BFD6;">
+      <ColorPicker fx:id="p3Color" disable="true" layoutX="240.0" layoutY="260.0" pickOnBounds="false" style="-fx-background-color: C2BFD6;">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
       </ColorPicker>
-      <ColorPicker fx:id="p4Color" disable="true" layoutX="240.0" layoutY="315.0" style="-fx-background-color: C2BFD6;">
+      <ColorPicker fx:id="p4Color" disable="true" layoutX="240.0" layoutY="315.0" pickOnBounds="false" style="-fx-background-color: C2BFD6;">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
       </ColorPicker>
-      <TextField fx:id="p2Name" disable="true" layoutX="34.0" layoutY="205.0" prefWidth="163.0" promptText="name" style="-fx-background-color: C2BFD6;" text="Player 2">
+      <TextField fx:id="p2Name" disable="true" layoutX="34.0" layoutY="205.0" pickOnBounds="false" prefWidth="163.0" promptText="name" style="-fx-background-color: C2BFD6;" text="Player 2">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
@@ -235,7 +235,7 @@
             <Font name="System Font Regular" size="13.0" />
          </font>
       </TextField>
-      <TextField fx:id="p3Name" disable="true" layoutX="34.0" layoutY="260.0" prefWidth="163.0" promptText="name" style="-fx-background-color: C2BFD6;" text="Player 3">
+      <TextField fx:id="p3Name" disable="true" layoutX="34.0" layoutY="260.0" pickOnBounds="false" prefWidth="163.0" promptText="name" style="-fx-background-color: C2BFD6;" text="Player 3">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
@@ -243,7 +243,7 @@
             <Font name="System Font Regular" size="13.0" />
          </font>
       </TextField>
-      <TextField fx:id="p4Name" disable="true" layoutX="34.0" layoutY="315.0" prefWidth="163.0" promptText="name" style="-fx-background-color: C2BFD6;" text="Player 4">
+      <TextField fx:id="p4Name" disable="true" layoutX="34.0" layoutY="315.0" pickOnBounds="false" prefWidth="163.0" promptText="name" style="-fx-background-color: C2BFD6;" text="Player 4">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
@@ -253,10 +253,10 @@
       </TextField>
       <Label layoutX="199.0" layoutY="60.0" style="-fx-font-family: Spastic; -fx-font-size: 18;" text="Select number of players and Press Enter" textFill="#fff9e2">
          <font>
-            <Font name="Besom" size="20.0" />
+            <Font name="Spastic" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="p1Name" disable="true" layoutX="34.0" layoutY="150.0" prefHeight="26.0" prefWidth="163.0" promptText="name" style="-fx-background-color: C2BFD6;" text="Player 1">
+      <TextField fx:id="p1Name" disable="true" layoutX="34.0" layoutY="150.0" pickOnBounds="false" prefHeight="26.0" prefWidth="163.0" promptText="name" style="-fx-background-color: C2BFD6;" text="Player 1">
          <effect>
             <DropShadow color="#90ff24" height="36.18" radius="38.84" spread="0.19" width="121.18" />
          </effect>
@@ -269,7 +269,7 @@
             <Font name="Besom" size="30.0" />
          </font>
       </Label>
-      <ChoiceBox id="numOfPlayers" fx:id="numOfPlayers" layoutX="33.0" layoutY="60.0" onKeyPressed="#handleNumSelect" prefWidth="150.0" style="-fx-background-color: #C2BFD6;">
+      <ChoiceBox id="numOfPlayers" fx:id="numOfPlayers" layoutX="33.0" layoutY="60.0" onKeyPressed="#handleNumSelect" pickOnBounds="false" prefWidth="150.0" style="-fx-background-color: #C2BFD6;">
          <contextMenu>
             <ContextMenu>
                <items>
@@ -278,10 +278,10 @@
             </ContextMenu>
          </contextMenu>
          <effect>
-            <DropShadow color="#50e84d" height="46.8" radius="58.19" spread="0.28" width="187.96" />
+            <DropShadow color="#50e84d" height="117.38" radius="75.83500000000001" spread="0.21" width="187.96" />
          </effect>
       </ChoiceBox>
-      <Button fx:id="startGameButton2" cacheShape="false" contentDisplay="TOP" layoutX="15.0" layoutY="589.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" style="-fx-background-color: #FFF9E2; -fx-font-family: Spastic; -fx-font-size: 20;" text="Start Game">
+      <Button fx:id="startGameButton2" cacheShape="false" contentDisplay="TOP" layoutX="15.0" layoutY="589.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" style="-fx-background-color: #fff9e2,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#F5EFD5 0%, #EBE1BE 40%, #D6CDA9 50%, #B0A98D 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1; -fx-font-family: Spastic; -fx-font-size: 27;" stylesheets="@application.css" text="Start Game">
          <effect>
             <DropShadow height="124.22" radius="60.09" spread="0.12" width="118.14" />
          </effect>
@@ -289,7 +289,7 @@
             <Font name="Besom" size="36.0" />
          </font>
       </Button>
-      <ImageView fitHeight="225.0" fitWidth="352.0" layoutX="34.0" layoutY="441.0" onMouseClicked="#handleStartGame" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="225.0" fitWidth="352.0" layoutX="34.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <DropShadow color="#2aae3c" spread="0.21" />
          </effect>
@@ -310,7 +310,7 @@
             <Font name="Besom" size="30.0" />
          </font>
       </Label>
-      <RadioButton id="randomRadio" fx:id="randomMap" layoutX="419.0" layoutY="413.0" mnemonicParsing="false" onAction="#enableStartButton" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Random" textFill="#fff9e2">
+      <RadioButton id="randomRadio" fx:id="randomMap" layoutX="419.0" layoutY="413.0" mnemonicParsing="false" onAction="#enableStartButton" pickOnBounds="false" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Random" textFill="#fff9e2">
          <effect>
             <DropShadow color="#58ff46" height="81.71" radius="57.114999999999995" spread="0.62" width="148.75" />
          </effect>
@@ -321,7 +321,7 @@
             <ToggleGroup fx:id="mapType" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton id="standardRadio" fx:id="standMap" layoutX="272.0" layoutY="413.0" mnemonicParsing="false" onAction="#enableStartButton" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Standard" textFill="#fff9e2" toggleGroup="$mapType">
+      <RadioButton id="standardRadio" fx:id="standMap" layoutX="272.0" layoutY="413.0" mnemonicParsing="false" onAction="#enableStartButton" pickOnBounds="false" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Standard" textFill="#fff9e2" toggleGroup="$mapType">
          <effect>
             <DropShadow color="#58ff46" height="81.71" radius="57.114999999999995" spread="0.62" width="148.75" />
          </effect>
@@ -329,7 +329,7 @@
             <Font name="Besom" size="20.0" />
          </font>
       </RadioButton>
-      <RadioButton id="beginnerRadio" fx:id="beginDiff" layoutX="273.0" layoutY="486.0" mnemonicParsing="false" onAction="#enableStartButton" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Beginner" textFill="#fff9e2">
+      <RadioButton id="beginnerRadio" fx:id="beginDiff" layoutX="415.0" layoutY="486.0" mnemonicParsing="false" onAction="#enableStartButton" pickOnBounds="false" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Beginner" textFill="#fff9e2">
          <effect>
             <DropShadow color="#58ff46" height="81.71" radius="57.114999999999995" spread="0.62" width="148.75" />
          </effect>
@@ -340,7 +340,7 @@
             <ToggleGroup fx:id="difficultyType" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton id="standDifRadio" fx:id="standDiff" layoutX="400.0" layoutY="486.0" mnemonicParsing="false" onAction="#enableStartButton" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Standard" textFill="#fff9e2" toggleGroup="$difficultyType">
+      <RadioButton id="standDifRadio" fx:id="standDiff" layoutX="555.0" layoutY="486.0" mnemonicParsing="false" onAction="#enableStartButton" pickOnBounds="false" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Standard" textFill="#fff9e2" toggleGroup="$difficultyType">
          <effect>
             <DropShadow color="#58ff46" height="81.71" radius="57.114999999999995" spread="0.62" width="148.75" />
          </effect>
@@ -348,7 +348,7 @@
             <Font name="Besom" size="20.0" />
          </font>
       </RadioButton>
-      <RadioButton id="tourRadio" fx:id="tourDiff" layoutX="540.0" layoutY="486.0" mnemonicParsing="false" onAction="#enableStartButton" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Tournament" textFill="#fff9e2" toggleGroup="$difficultyType">
+      <RadioButton id="tourRadio" fx:id="tourDiff" layoutX="415.0" layoutY="531.0" mnemonicParsing="false" onAction="#enableStartButton" pickOnBounds="false" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Tournament" textFill="#fff9e2" toggleGroup="$difficultyType">
          <effect>
             <DropShadow color="#58ff46" height="81.71" radius="57.114999999999995" spread="0.62" width="148.75" />
          </effect>
@@ -361,7 +361,7 @@
             <Font name="Besom" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" cacheShape="false" contentDisplay="TOP" layoutX="15.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="62.0" prefWidth="200.0" style="-fx-font-family: Spastic; -fx-background-color: TRANSPARENT; -fx-font-size: 20;">
+      <Button fx:id="startGameButton" cacheShape="false" contentDisplay="TOP" layoutX="15.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleStartGame" pickOnBounds="false" prefHeight="62.0" prefWidth="200.0" style="-fx-font-family: Spastic; -fx-background-color: TRANSPARENT; -fx-font-size: 20;">
          <effect>
             <DropShadow height="124.22" radius="60.09" spread="0.12" width="118.14" />
          </effect>
@@ -473,9 +473,9 @@
             <Image url="@resources/star5.png" />
          </image>
       </ImageView>
-      <MenuBar prefHeight="25.0" prefWidth="900.0" style="-fx-background-color: #817E91;">
+      <MenuBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" prefWidth="900.0" style="-fx-background-color: #817E91;" stylesheets="@application.css">
          <effect>
-            <InnerShadow color="#260b4a" height="36.18" radius="13.795" />
+            <InnerShadow choke="0.23" color="#140112" height="54.39" radius="31.2475" width="72.6" />
          </effect>
          <menus>
             <Menu mnemonicParsing="false" text="File">
@@ -494,5 +494,21 @@
             <Image url="@resources/star1.png" />
          </image>
       </ImageView>
+      <RadioButton id="legendaryRadio" fx:id="legendDiff" layoutX="555.0" layoutY="531.0" mnemonicParsing="false" onAction="#enableStartButton" pickOnBounds="false" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Legendary" textFill="#fff9e2" toggleGroup="$difficultyType">
+         <effect>
+            <DropShadow color="#58ff46" height="81.71" radius="57.114999999999995" spread="0.62" width="148.75" />
+         </effect>
+         <font>
+            <Font name="Besom" size="20.0" />
+         </font>
+      </RadioButton>
+      <RadioButton id="noobieRadio" fx:id="noobDiff" layoutX="272.0" layoutY="486.0" mnemonicParsing="false" onAction="#enableStartButton" pickOnBounds="false" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Noobie" textFill="#fff9e2" toggleGroup="$difficultyType">
+         <effect>
+            <DropShadow color="#58ff46" height="81.71" radius="57.114999999999995" spread="0.62" width="148.75" />
+         </effect>
+         <font>
+            <Font name="Besom" size="20.0" />
+         </font>
+      </RadioButton>
    </children>
 </AnchorPane>

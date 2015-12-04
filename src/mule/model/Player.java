@@ -23,10 +23,12 @@ public final class Player implements java.io.Serializable{
     private int food, money, energy, ore, score, numOfProperties, numOfFreeProperties;
     private final List<String> propertyList;
     private final List<Mule> muleList;
-    private static final int INIT_MONEY_F = 1600, INIT_MONEY_H = 600, INIT_MONEY_OTHER = 1000, INIT_FOOD_B = 8,
-            INIT_ENERGY_B = 4, INIT_ORE_B = 0, INIT_FOOD_OTHER = 4, INIT_ENERGY_OTHER = 2, INIT_ORE_OTHER = 0,
+    private static final int INIT_MONEY_F = 1600, INIT_MONEY_S = 1250, INIT_MONEY_H = 600, INIT_MONEY_D = 500, INIT_MONEY_OTHER = 1000, INIT_FOOD_B = 8,
+            INIT_ENERGY_B = 4, INIT_ORE_B = 0, INIT_FOOD_OTHER = 4, INIT_ENERGY_OTHER = 2, INIT_ORE_OTHER = 0, INIT_FOOD_L = 3, INIT_ENERGY_L = 0, INIT_ORE_L = 0,
+            INIT_FOOD_N = 12, INIT_ENERGY_N = 8, INIT_ORE_N = 2,
             SCORE_CALC_MULTIPLIER = 500;
     private static final double COLOR_CONSTANT = 255.0;
+    private int playerNumber;
 
 
     /**
@@ -37,12 +39,14 @@ public final class Player implements java.io.Serializable{
      * @param r Race of the player
      * @param c Player's color
      * @param d Difficulty of game
+     * @param p Player number
      */
-    public Player(String n, String r, javafx.scene.paint.Color c, String d) {
+    public Player(String n, String r, javafx.scene.paint.Color c, String d, int p) {
         name = n;
         race = r;
         color = c;
         diff = d;
+        playerNumber = p;
         this.score = 0;
         numOfProperties = 0;
         numOfFreeProperties = 2;
@@ -56,19 +60,33 @@ public final class Player implements java.io.Serializable{
             case "Flapper":
                 money = INIT_MONEY_F;
                 break;
+            case "Sozon":
+            	money = INIT_MONEY_S;
+            	break;
             case "Human":
                 money = INIT_MONEY_H;
                 break;
+            case "Dracanoid":
+            	money = INIT_MONEY_D;
+            	break;
             default:
                 money = INIT_MONEY_OTHER;
                 break;
         }
 
         //Different difficulties get different resources
-        if(diff.equals("beginner")) {
+        if(diff.equals("noobie")) {
+        	food = INIT_FOOD_N;
+        	energy = INIT_ENERGY_N;
+        	ore = INIT_ORE_N;
+        } else if(diff.equals("beginner")) {
             food = INIT_FOOD_B;
             energy = INIT_ENERGY_B;
             ore = INIT_ORE_B;
+        } else if(diff.equals("legendary")) {
+        	food = INIT_FOOD_L;
+        	energy = INIT_ENERGY_L;
+        	ore = INIT_ORE_L;
         } else {
             food = INIT_FOOD_OTHER;
             energy = INIT_ENERGY_OTHER;
@@ -145,6 +163,7 @@ public final class Player implements java.io.Serializable{
      * @return Player's score
      */
     public int getScore() {
+        calculateScore();
         return score;
     }
 
@@ -424,4 +443,10 @@ public final class Player implements java.io.Serializable{
      * @return Color of the player
      */
     public Color getNewColor() { return newColor; }
+
+    /**
+     * Gets the player's number
+     * @return int playerNum
+     */
+    public int getPlayerNumber() { return playerNumber; }
 }
