@@ -19,7 +19,7 @@ public class EnergyMule extends Mule implements java.io.Serializable {
      */
 	public EnergyMule(String pType) {
         setPropertyType(pType);
-        setCurrentPlayer(GameController.getCurrentPlayer());
+        setCurrentPlayer(GameController.currentPlayer);
         setMuleType("energy");
     }
 

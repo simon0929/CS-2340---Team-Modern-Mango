@@ -1,7 +1,6 @@
 package mule.model;
 
 import java.io.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -75,7 +74,11 @@ public class GameController implements java.io.Serializable {
 
     private static final int PROPERTY_PRICE = 300, TIME_LIMIT = 50, MAP_SIZE = 45;
 
-	private boolean selectionPhase;
+	private static boolean selectionPhase;
+
+	private static boolean buyingMode = false;
+	
+	private static boolean sellMode = false;
 
 	private List<Player> playerList;
 
@@ -85,9 +88,9 @@ public class GameController implements java.io.Serializable {
 
     private ArrayList<Label> scoreView;
 
-    public Stage gameStage;
+    public static Stage gameStage;
 
-    public Scene gameScene;
+    public static Scene gameScene;
 
     public static boolean placingMule = false;
 
@@ -246,40 +249,69 @@ public class GameController implements java.io.Serializable {
     }
 
 	@FXML
-	private void handleProperty(MouseEvent event) {
-        if (numOfPropBoughtInTurn == 0) {
-            if (selectionPhase) {
-                if (!ConfigureController.getGame().selectedProp()) {
-                    Color playerColor = ConfigureController.getGame().getCurrPlayer().getColor();
-
-                    //Gets the actual property object that was clicked so that things can be done to it
-                    Pane mapElement = (Pane) event.getSource();
-                    String property = "pane" + mapElement.getId();
-                    if (!propertyOwnedList.contains(property) && (currentPlayer.getNumOfFreeProperties() != 0
-                            || currentPlayer.getMoney() >= PROPERTY_PRICE)) {
-                        currentPlayer.incrementPropertyOwned();
-                        propertyOwnedList.add(property);
-
-                        if (currentPlayer.getNumOfFreeProperties() == 0) {
-                            //Automatically updates player's money and on the GUI
-                            currentPlayer.setMoney(currentPlayer.getMoney() - PROPERTY_PRICE);
-                            money.setText(String.valueOf(currentPlayer.getMoney()));
-                        }
-                        else {
-                            currentPlayer.decrementFreeProperty();
-                        }
-
-                        numOfPropBoughtInTurn++;
-                        currentPlayer.addToPropertyList(property);
-
-                        Region reg = (Region) event.getSource();
-                        reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
-
-                        currentPlayer.calculateScore();
-                        refreshScores();
-                    }
+	private void handleProperty(MouseEvent event) throws IOException {
+		if (!sellMode) {
+	        if (numOfPropBoughtInTurn == 0) {
+	            if (selectionPhase) {
+	                if (!ConfigureController.getGame().selectedProp()) {
+	                    Color playerColor = ConfigureController.getGame().getCurrPlayer().getColor();
+	
+	                    //Gets the actual property object that was clicked so that things can be done to it
+	                    Pane mapElement = (Pane) event.getSource();
+	                    String property = "pane" + mapElement.getId();
+	                    if (!propertyOwnedList.contains(property) && (currentPlayer.getNumOfFreeProperties() != 0
+	                            || currentPlayer.getMoney() >= PROPERTY_PRICE)) {
+	                        currentPlayer.incrementPropertyOwned();
+	                        propertyOwnedList.add(property);
+	
+	                        if (currentPlayer.getNumOfFreeProperties() == 0) {
+	                            //Automatically updates player's money and on the GUI
+	                            currentPlayer.setMoney(currentPlayer.getMoney() - PROPERTY_PRICE);
+	                            money.setText(String.valueOf(currentPlayer.getMoney()));
+	                        }
+	                        else {
+	                            currentPlayer.decrementFreeProperty();
+	                        }
+	
+	                        numOfPropBoughtInTurn++;
+	                        currentPlayer.addToPropertyList(property);
+	
+	                        Region reg = (Region) event.getSource();
+	                        reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
+	
+	                        currentPlayer.calculateScore();
+	                        refreshScores();
+	                    }
+	                }
+	            }
+	        }
+		} else {
+				Pane mapElement = (Pane) event.getSource();
+				String property = "pane" + mapElement.getId();
+                if (propertyOwnedList.contains(property) && (currentPlayer.getPropertyList().contains(property))) {
+                	currentPlayer.decrementPropertyOwned();
+                    currentPlayer.removeFromPropertyList(property);
+                    currentPlayer.setMoney(currentPlayer.getMoney() + PROPERTY_PRICE);
+                    money.setText(String.valueOf(currentPlayer.getMoney()));
+                    propertyOwnedList.remove(property);
+                    currentPlayer.calculateScore();
+                    refreshScores();
+                    Region reg = (Region) event.getSource();
+                    reg.setBorder(null);
                 }
-            }
+                Parent landOfficeScreen = FXMLLoader.load(getClass().getResource("/mule/view/LandOffice.fxml"));
+        		Scene landOfficeScene = new Scene(landOfficeScreen);
+        		Stage landOfficeStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        		landOfficeStage.setScene(landOfficeScene);
+        		landOfficeStage.show();
+		}
+        if (buyingMode) {
+        	Parent landOfficeScreen = FXMLLoader.load(getClass().getResource("/mule/view/LandOffice.fxml"));
+    		Scene landOfficeScene = new Scene(landOfficeScreen);
+    		Stage landOfficeStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    		landOfficeStage.setScene(landOfficeScene);
+    		landOfficeStage.show();
+    		buyingMode =  false;
         }
 	}
 	
@@ -511,4 +543,23 @@ public class GameController implements java.io.Serializable {
             }
         }
     }
+    
+    public static void buyProperty() {
+    	gameScene = ConfigureController.getGameScene();
+        gameStage = ConfigureController.getGameStage();
+        gameStage.setScene(gameScene);
+        buyingMode = true;
+        if (!selectionPhase) {
+        	selectionPhase = true;
+        }
+        
+	}
+    
+    public static void sellProperty() {
+    	gameScene = ConfigureController.getGameScene();
+        gameStage = ConfigureController.getGameStage();
+        gameStage.setScene(gameScene);
+        sellMode = true;
+    }
+
 }

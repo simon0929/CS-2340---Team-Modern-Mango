@@ -23,7 +23,7 @@ import javafx.scene.control.Button;
  * @author ModernMango
  *
  */
-public class PubController {
+public class LandOfficeController {
     @FXML
     private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
             player4score, name1, name2, name3, name4;
@@ -122,53 +122,16 @@ public class PubController {
         Game game = ConfigureController.getGame();
         game.update();
     }
-
+    
     @FXML
-    private void handleGamble() {
-        if (gamble.isPressed()) {
-            int moneyBonus, timeBonus, roundBonus;
-            Random rand = new Random();
-
-            int roundNumber = GameController.roundNumber;
-            int turnTime = GameController.turnTime;
-
-            if (roundNumber < 4) {
-                roundBonus = 50;
-            } else if (roundNumber < 8) {
-                roundBonus = 100;
-            } else if (roundNumber < 12) {
-                roundBonus = 150;
-            } else {
-                roundBonus = 200;
-            }
-
-            if (turnTime < 13) {
-                timeBonus = 50;
-            } else if (turnTime < 26) {
-                timeBonus = 100;
-            } else if (turnTime < 38) {
-                timeBonus = 150;
-            } else {
-                timeBonus = 200;
-            }
-
-            moneyBonus = roundBonus * (rand.nextInt(timeBonus) + 1);
-
-            if (moneyBonus > 250) {
-                moneyBonus = 250;
-            }
-
-            GameController.currentPlayer.setMoney(GameController.currentPlayer.getMoney() + moneyBonus);
-            GameController.currentPlayer.setScore(GameController.currentPlayer.getScore() + moneyBonus);
-            GameController.turnTime = 0;
-
-            handleEndTurn();
-            gameScene = ConfigureController.getGameScene();
-            gameStage = ConfigureController.getGameStage();
-            gameStage.setScene(gameScene);
-
-            handleReturnToMap();
-
-        }
+    private void handleBuyLand() {
+    	GameController.buyProperty();
+    	
     }
+    
+    @FXML
+    private void handleSellLand() {
+    	GameController.sellProperty();
+    }
+    
 }

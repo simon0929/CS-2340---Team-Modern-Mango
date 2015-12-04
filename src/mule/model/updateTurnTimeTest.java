@@ -6,8 +6,8 @@ import org.junit.Test;
 
 public class updateTurnTimeTest {
 
-	@Test
-	public void test() {
+	//@Test
+	/*public void test() {
 		Player player = new Player("Tyler","Human", javafx.scene.paint.Color.BLUE, "Beginner");
 		player.setFood(5);
 		player.setEnergy(5);
@@ -54,6 +54,6 @@ public class updateTurnTimeTest {
 		assertEquals(playerMoney, player.getMoney());
 		
 		
-	}
+	}*/
 
 }
