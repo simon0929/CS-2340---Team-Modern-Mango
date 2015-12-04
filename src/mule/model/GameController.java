@@ -102,6 +102,10 @@ public class GameController implements java.io.Serializable {
 
     private static Button[] buttonArr;
 
+    private boolean globalEvent = false;
+
+    private int randInt = -1;
+
 
     @FXML
 	private void initialize() {
@@ -203,6 +207,7 @@ public class GameController implements java.io.Serializable {
     }
 
     private void endTurn() {
+
         //refreshes screen
         ConfigureController.getGame().update();
         this.randomEvent.setText("");
@@ -230,16 +235,32 @@ public class GameController implements java.io.Serializable {
             else {
                 numOfPropBoughtInRound = 0;
             }
+
+            if (Math.random() < .27) {
+                globalEvent = true;
+                RandomEvent randEvent = new RandomEvent();
+                randInt = randEvent.getGlobalRandomEventInt(ConfigureController.getGame());
+            }
+            else {
+                globalEvent = false;
+            }
         }
 
         numOfPropBoughtInTurn = 0;
         currentPlayer = playerList.get(turnNumber - 1);
         turn.setText(currentPlayer.getName());
 
-        if (Math.random() < .27) {
-        	RandomEvent randEvent = new RandomEvent();
-        	this.randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
+        if (globalEvent) {
+            RandomEvent randEvent = new RandomEvent();
+            randomEvent.setText(randEvent.globalRandomEvent(ConfigureController.getGame(), currentPlayer, randInt));
         }
+        else {
+            if (Math.random() < .27) {
+                RandomEvent randEvent = new RandomEvent();
+                randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
+            }
+        }
+
         updateTurnTime();
 
         if (currentPlayer.getMuleList().size() > 0) {
