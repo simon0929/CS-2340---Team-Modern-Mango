@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,14 +21,18 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import java.io.File;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Class that handles the configuration of the Mule game
  * @author Team Modern Mango
  *
  */
-public final class ConfigureController implements java.io.Serializable{
+public final class ConfigureController implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -58,6 +64,8 @@ public final class ConfigureController implements java.io.Serializable{
 
 	private static Stage gameStage;
 
+    private static Parent gameScreenParent;
+
 	private static List<Player> playerList;
 
 	private static int numPlayers;
@@ -68,6 +76,7 @@ public final class ConfigureController implements java.io.Serializable{
 
 	@FXML
 	private void initialize() {
+
         final ObservableList<Integer> numPlay = FXCollections.observableArrayList();
         for (int i = MIN_NUM_PLAYERS; i <= MAX_NUM_PLAYERS; i++) {
             numPlay.add(i);
@@ -233,12 +242,13 @@ public final class ConfigureController implements java.io.Serializable{
                 player.setColor(player.getNewColor());
             }
 
-    		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
+    		gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
     		gameScene = new Scene(gameScreenParent);
     		gameStage = (Stage) startGameButton.getScene().getWindow();
     		gameStage.setScene(gameScene);
     		gameStage.show();
-    	} catch (IOException | ClassNotFoundException i) {
+            Main.getAudioClip().stop();
+        } catch (IOException | ClassNotFoundException i) {
             Logger logger = Logger.getLogger(ConfigureController.class.getName());
             logger.log(Level.SEVERE, i.toString(), i);
     	}
@@ -274,6 +284,12 @@ public final class ConfigureController implements java.io.Serializable{
 	 */
 	public static Scene getGameScene() { return gameScene;}
 
+    /**
+     * Gets the object used to make the scene
+     * @return Parent gameScreenParent
+     */
+    public static Parent getGameScreenParent() { return gameScreenParent; }
+
 	/**
 	 * Gets the number of players playing
 	 * @return Number of players playing
@@ -286,6 +302,5 @@ public final class ConfigureController implements java.io.Serializable{
 	 *         False if a game wasn't loaded
 	 */
     public static boolean getLoaded() { return loaded; }
-
 
 }

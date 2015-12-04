@@ -1,5 +1,6 @@
 package mule.model;
 
+import javafx.scene.media.AudioClip;
 import java.io.*;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -100,9 +103,17 @@ public class GameController implements java.io.Serializable {
 
     private static Button[] buttonArr;
 
+    private boolean globalEvent = false;
+
+    private int randInt = -1;
+
+    private static AudioClip audio;
 
     @FXML
 	private void initialize() {
+        audio = new AudioClip(getClass().getResource("/mule/view/resources/58-ambient-orchestral-piece.mp3").toString());
+        Main.getAudioClip().stop();
+        audio.play();
         List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
         playerList = ConfigureController.getPlayerList();
         this.game = ConfigureController.getGame();
@@ -201,6 +212,7 @@ public class GameController implements java.io.Serializable {
     }
 
     private void endTurn() {
+
         //refreshes screen
         ConfigureController.getGame().update();
         this.randomEvent.setText("");
@@ -210,11 +222,30 @@ public class GameController implements java.io.Serializable {
 
         //if the number of turns exceeds the number of players, the round ends
         if (turnNumber > playerList.size()) {
+
+
             //Calculates all player scores and rearranges playerList for a new order for the next turn
             getTurnOrder();
 
             //Refreshes scores on GUI
             refreshScores();
+
+            if (roundNumber > 12) {
+                round.setText("End");
+                turn.setText("End");
+                timeLeft.setText("0");
+
+                Player topPlayer = null;
+
+                for (Player player : playerList) {
+                    if (topPlayer == null) {
+                        topPlayer = player;
+                    }
+                    else if (player.getScore() >) {
+
+                    }
+                }
+            }
 
             //Resets the turn to 1
             turnNumber = 1;
@@ -228,16 +259,32 @@ public class GameController implements java.io.Serializable {
             else {
                 numOfPropBoughtInRound = 0;
             }
+
+            if (Math.random() < .27) {
+                globalEvent = true;
+                RandomEvent randEvent = new RandomEvent();
+                randInt = randEvent.getGlobalRandomEventInt(ConfigureController.getGame());
+            }
+            else {
+                globalEvent = false;
+            }
         }
 
         numOfPropBoughtInTurn = 0;
         currentPlayer = playerList.get(turnNumber - 1);
         turn.setText(currentPlayer.getName());
 
-        if (Math.random() < .27) {
-        	RandomEvent randEvent = new RandomEvent();
-        	this.randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
+        if (globalEvent) {
+            RandomEvent randEvent = new RandomEvent();
+            randomEvent.setText(randEvent.globalRandomEvent(ConfigureController.getGame(), currentPlayer, randInt));
         }
+        else {
+            if (Math.random() < .27) {
+                RandomEvent randEvent = new RandomEvent();
+                randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
+            }
+        }
+
         updateTurnTime();
 
         if (currentPlayer.getMuleList().size() > 0) {
@@ -399,6 +446,10 @@ public class GameController implements java.io.Serializable {
         	@Override
             public void run() {
                 Platform.runLater(() -> {
+                    if (!audio.isPlaying()) {
+                        audio = new AudioClip(getClass().getResource("/mule/view/resources/ambienthemeno2.mp3").toString());
+                        audio.play();
+                    }
                     if (turnTime >= 0) {
                         timeLeft.setText(String.valueOf(turnTime--));
                     } else {
@@ -459,14 +510,23 @@ public class GameController implements java.io.Serializable {
             if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("food");
+                clickedButton.setVisible(false);
+                ImageView foodMuleView = (ImageView) clickedButton.getParent().getChildrenUnmodifiable().get(1);
+                foodMuleView.setVisible(true);
                 mule = new FoodMule(propertyType);
             } else if (typeOfMule.compareTo("energy") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("energy");
+                clickedButton.setVisible(false);
+                ImageView energyMuleView = (ImageView) clickedButton.getParent().getChildrenUnmodifiable().get(2);
+                energyMuleView.setVisible(true);
                 mule = new EnergyMule(propertyType);
             } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("ore");
+                clickedButton.setVisible(false);
+                ImageView oreMuleView = (ImageView) clickedButton.getParent().getChildrenUnmodifiable().get(3);
+                oreMuleView.setVisible(true);
                 mule = new OreMule(propertyType);
             }
 			placingMule = false;
@@ -588,4 +648,7 @@ public class GameController implements java.io.Serializable {
         }
     }
 
+    public static AudioClip getAudioClip() {
+        return audio;
+    }
 }
