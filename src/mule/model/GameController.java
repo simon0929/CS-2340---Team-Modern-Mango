@@ -1,5 +1,6 @@
 package mule.model;
 
+import javafx.scene.media.AudioClip;
 import java.io.*;
 
 import java.util.ArrayList;
@@ -106,9 +107,13 @@ public class GameController implements java.io.Serializable {
 
     private int randInt = -1;
 
+    private static AudioClip audio;
 
     @FXML
 	private void initialize() {
+        audio = new AudioClip(getClass().getResource("/mule/view/resources/58-ambient-orchestral-piece.mp3").toString());
+        Main.getAudioClip().stop();
+        audio.play();
         List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
         playerList = ConfigureController.getPlayerList();
         this.game = ConfigureController.getGame();
@@ -217,11 +222,30 @@ public class GameController implements java.io.Serializable {
 
         //if the number of turns exceeds the number of players, the round ends
         if (turnNumber > playerList.size()) {
+
+
             //Calculates all player scores and rearranges playerList for a new order for the next turn
             getTurnOrder();
 
             //Refreshes scores on GUI
             refreshScores();
+
+            if (roundNumber > 12) {
+                round.setText("End");
+                turn.setText("End");
+                timeLeft.setText("0");
+
+                Player topPlayer = null;
+
+                for (Player player : playerList) {
+                    if (topPlayer == null) {
+                        topPlayer = player;
+                    }
+                    else if (player.getScore() >) {
+
+                    }
+                }
+            }
 
             //Resets the turn to 1
             turnNumber = 1;
@@ -422,6 +446,10 @@ public class GameController implements java.io.Serializable {
         	@Override
             public void run() {
                 Platform.runLater(() -> {
+                    if (!audio.isPlaying()) {
+                        audio = new AudioClip(getClass().getResource("/mule/view/resources/ambienthemeno2.mp3").toString());
+                        audio.play();
+                    }
                     if (turnTime >= 0) {
                         timeLeft.setText(String.valueOf(turnTime--));
                     } else {
@@ -620,4 +648,7 @@ public class GameController implements java.io.Serializable {
         }
     }
 
+    public static AudioClip getAudioClip() {
+        return audio;
+    }
 }
