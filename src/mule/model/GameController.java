@@ -53,7 +53,7 @@ public class GameController implements java.io.Serializable {
 
 	@FXML
 	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
-            player4score, randomEvent, name1, name2, name3, name4;
+            player4score, randomEvent, name1, name2, name3, name4, player1winner, player2winner, player3winner, player4winner;
 
 	@FXML
 	private Button
@@ -103,7 +103,7 @@ public class GameController implements java.io.Serializable {
 
     private static Button[] buttonArr;
 
-    private boolean globalEvent = false;
+    private boolean globalEvent = false, end = false;
 
     private int randInt = -1;
 
@@ -204,11 +204,15 @@ public class GameController implements java.io.Serializable {
     //Performs a variety of things when the End Turn button is clicked
 	@FXML
 	private void handleEndTurn(MouseEvent event) {
-        endTurn();
+        if (!end) {
+            endTurn();
+        }
 	}
 
     private void handleEndTurn() {
-        endTurn();
+        if (!end) {
+            endTurn();
+        }
     }
 
     private void endTurn() {
@@ -222,81 +226,86 @@ public class GameController implements java.io.Serializable {
 
         //if the number of turns exceeds the number of players, the round ends
         if (turnNumber > playerList.size()) {
-
-
-            //Calculates all player scores and rearranges playerList for a new order for the next turn
-            getTurnOrder();
-
-            //Refreshes scores on GUI
-            refreshScores();
+            roundNumber++;
 
             if (roundNumber > 12) {
                 round.setText("End");
                 turn.setText("End");
                 timeLeft.setText("0");
 
-                Player topPlayer = null;
+                int size = playerList.size();
+                Player topPlayer = playerList.get(size - 1);
+                Image image = new Image("/mule/view/resources/crown_title.png", 29, 16, true, true);
 
-                for (Player player : playerList) {
-                    if (topPlayer == null) {
-                        topPlayer = player;
-                    }
-                    else if (player.getScore() >) {
+                if (topPlayer.getPlayerNumber() == 1) {
+                    player1winner.setGraphic(new ImageView(image));
+                } else if (topPlayer.getPlayerNumber() == 2) {
+                    player2winner.setGraphic(new ImageView(image));
+                } else if (topPlayer.getPlayerNumber() == 3) {
+                    player3winner.setGraphic(new ImageView(image));
+                } else if (topPlayer.getPlayerNumber() == 4) {
+                    player4winner.setGraphic(new ImageView(image));
+                }
 
-                    }
+                end = true;
+
+            } else {
+                //Calculates all player scores and rearranges playerList for a new order for the next turn
+                getTurnOrder();
+
+                //Refreshes scores on GUI
+                refreshScores();
+
+                //Resets the turn to 1
+                turnNumber = 1;
+
+                round.setText(String.valueOf(roundNumber));
+
+                if (numOfPropBoughtInRound == 0) {
+                    selectionPhase = false;
+                } else {
+                    numOfPropBoughtInRound = 0;
+                }
+
+                if (Math.random() < .27) {
+                    globalEvent = true;
+                    RandomEvent randEvent = new RandomEvent();
+                    randInt = randEvent.getGlobalRandomEventInt(ConfigureController.getGame());
+                } else {
+                    globalEvent = false;
+                }
+            }
+        }
+
+        if (!end) {
+            numOfPropBoughtInTurn = 0;
+            currentPlayer = playerList.get(turnNumber - 1);
+            turn.setText(currentPlayer.getName());
+
+            if (globalEvent) {
+                RandomEvent randEvent = new RandomEvent();
+                randomEvent.setText(randEvent.globalRandomEvent(ConfigureController.getGame(), currentPlayer, randInt));
+            }
+            else {
+                if (Math.random() < .27) {
+                    RandomEvent randEvent = new RandomEvent();
+                    randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
                 }
             }
 
-            //Resets the turn to 1
-            turnNumber = 1;
+            updateTurnTime();
 
-            roundNumber++;
-            round.setText(String.valueOf(roundNumber));
-
-            if (numOfPropBoughtInRound == 0) {
-                selectionPhase = false;
-            }
-            else {
-                numOfPropBoughtInRound = 0;
+            if (currentPlayer.getMuleList().size() > 0) {
+                currentPlayer.getMuleList().stream().filter(mule -> mule != null
+                        && currentPlayer.getEnergy() >= 1).forEach(mule -> mule.calculateResourceChanges());
             }
 
-            if (Math.random() < .27) {
-                globalEvent = true;
-                RandomEvent randEvent = new RandomEvent();
-                randInt = randEvent.getGlobalRandomEventInt(ConfigureController.getGame());
-            }
-            else {
-                globalEvent = false;
-            }
+            food.setText(String.valueOf(currentPlayer.getFood()));
+            money.setText(String.valueOf(currentPlayer.getMoney()));
+            energy.setText(String.valueOf(currentPlayer.getEnergy()));
+            ore.setText(String.valueOf(currentPlayer.getOre()));
+            refreshScores();
         }
-
-        numOfPropBoughtInTurn = 0;
-        currentPlayer = playerList.get(turnNumber - 1);
-        turn.setText(currentPlayer.getName());
-
-        if (globalEvent) {
-            RandomEvent randEvent = new RandomEvent();
-            randomEvent.setText(randEvent.globalRandomEvent(ConfigureController.getGame(), currentPlayer, randInt));
-        }
-        else {
-            if (Math.random() < .27) {
-                RandomEvent randEvent = new RandomEvent();
-                randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
-            }
-        }
-
-        updateTurnTime();
-
-        if (currentPlayer.getMuleList().size() > 0) {
-            currentPlayer.getMuleList().stream().filter(mule -> mule != null
-                    && currentPlayer.getEnergy() >= 1).forEach(mule -> mule.calculateResourceChanges());
-        }
-
-        food.setText(String.valueOf(currentPlayer.getFood()));
-        money.setText(String.valueOf(currentPlayer.getMoney()));
-        energy.setText(String.valueOf(currentPlayer.getEnergy()));
-        ore.setText(String.valueOf(currentPlayer.getOre()));
-        refreshScores();
     }
 
 	@FXML
