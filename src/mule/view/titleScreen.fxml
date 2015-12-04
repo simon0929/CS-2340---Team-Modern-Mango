@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.TitleScreenController">
+   <children>
+      <ImageView fitHeight="465.0" fitWidth="908.0" layoutX="-1.0" layoutY="212.0" pickOnBounds="true">
+         <image>
+            <Image url="@resources/background.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" height="225.0" stroke="#fffcfc" strokeDashOffset="20.0" strokeLineCap="BUTT" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke-dash-array: 12 12 12 12;" width="900.0">
+         <fill>
+            <RadialGradient centerX="0.23595505617977525" centerY="0.6009615384615385" radius="0.5">
+               <stops>
+                  <Stop color="#8d8d8d" />
+                  <Stop color="#8d8d8d" offset="0.15355805243445697" />
+                  <Stop color="#8d8d8d" offset="0.18352059925093633" />
+                  <Stop color="#1d0626" offset="0.8277153558052435" />
+                  <Stop color="#0d0801" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <ImageView fitHeight="307.0" fitWidth="329.0" layoutX="558.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/circle1.png" />
+         </image>
+         <effect>
+            <DropShadow color="WHITE" height="124.22" radius="52.5025" width="87.79" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="384.0" fitWidth="406.0" layoutX="516.0" layoutY="-5.0" pickOnBounds="true">
+         <image>
+            <Image url="@resources/dots.png" />
+         </image>
+      </ImageView>
+      <Text fill="FFF9E2" layoutX="25.0" layoutY="148.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Pacifico;" text="MULE" wrappingWidth="585.7440185546875">
+         <font>
+            <Font name="Pacifico" size="125.0" />
+         </font>
+         <effect>
+            <DropShadow spread="0.30" />
+         </effect>
+      </Text>
+      <Text fill="FFF9E2" layoutX="136.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Pacifico;" text="." wrappingWidth="51.7440185546875">
+         <font>
+            <Font name="Pacifico" size="125.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Text>
+      <Text fill="FFF9E2" layoutX="200.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Pacifico;" text="." wrappingWidth="51.7440185546875">
+         <font>
+            <Font name="Pacifico" size="125.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Text>
+      <Text fill="FFF9E2" layoutX="282.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Pacifico;" text="." wrappingWidth="51.7440185546875">
+         <font>
+            <Font name="Pacifico" size="125.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Text>
+      <Text fill="FFF9E2" layoutX="356.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Pacifico;" text="." wrappingWidth="51.7440185546875">
+         <font>
+            <Font name="Pacifico" size="125.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Text>
+      <Text fontSmoothingType="LCD" layoutX="64.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Spastic; -fx-font-size: 20;" text="Adaptation by Modern Mango">
+         <font>
+            <Font name="Spastic" size="24.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="182.0" layoutY="321.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <Glow />
+         </effect>
+      </ImageView>
+      <Button fx:id="startButton1" cacheShape="false" contentDisplay="TOP" layoutX="14.0" layoutY="589.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" style="-fx-font-family: Spastic; -fx-font-size: 25; -fx-background-color: #FFF9E2;" text="Begin Game">
+         <font>
+            <Font name="Spastic" size="36.0" />
+         </font>
+         <effect>
+            <DropShadow height="124.22" radius="60.09" spread="0.12" width="118.14" />
+         </effect>
+      </Button>
+      <ImageView fitHeight="550.0" fitWidth="464.0" layoutX="318.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/mule.png" />
+         </image>
+         <effect>
+            <DropShadow color="#1aff6a" height="139.39" radius="82.85749999999999" spread="0.19" width="194.04" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="225.0" fitWidth="352.0" layoutX="16.0" layoutY="441.0" onMouseClicked="#handleStartGame" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/thing1.png" />
+         </image>
+         <effect>
+            <DropShadow color="#2aae3c" spread="0.21" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="243.0" fitWidth="406.0" layoutX="601.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/thing2.png" />
+         </image>
+         <effect>
+            <DropShadow color="#63e85c" spread="0.32" />
+         </effect>
+      </ImageView>
+      <Button fx:id="startButton2" cacheShape="false" contentDisplay="TOP" layoutX="14.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="62.0" prefWidth="200.0" style="-fx-background-color: TRANSPARENT;">
+         <effect>
+            <DropShadow height="124.22" radius="60.09" spread="0.12" width="118.14" />
+         </effect>
+         <font>
+            <Font name="Spastic" size="36.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="401.0" layoutY="576.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/thing3.png" />
+         </image>
+         <effect>
+            <DropShadow color="#4bd65a" spread="0.19" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="76.0" fitWidth="108.0" layoutX="768.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/thing4.png" />
+         </image>
+         <effect>
+            <DropShadow color="#48e84d" spread="0.35" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="38.0" fitWidth="28.0" layoutX="737.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/star1.png" />
+         </image>
+         <effect>
+            <DropShadow color="#fffcfce1" height="61.98" radius="40.7375" spread="0.71" width="102.97" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="677.0" layoutY="388.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/star2.png" />
+         </image>
+         <effect>
+            <DropShadow color="#ffffffc1" height="45.29" radius="28.214999999999996" spread="0.73" width="69.57" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="45.0" fitWidth="28.0" layoutX="723.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/star3.png" />
+         </image>
+         <effect>
+            <DropShadow color="#ffffffef" height="46.81" radius="29.355" spread="0.65" width="72.61" />
+         </effect></ImageView>
+      <ImageView fitHeight="45.0" fitWidth="100.0" layoutX="686.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/star5.png" />
+         </image>
+         <effect>
+            <DropShadow color="#ffffffd7" radius="22.1425" spread="0.7" width="69.57" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="14.0" fitWidth="39.0" layoutX="696.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/star6.png" />
+         </image>
+         <effect>
+            <DropShadow color="#fffbfb" height="86.27" radius="68.8175" spread="0.73" width="191.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="822.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="WHITE" height="14.18" radius="47.0" spread="0.3" width="175.82" />
+         </effect>
+         <image>
+            <Image url="@resources/star6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="65.0" layoutX="847.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/star7.png" />
+         </image>
+         <effect>
+            <DropShadow color="#ffffffc8" height="57.43" radius="37.3225" spread="0.69" width="93.86" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="38.0" fitWidth="28.0" layoutX="294.0" layoutY="471.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#fffcfce1" height="82.48" radius="45.8625" spread="0.09" width="102.97" />
+         </effect>
+         <image>
+            <Image url="@resources/star1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="37.0" fitWidth="36.0" layoutX="265.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/star9.png" />
+         </image>
+         <effect>
+            <DropShadow color="WHITE" radius="20.625" spread="0.48" width="63.5" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="14.0" fitWidth="39.0" layoutX="706.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#fffbfb" height="0.0" radius="12.4025" spread="0.03" width="51.61" />
+         </effect>
+         <image>
+            <Image url="@resources/star6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="14.0" fitWidth="39.0" layoutX="307.0" layoutY="464.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#fffbfb" height="0.0" radius="12.4025" spread="0.03" width="51.61" />
+         </effect>
+         <image>
+            <Image url="@resources/star6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="65.0" layoutX="450.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#fffffff6" height="75.65" radius="38.0825" spread="0.69" width="78.68" />
+         </effect>
+         <image>
+            <Image url="@resources/star7.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="37.0" fitWidth="35.0" layoutX="535.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/star1.png" />
+         </image>
+         <effect>
+            <DropShadow color="#fffefe" radius="25.1775" spread="0.45" width="81.71" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="502.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="WHITE" height="0.89" radius="23.185" spread="0.51" width="93.85" />
+         </effect>
+         <image>
+            <Image url="@resources/star6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="38.0" fitWidth="28.0" layoutX="478.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#ffffffe0" height="92.73" radius="49.9425" spread="0.66" width="109.04" />
+         </effect>
+         <image>
+            <Image url="@resources/star1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="21.0" layoutX="553.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="WHITE" radius="20.625" spread="0.48" width="63.5" />
+         </effect>
+         <image>
+            <Image url="@resources/star9.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="21.0" layoutX="520.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#ffffffd7" radius="22.1425" spread="0.7" width="69.57" />
+         </effect>
+         <image>
+            <Image url="@resources/star5.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

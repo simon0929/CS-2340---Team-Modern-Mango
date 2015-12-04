@@ -19,6 +19,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * Class that handles communication of town
+ * functions/navigation (change screens) to the view
+ *
+ * @author ModernMango
+ *
+ */
 public class TownController {
 
 //	@FXML
@@ -74,18 +81,19 @@ public class TownController {
 			nameView.get(i).setText(n);
 		}
 
-		food.setText(String.valueOf(GameController.currentPlayer.getFood()));
-		money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
-		energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
-		ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
+		food.setText(String.valueOf(GameController.getCurrentPlayer().getFood()));
+		money.setText(String.valueOf(GameController.getCurrentPlayer().getMoney()));
+		energy.setText(String.valueOf(GameController.getCurrentPlayer().getEnergy()));
+		ore.setText(String.valueOf(GameController.getCurrentPlayer().getOre()));
 
-		round.setText(String.valueOf(GameController.roundNumber));
-		turn.setText(GameController.currentPlayer.getName());
+		round.setText(String.valueOf(GameController.getRoundNumber()));
+		turn.setText(GameController.getCurrentPlayer().getName());
 
-		turnTime = GameController.turnTime;
+		turnTime = GameController.getTurnTime();
 
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
+
 			@Override
 			public void run() {
 				Platform.runLater(() -> {

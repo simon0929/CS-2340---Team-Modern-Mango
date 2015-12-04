@@ -19,6 +19,14 @@ import java.util.TimerTask;
 
 import javafx.scene.control.Button;
 
+/**
+ * Class that communicates the store functions
+ * (purchasing, selling, etc) and updated values
+ * with the view
+ *
+ * @author ModernMango
+ *
+ */
 public final class StoreController {
 
     @FXML
@@ -28,7 +36,7 @@ public final class StoreController {
 
     @FXML
     private Button buyOre, buyEnergy, buyFood, buyMule, sellOre, sellEnergy, sellFood;
-    
+
     @FXML
     private ChoiceBox<String> muleType;
 
@@ -40,8 +48,8 @@ public final class StoreController {
     private Stage gameStage;
 
     private Scene gameScene;
-    
-    public Game game;
+
+    private Game game;
 
     @FXML
     private void initialize() {
@@ -95,13 +103,14 @@ public final class StoreController {
         storeMule.setText(String.valueOf(ConfigureController.getGame().getStore().getMule()));
         storeMessage.setText("");
 
-        round.setText(String.valueOf(GameController.roundNumber));
-        turn.setText(GameController.currentPlayer.getName());
+        round.setText(String.valueOf(GameController.getRoundNumber()));
+        turn.setText(GameController.getCurrentPlayer().getName());
 
-        turnTime = GameController.turnTime;
+        turnTime = GameController.getTurnTime();
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
+
             @Override
             public void run() {
                 Platform.runLater(() -> {
@@ -113,7 +122,7 @@ public final class StoreController {
                 });
             }
         }, 0, 1000);
-        
+
         final ObservableList<String> type = FXCollections.observableArrayList();
 		type.add("food (+25)");
 		type.add("energy (+50)");
@@ -148,11 +157,11 @@ public final class StoreController {
         storeMessage.setText(message);
 
         if(buyOre.isPressed()) {
-            message = GameController.currentPlayer.buyResource("ore");
+            message = GameController.getCurrentPlayer().buyResource("ore");
         } else if (buyEnergy.isPressed()) {
-           message = GameController.currentPlayer.buyResource("energy");
+           message = GameController.getCurrentPlayer().buyResource("energy");
         } else if (buyFood.isPressed()) {
-            message = GameController.currentPlayer.buyResource("food");
+            message = GameController.getCurrentPlayer().buyResource("food");
         }
 
         storeMessage.setText(message);
@@ -165,11 +174,11 @@ public final class StoreController {
         storeMessage.setText(message);
 
         if(sellOre.isPressed()) {
-            message = GameController.currentPlayer.sellResource("ore");
+            message = GameController.getCurrentPlayer().sellResource("ore");
         } else if (sellEnergy.isPressed()) {
-           message = GameController.currentPlayer.sellResource("energy");
+           message = GameController.getCurrentPlayer().sellResource("energy");
         } else if (sellFood.isPressed()) {
-            message = GameController.currentPlayer.sellResource("food");
+            message = GameController.getCurrentPlayer().sellResource("food");
         }
 
         storeMessage.setText(message);
@@ -184,15 +193,15 @@ public final class StoreController {
 
     	if(muleType.getValue() != null && buyMule.isPressed()) {
     		if (muleType.getSelectionModel().getSelectedItem().compareTo("food (+25)") == 0) {
-    			message = GameController.currentPlayer.buyResource("foodMule");
+    			message = GameController.getCurrentPlayer().buyResource("foodMule");
     			GameController.setTypeOfMule("food");
     		}
     		else if (muleType.getSelectionModel().getSelectedItem().compareTo("energy (+50)") == 0) {
-                message = GameController.currentPlayer.buyResource("energyMule");
+                message = GameController.getCurrentPlayer().buyResource("energyMule");
     			GameController.setTypeOfMule("energy");
     		}
     		else if (muleType.getSelectionModel().getSelectedItem().compareTo("ore (+75)") == 0) {
-                message = GameController.currentPlayer.buyResource("oreMule");
+                message = GameController.getCurrentPlayer().buyResource("oreMule");
     			GameController.setTypeOfMule("ore");
     		}
     	}
@@ -202,19 +211,22 @@ public final class StoreController {
     }
 
     private void updateValues() {
-        food.setText(String.valueOf(GameController.currentPlayer.getFood()));
-        money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
-        energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
-        ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
-        storeOre.setText(String.valueOf(ConfigureController.getGame().getStore().getOre()));
-        storeFood.setText(String.valueOf(ConfigureController.getGame().getStore().getFood()));
-        storeEnergy.setText(String.valueOf(ConfigureController.getGame().getStore().getEnergy()));
-        storeMule.setText(String.valueOf(ConfigureController.getGame().getStore().getMule()));
+        Player currentPlayer = GameController.getCurrentPlayer();
+        Store store = ConfigureController.getGame().getStore();
+
+        food.setText(String.valueOf(currentPlayer.getFood()));
+        money.setText(String.valueOf(currentPlayer.getMoney()));
+        energy.setText(String.valueOf(currentPlayer.getEnergy()));
+        ore.setText(String.valueOf(currentPlayer.getOre()));
+        storeOre.setText(String.valueOf(store.getOre()));
+        storeFood.setText(String.valueOf(store.getFood()));
+        storeEnergy.setText(String.valueOf(store.getEnergy()));
+        storeMule.setText(String.valueOf(store.getMule()));
     }
-    
+
     @FXML
     private void changeScreen(ActionEvent event) {
-    	GameController.placingMule = true;
+    	GameController.setPlacingMule(true);
         GameController.enableButtons(true);
         gameScene = ConfigureController.getGameScene();
         gameStage = ConfigureController.getGameStage();

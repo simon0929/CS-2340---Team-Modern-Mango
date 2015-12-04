@@ -21,6 +21,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Class that handles the configuration of the Mule game
+ * @author Team Modern Mango
+ *
+ */
 public final class ConfigureController implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -45,7 +50,7 @@ public final class ConfigureController implements java.io.Serializable{
 	private ChoiceBox<String> p1Race, p2Race, p3Race, p4Race;
 
 	@FXML
-	private Button startGameButton;
+	private Button startGameButton, startGameButton2;
 
     private static Game game;
 
@@ -81,6 +86,9 @@ public final class ConfigureController implements java.io.Serializable{
         p4Race.setItems(race);
         playerList = new ArrayList<>();
 
+		startGameButton.setDisable(true);
+		startGameButton2.setDisable(true);
+
 	}
 
 	//Selectively enables the correct number of Player entry fields based on max number of players
@@ -112,6 +120,8 @@ public final class ConfigureController implements java.io.Serializable{
                 p4Race.getSelectionModel().selectFirst();
 			}
 		}
+		startGameButton.setDisable(false);
+		startGameButton2.setDisable(false);
 	}
 
     @FXML
@@ -119,58 +129,62 @@ public final class ConfigureController implements java.io.Serializable{
 		if (beginDiff.isSelected() && standMap.isSelected()
                 && numOfPlayers.getSelectionModel().getSelectedItem() != null) {
 			startGameButton.setDisable(false);
+			startGameButton2.setDisable(false);
+
 		} else {
 			startGameButton.setDisable(true);
+			startGameButton2.setDisable(true);
+
 		}
 	}
 
 	//Runs when the start button is clicked. Sets up the main game screen and objects.
 	@FXML
 	private void handleStartGame(ActionEvent event) throws IOException {
-		numPlayers = numOfPlayers.getSelectionModel().getSelectedItem();
+			numPlayers = numOfPlayers.getSelectionModel().getSelectedItem();
 
-		//Initializes string objects containing the difficulty to add to Player objects later.
-        String diff;
-        if (beginDiff.isSelected()) {
-			diff = "beginner";
-		} else if (standDiff.isSelected()) {
-			diff = "standard";
-		} else {
-			diff = "tournament";
-		}
+			//Initializes string objects containing the difficulty to add to Player objects later.
+			String diff;
+			if (beginDiff.isSelected()) {
+				diff = "beginner";
+			} else if (standDiff.isSelected()) {
+				diff = "standard";
+			} else {
+				diff = "tournament";
+			}
 
-		//Create new Game with correct number of players
-		Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-		Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
-		playerList.add(player1);
-		playerList.add(player2);
+			//Create new Game with correct number of players
+			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
+			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+			playerList.add(player1);
+			playerList.add(player2);
 
-		Player player3 = null;
-		Player player4 = null;
+			Player player3 = null;
+			Player player4 = null;
 
-		if(numPlayers >= MIN_NUM_PLAYERS + 1) {
-			player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
-			playerList.add(player3);
+			if (numPlayers >= MIN_NUM_PLAYERS + 1) {
+				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+				playerList.add(player3);
 
-		}
-		if(numPlayers == MAX_NUM_PLAYERS) {
-			player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
-			playerList.add(player4);
+			}
+			if (numPlayers == MAX_NUM_PLAYERS) {
+				player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
+				playerList.add(player4);
 
-		}
+			}
 
-		game = new Game(player1, player2, player3, player4, diff);
+			game = new Game(player1, player2, player3, player4, diff);
 
 
-		//Calls the Game.fxml file and actually constructs the GUI.
-		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
-		gameScene = new Scene(gameScreenParent);
-		gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		gameStage.setScene(gameScene);
-		gameStage.show();
+			//Calls the Game.fxml file and actually constructs the GUI.
+			Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
+			gameScene = new Scene(gameScreenParent);
+			gameStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			gameStage.setScene(gameScene);
+			gameStage.show();
 	}
 
-	
+
 	@FXML
 	private void handleLoad(ActionEvent event) {
 		loaded = true;
@@ -181,19 +195,19 @@ public final class ConfigureController implements java.io.Serializable{
     		playerList = game.getPlayerArr();
     		in.close();
     		fileIn.close();
-    		
+
     		FileInputStream fileIn1 = new FileInputStream("/tmp/round.ser");
     		ObjectInputStream in1 = new ObjectInputStream(fileIn1);
     		game.setRound(in1.readInt());
     		in1.close();
     		fileIn1.close();
-    		
+
     		FileInputStream fileIn2 = new FileInputStream("/tmp/turn.ser");
     		ObjectInputStream in2 = new ObjectInputStream(fileIn2);
     		game.setTurn(in2.readInt());
     		in2.close();
     		fileIn2.close();
-    		
+
     		FileInputStream fileIn3 = new FileInputStream("/tmp/m.ser");
     		ObjectInputStream in3 = new ObjectInputStream(fileIn3);
     		game.setRandomFactor(in3.readInt());
@@ -203,7 +217,7 @@ public final class ConfigureController implements java.io.Serializable{
     		for(Player player : playerList) {
                 player.setColor(player.getNewColor());
             }
-    		
+
     		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
     		gameScene = new Scene(gameScreenParent);
     		gameStage = (Stage) startGameButton.getScene().getWindow();
@@ -215,18 +229,47 @@ public final class ConfigureController implements java.io.Serializable{
     	}
     }
 
+	/**
+	 * Gets the Game
+	 * @return Game created
+	 */
 	public static Game getGame() { return game; }
 
+	/**
+	 * Gets the players playing in the game
+	 * @return List of players playing
+	 */
 	public static List<Player> getPlayerList() { return playerList;}
 
+	/**
+	 * Gets the maximum number of players allowed to play
+	 * @return Maximum number of players allowed
+	 */
 	public static int getMaxNumPlayers() { return MAX_NUM_PLAYERS;}
 
+	/**
+	 * Gets the game stage
+	 * @return Game stage
+	 */
 	public static Stage getGameStage() { return gameStage;}
 
+	/**
+	 * Gets the game scene
+	 * @return Game scene
+	 */
 	public static Scene getGameScene() { return gameScene;}
 
+	/**
+	 * Gets the number of players playing
+	 * @return Number of players playing
+	 */
 	public static int getNumPlayers() { return numPlayers; }
 
+	/**
+	 * Gets whether a game was loaded
+	 * @return True if a game was loaded
+	 *         False if a game wasn't loaded
+	 */
     public static boolean getLoaded() { return loaded; }
 
 
