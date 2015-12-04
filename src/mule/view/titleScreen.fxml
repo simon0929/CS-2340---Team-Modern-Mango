@@ -10,7 +10,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.TitleScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mule.model.TitleScreenController">
    <children>
       <ImageView fitHeight="465.0" fitWidth="908.0" layoutX="-1.0" layoutY="212.0" pickOnBounds="true">
          <image>
@@ -125,7 +125,7 @@
             <DropShadow color="#63e85c" spread="0.32" />
          </effect>
       </ImageView>
-      <Button fx:id="startButton2" cacheShape="false" contentDisplay="TOP" layoutX="14.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="62.0" prefWidth="200.0" style="-fx-background-color: TRANSPARENT;">
+      <Button fx:id="startButton2" cacheShape="false" contentDisplay="TOP" layoutX="14.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleStartGame" pickOnBounds="false" prefHeight="62.0" prefWidth="200.0" style="-fx-background-color: TRANSPARENT;">
          <effect>
             <DropShadow height="124.22" radius="60.09" spread="0.12" width="118.14" />
          </effect>
