@@ -19,7 +19,7 @@ public class FoodMule extends Mule implements java.io.Serializable {
      */
     public FoodMule(String pType) {
         setPropertyType(pType);
-        setCurrentPlayer(GameController.getCurrentPlayer());
+        setCurrentPlayer(GameController.currentPlayer);
         setMuleType("food");
     }
     static {

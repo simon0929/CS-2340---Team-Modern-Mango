@@ -1,8 +1,6 @@
 package mule.model;
 
-import javafx.scene.media.AudioClip;
 import java.io.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -19,8 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -34,18 +30,13 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-/**
- * Class that handles communications
- * between Game and the view (GUI)
- *
- * @author ModernMango
- *
- */
 public class GameController implements java.io.Serializable {
 
     //Everything labeled @FXML relates directly to the .fxml files
 
-
+    /**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@FXML
@@ -53,7 +44,7 @@ public class GameController implements java.io.Serializable {
 
 	@FXML
 	private Label round, turn, timeLeft, food, money, energy, ore, player1score, player2score, player3score,
-            player4score, randomEvent, name1, name2, name3, name4, player1winner, player2winner, player3winner, player4winner;
+            player4score, randomEvent, name1, name2, name3, name4;
 
 	@FXML
 	private Button
@@ -65,25 +56,29 @@ public class GameController implements java.io.Serializable {
 
     @FXML
     private Rectangle p1Color, p2Color, p3Color, p4Color;
-
+    
     @FXML
     private MenuItem save, load;
-
+    
     @FXML
     private GridPane grid;
 
 	private Game game;
 
-	private static Player currentPlayer;
+	public static Player currentPlayer;
 
     //numOfPropBuyInRound = number of properties bought this round, if 0 then land selection phase ends
-	private int turnNumber, numOfPropBoughtInTurn, numOfPropBoughtInRound;
+	public int turnNumber, numOfPropBoughtInTurn, numOfPropBoughtInRound;
 
-    private static int turnTime, roundNumber;
+    public static int turnTime, roundNumber;
 
     private static final int PROPERTY_PRICE = 300, TIME_LIMIT = 50, MAP_SIZE = 45;
 
-	private boolean selectionPhase;
+	private static boolean selectionPhase;
+
+	private static boolean buyingMode = false;
+	
+	private static boolean sellMode = false;
 
 	private List<Player> playerList;
 
@@ -93,27 +88,19 @@ public class GameController implements java.io.Serializable {
 
     private ArrayList<Label> scoreView;
 
-    private Stage gameStage;
+    public static Stage gameStage;
 
-    private Scene gameScene;
+    public static Scene gameScene;
 
-    private static boolean placingMule = false;
+    public static boolean placingMule = false;
 
     private static String typeOfMule;
 
     private static Button[] buttonArr;
 
-    private boolean globalEvent = false, end = false;
-
-    private int randInt = -1;
-
-    private static AudioClip audio;
 
     @FXML
 	private void initialize() {
-        audio = new AudioClip(getClass().getResource("/mule/view/resources/58-ambient-orchestral-piece.mp3").toString());
-        Main.getAudioClip().stop();
-        audio.play();
         List<Player> playerArr = ConfigureController.getGame().getPlayerArr();
         playerList = ConfigureController.getPlayerList();
         this.game = ConfigureController.getGame();
@@ -127,7 +114,7 @@ public class GameController implements java.io.Serializable {
         numOfPropBoughtInTurn = 0;
         numOfPropBoughtInRound = 0;
 		selectionPhase = true;
-
+		
 
         food.setText(String.valueOf(currentPlayer.getFood()));
 		money.setText(String.valueOf(currentPlayer.getMoney()));
@@ -204,19 +191,14 @@ public class GameController implements java.io.Serializable {
     //Performs a variety of things when the End Turn button is clicked
 	@FXML
 	private void handleEndTurn(MouseEvent event) {
-        if (!end) {
-            endTurn();
-        }
+        endTurn();
 	}
 
     private void handleEndTurn() {
-        if (!end) {
-            endTurn();
-        }
+        endTurn();
     }
 
     private void endTurn() {
-
         //refreshes screen
         ConfigureController.getGame().update();
         this.randomEvent.setText("");
@@ -226,127 +208,113 @@ public class GameController implements java.io.Serializable {
 
         //if the number of turns exceeds the number of players, the round ends
         if (turnNumber > playerList.size()) {
+            //Calculates all player scores and rearranges playerList for a new order for the next turn
+            getTurnOrder();
+
+            //Refreshes scores on GUI
+            refreshScores();
+
+            //Resets the turn to 1
+            turnNumber = 1;
+
             roundNumber++;
+            round.setText(String.valueOf(roundNumber));
 
-            if (roundNumber > 12) {
-                round.setText("End");
-                turn.setText("End");
-                timeLeft.setText("0");
-
-                int size = playerList.size();
-                Player topPlayer = playerList.get(size - 1);
-                Image image = new Image("/mule/view/resources/crown_title.png", 29, 16, true, true);
-
-                if (topPlayer.getPlayerNumber() == 1) {
-                    player1winner.setGraphic(new ImageView(image));
-                } else if (topPlayer.getPlayerNumber() == 2) {
-                    player2winner.setGraphic(new ImageView(image));
-                } else if (topPlayer.getPlayerNumber() == 3) {
-                    player3winner.setGraphic(new ImageView(image));
-                } else if (topPlayer.getPlayerNumber() == 4) {
-                    player4winner.setGraphic(new ImageView(image));
-                }
-
-                end = true;
-
-            } else {
-                //Calculates all player scores and rearranges playerList for a new order for the next turn
-                getTurnOrder();
-
-                //Refreshes scores on GUI
-                refreshScores();
-
-                //Resets the turn to 1
-                turnNumber = 1;
-
-                round.setText(String.valueOf(roundNumber));
-
-                if (numOfPropBoughtInRound == 0) {
-                    selectionPhase = false;
-                } else {
-                    numOfPropBoughtInRound = 0;
-                }
-
-                if (Math.random() < .27) {
-                    globalEvent = true;
-                    RandomEvent randEvent = new RandomEvent();
-                    randInt = randEvent.getGlobalRandomEventInt(ConfigureController.getGame());
-                } else {
-                    globalEvent = false;
-                }
-            }
-        }
-
-        if (!end) {
-            numOfPropBoughtInTurn = 0;
-            currentPlayer = playerList.get(turnNumber - 1);
-            turn.setText(currentPlayer.getName());
-
-            if (globalEvent) {
-                RandomEvent randEvent = new RandomEvent();
-                randomEvent.setText(randEvent.globalRandomEvent(ConfigureController.getGame(), currentPlayer, randInt));
+            if (numOfPropBoughtInRound == 0) {
+                selectionPhase = false;
             }
             else {
-                if (Math.random() < .27) {
-                    RandomEvent randEvent = new RandomEvent();
-                    randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
-                }
+                numOfPropBoughtInRound = 0;
             }
-
-            updateTurnTime();
-
-            if (currentPlayer.getMuleList().size() > 0) {
-                currentPlayer.getMuleList().stream().filter(mule -> mule != null
-                        && currentPlayer.getEnergy() >= 1).forEach(mule -> mule.calculateResourceChanges());
-            }
-
-            food.setText(String.valueOf(currentPlayer.getFood()));
-            money.setText(String.valueOf(currentPlayer.getMoney()));
-            energy.setText(String.valueOf(currentPlayer.getEnergy()));
-            ore.setText(String.valueOf(currentPlayer.getOre()));
-            refreshScores();
         }
+
+        numOfPropBoughtInTurn = 0;
+        currentPlayer = playerList.get(turnNumber - 1);
+        turn.setText(currentPlayer.getName());
+        if (Math.random() < .27) {
+        	RandomEvent randEvent = new RandomEvent();
+        	this.randomEvent.setText(randEvent.random(ConfigureController.getGame(), currentPlayer));
+        }
+        updateTurnTime();
+        if (currentPlayer.getMuleList().size() > 0) {
+            currentPlayer.getMuleList().stream().filter(mule -> mule != null
+                    && currentPlayer.getEnergy() >= 1).forEach(mule -> mule.calculateResourceChanges());
+        }
+
+        food.setText(String.valueOf(currentPlayer.getFood()));
+        money.setText(String.valueOf(currentPlayer.getMoney()));
+        energy.setText(String.valueOf(currentPlayer.getEnergy()));
+        ore.setText(String.valueOf(currentPlayer.getOre()));
+        refreshScores();
     }
 
 	@FXML
-	private void handleProperty(MouseEvent event) {
-        if (numOfPropBoughtInTurn == 0) {
-            if (selectionPhase) {
-                if (!ConfigureController.getGame().selectedProp()) {
-                    Color playerColor = ConfigureController.getGame().getCurrPlayer().getColor();
-
-                    //Gets the actual property object that was clicked so that things can be done to it
-                    Pane mapElement = (Pane) event.getSource();
-                    String property = "pane" + mapElement.getId();
-
-                    if (!propertyOwnedList.contains(property) && (currentPlayer.getNumOfFreeProperties() != 0
-                            || currentPlayer.getMoney() >= PROPERTY_PRICE)) {
-                        currentPlayer.incrementPropertyOwned();
-                        propertyOwnedList.add(property);
-
-                        if (currentPlayer.getNumOfFreeProperties() == 0) {
-                            //Automatically updates player's money and on the GUI
-                            currentPlayer.setMoney(currentPlayer.getMoney() - PROPERTY_PRICE);
-                            money.setText(String.valueOf(currentPlayer.getMoney()));
-                        }
-                        else {
-                            currentPlayer.decrementFreeProperty();
-                        }
-
-                        numOfPropBoughtInTurn++;
-                        currentPlayer.addToPropertyList(property);
-
-                        Region reg = (Region) event.getSource();
-                        reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
-
-                        currentPlayer.calculateScore();
-                        refreshScores();
-                    }
+	private void handleProperty(MouseEvent event) throws IOException {
+		if (!sellMode) {
+	        if (numOfPropBoughtInTurn == 0) {
+	            if (selectionPhase) {
+	                if (!ConfigureController.getGame().selectedProp()) {
+	                    Color playerColor = ConfigureController.getGame().getCurrPlayer().getColor();
+	
+	                    //Gets the actual property object that was clicked so that things can be done to it
+	                    Pane mapElement = (Pane) event.getSource();
+	                    String property = "pane" + mapElement.getId();
+	                    if (!propertyOwnedList.contains(property) && (currentPlayer.getNumOfFreeProperties() != 0
+	                            || currentPlayer.getMoney() >= PROPERTY_PRICE)) {
+	                        currentPlayer.incrementPropertyOwned();
+	                        propertyOwnedList.add(property);
+	
+	                        if (currentPlayer.getNumOfFreeProperties() == 0) {
+	                            //Automatically updates player's money and on the GUI
+	                            currentPlayer.setMoney(currentPlayer.getMoney() - PROPERTY_PRICE);
+	                            money.setText(String.valueOf(currentPlayer.getMoney()));
+	                        }
+	                        else {
+	                            currentPlayer.decrementFreeProperty();
+	                        }
+	
+	                        numOfPropBoughtInTurn++;
+	                        currentPlayer.addToPropertyList(property);
+	
+	                        Region reg = (Region) event.getSource();
+	                        reg.setBorder(new Border(new BorderStroke(playerColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4.0))));
+	
+	                        currentPlayer.calculateScore();
+	                        refreshScores();
+	                    }
+	                }
+	            }
+	        }
+		} else {
+				Pane mapElement = (Pane) event.getSource();
+				String property = "pane" + mapElement.getId();
+                if (propertyOwnedList.contains(property) && (currentPlayer.getPropertyList().contains(property))) {
+                	currentPlayer.decrementPropertyOwned();
+                    currentPlayer.removeFromPropertyList(property);
+                    currentPlayer.setMoney(currentPlayer.getMoney() + PROPERTY_PRICE);
+                    money.setText(String.valueOf(currentPlayer.getMoney()));
+                    propertyOwnedList.remove(property);
+                    currentPlayer.calculateScore();
+                    refreshScores();
+                    Region reg = (Region) event.getSource();
+                    reg.setBorder(null);
                 }
-            }
+                Parent landOfficeScreen = FXMLLoader.load(getClass().getResource("/mule/view/LandOffice.fxml"));
+        		Scene landOfficeScene = new Scene(landOfficeScreen);
+        		Stage landOfficeStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        		landOfficeStage.setScene(landOfficeScene);
+        		landOfficeStage.show();
+		}
+        if (buyingMode) {
+        	Parent landOfficeScreen = FXMLLoader.load(getClass().getResource("/mule/view/LandOffice.fxml"));
+    		Scene landOfficeScene = new Scene(landOfficeScreen);
+    		Stage landOfficeStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    		landOfficeStage.setScene(landOfficeScene);
+    		landOfficeStage.show();
+    		buyingMode =  false;
         }
 	}
-
+	
 	private void reDrawProperty() {
         for (Player player : constantPlayerList) {
             Color playerColor = player.getColor();
@@ -387,7 +355,7 @@ public class GameController implements java.io.Serializable {
             }
             playerList.add(tempList.get(minScore));
             tempList.remove(minScore);
-        }
+        }        
         game.setPlayerList(playerList);
     }
 
@@ -400,9 +368,6 @@ public class GameController implements java.io.Serializable {
         }
     }
 
-    /**
-     * Updates the game's turn time based on the player's stats
-     */
     public void updateTurnTime() {
         if (roundNumber == 1) {
             turnTime = 50;
@@ -443,7 +408,7 @@ public class GameController implements java.io.Serializable {
             }
         }
 
-        timeLeft.setText(String.valueOf(turnTime));
+        //timeLeft.setText(String.valueOf(turnTime));
     }
 
     private void startTurnTimer() {
@@ -451,14 +416,9 @@ public class GameController implements java.io.Serializable {
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-
-        	@Override
+            @Override
             public void run() {
                 Platform.runLater(() -> {
-                    if (!audio.isPlaying()) {
-                        audio = new AudioClip(getClass().getResource("/mule/view/resources/ambienthemeno2.mp3").toString());
-                        audio.play();
-                    }
                     if (turnTime >= 0) {
                         timeLeft.setText(String.valueOf(turnTime--));
                     } else {
@@ -516,26 +476,17 @@ public class GameController implements java.io.Serializable {
             Mule mule = null;
             String id = "pane" + clickedButton.getParent().getId();
 
-            if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
+            if (typeOfMule.compareTo("food") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("food");
-                clickedButton.setVisible(false);
-                ImageView foodMuleView = (ImageView) clickedButton.getParent().getChildrenUnmodifiable().get(1);
-                foodMuleView.setVisible(true);
                 mule = new FoodMule(propertyType);
-            } else if (typeOfMule.compareTo("energy") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
+            } else if (typeOfMule.compareTo("energy") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("energy");
-                clickedButton.setVisible(false);
-                ImageView energyMuleView = (ImageView) clickedButton.getParent().getChildrenUnmodifiable().get(2);
-                energyMuleView.setVisible(true);
                 mule = new EnergyMule(propertyType);
-            } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Place Mule") == 0 &&
+            } else if (typeOfMule.compareTo("ore") == 0 && clickedButton.getText().compareTo("Mule") == 0 &&
                     propertyOwnedList.contains(id) && currentPlayer.getPropertyList().contains(id)) {
                 clickedButton.setText("ore");
-                clickedButton.setVisible(false);
-                ImageView oreMuleView = (ImageView) clickedButton.getParent().getChildrenUnmodifiable().get(3);
-                oreMuleView.setVisible(true);
                 mule = new OreMule(propertyType);
             }
 			placingMule = false;
@@ -547,7 +498,7 @@ public class GameController implements java.io.Serializable {
             enableButtons(false);
     	}
     }
-
+    
     @FXML
     private void handleSave (ActionEvent event) {
     	try {
@@ -556,19 +507,19 @@ public class GameController implements java.io.Serializable {
     		out.writeObject(game);
     		out.close();
     		fileOut.close();
-
+    		
     		FileOutputStream fileOut1 = new FileOutputStream("/tmp/round.ser");
     		ObjectOutputStream out1 = new ObjectOutputStream(fileOut1);
     		out1.writeInt(game.getRound());
     		out1.close();
     		fileOut1.close();
-
+    		
     		FileOutputStream fileOut2 = new FileOutputStream("/tmp/turn.ser");
     		ObjectOutputStream out2 = new ObjectOutputStream(fileOut2);
     		out2.writeInt(game.getTurn());
     		out2.close();
     		fileOut2.close();
-
+    		
     		FileOutputStream fileOut3 = new FileOutputStream("/tmp/m.ser");
     		ObjectOutputStream out3 = new ObjectOutputStream(fileOut3);
     		out3.writeInt(game.getRandomFactor());
@@ -579,85 +530,36 @@ public class GameController implements java.io.Serializable {
     	}
     }
 
-    /**
-     * Sets the mule type to the type passed in
-     * @param type New type to set mule type to
-     */
     public static void setTypeOfMule(String type) { typeOfMule = type; }
 
-    /**
-     * Gets the game
-     * @return Game
-     */
     public Game getGame(){ return game; }
 
-    /**
-     * Gets the lists of players playing
-     * @return List of players in the game
-     */
     public List<Player> getPlayerList() { return playerList; }
 
-    /**
-     * Gets the current player
-     * @return Current player
-     */
-    public static Player getCurrentPlayer() { return currentPlayer; }
-
-    /**
-     * Returns the amount of time in the turn
-     * @return time left in the turn
-     */
-    public static int getTurnTime() { return turnTime; }
-
-    /**
-     * Gets the current round number
-     * @return Round number
-     */
-    public static int getRoundNumber() { return roundNumber; }
-
-    /**
-     * Sets the turn time to the value passed in
-     * @param time Value to set the turn time to
-     */
-    public static void setTurnTime(int time) { turnTime = time; }
-
-    /**
-     * Sets whether the player is placing a mule to the boolean passed in
-     *
-     * @param bool New boolean value for placingMule
-     * True is a mule is being placed and false if a mule isn't
-     */
-    public static void setPlacingMule(boolean bool) { placingMule = bool; }
-
-    /**
-     * Sets round number to the value passed in
-     * @param round new round number
-     */
-    public static void setRoundNumber(int round) { roundNumber = round; }
-
-    /**
-     * Sets current player to the player passed in
-     * @param cp New player to set the current player to
-     */
-    public static void setCurrentPlayer(Player cp) { currentPlayer = cp; }
-
-
-    /**
-     * Sets visibility of buttons (representing mules)
-     * based on the boolean value passed in
-     *
-     * @param bool Boolean value to set visibility of mule buttons
-     * If true mule buttons are visible, otherwise they aren't visible
-     */
     public static void enableButtons(Boolean bool) {
         for (Button button : buttonArr) {
-            if (button.getText().equals("Place Mule")) {
+            if (button.getText().equals("Mule")) {
                 button.setVisible(bool);
             }
         }
     }
-
-    public static AudioClip getAudioClip() {
-        return audio;
+    
+    public static void buyProperty() {
+    	gameScene = ConfigureController.getGameScene();
+        gameStage = ConfigureController.getGameStage();
+        gameStage.setScene(gameScene);
+        buyingMode = true;
+        if (!selectionPhase) {
+        	selectionPhase = true;
+        }
+        
+	}
+    
+    public static void sellProperty() {
+    	gameScene = ConfigureController.getGameScene();
+        gameStage = ConfigureController.getGameStage();
+        gameStage.setScene(gameScene);
+        sellMode = true;
     }
+
 }
