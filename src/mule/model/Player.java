@@ -28,6 +28,7 @@ public final class Player implements java.io.Serializable{
             INIT_FOOD_N = 12, INIT_ENERGY_N = 8, INIT_ORE_N = 2,
             SCORE_CALC_MULTIPLIER = 500;
     private static final double COLOR_CONSTANT = 255.0;
+    private int playerNumber;
 
 
     /**
@@ -38,12 +39,14 @@ public final class Player implements java.io.Serializable{
      * @param r Race of the player
      * @param c Player's color
      * @param d Difficulty of game
+     * @param p Player number
      */
-    public Player(String n, String r, javafx.scene.paint.Color c, String d) {
+    public Player(String n, String r, javafx.scene.paint.Color c, String d, int p) {
         name = n;
         race = r;
         color = c;
         diff = d;
+        playerNumber = p;
         this.score = 0;
         numOfProperties = 0;
         numOfFreeProperties = 2;
@@ -160,6 +163,7 @@ public final class Player implements java.io.Serializable{
      * @return Player's score
      */
     public int getScore() {
+        calculateScore();
         return score;
     }
 
@@ -439,4 +443,10 @@ public final class Player implements java.io.Serializable{
      * @return Color of the player
      */
     public Color getNewColor() { return newColor; }
+
+    /**
+     * Gets the player's number
+     * @return int playerNum
+     */
+    public int getPlayerNumber() { return playerNumber; }
 }

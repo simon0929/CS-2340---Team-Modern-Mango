@@ -178,8 +178,8 @@ public final class ConfigureController implements java.io.Serializable {
 			}
 
 			//Create new Game with correct number of players
-			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff, 1);
+			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff, 2);
 			playerList.add(player1);
 			playerList.add(player2);
 
@@ -187,12 +187,12 @@ public final class ConfigureController implements java.io.Serializable {
 			Player player4 = null;
 
 			if (numPlayers >= MIN_NUM_PLAYERS + 1) {
-				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff, 3);
 				playerList.add(player3);
 
 			}
 			if (numPlayers == MAX_NUM_PLAYERS) {
-				player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
+				player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff, 4);
 				playerList.add(player4);
 
 			}
