@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,14 +21,18 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import java.io.File;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Class that handles the configuration of the Mule game
  * @author Team Modern Mango
  *
  */
-public final class ConfigureController implements java.io.Serializable{
+public final class ConfigureController implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +40,7 @@ public final class ConfigureController implements java.io.Serializable{
 
 
 	@FXML
-	private RadioButton standMap, beginDiff, standDiff;
+	private RadioButton standMap, beginDiff, standDiff, tourDiff, noobDiff, legendDiff;
 
 
 	@FXML
@@ -58,6 +64,8 @@ public final class ConfigureController implements java.io.Serializable{
 
 	private static Stage gameStage;
 
+    private static Parent gameScreenParent;
+
 	private static List<Player> playerList;
 
 	private static int numPlayers;
@@ -68,6 +76,7 @@ public final class ConfigureController implements java.io.Serializable{
 
 	@FXML
 	private void initialize() {
+
         final ObservableList<Integer> numPlay = FXCollections.observableArrayList();
         for (int i = MIN_NUM_PLAYERS; i <= MAX_NUM_PLAYERS; i++) {
             numPlay.add(i);
@@ -80,6 +89,8 @@ public final class ConfigureController implements java.io.Serializable{
         race.add("Bonzoid");
         race.add("Ugaite");
         race.add("Buzzite");
+        race.add("Sozon");
+        race.add("Dracanoid");
         p1Race.setItems(race);
         p2Race.setItems(race);
         p3Race.setItems(race);
@@ -106,7 +117,7 @@ public final class ConfigureController implements java.io.Serializable{
 				p1Race.getSelectionModel().selectFirst();
                 p2Race.getSelectionModel().selectFirst();
 
-				beginDiff.setSelected(true);
+				noobDiff.setSelected(true);
                 standMap.setSelected(true);
 
 				p3Name.setDisable(true);
@@ -134,7 +145,8 @@ public final class ConfigureController implements java.io.Serializable{
 
     @FXML
 	private void enableStartButton() {
-		if (beginDiff.isSelected() && standMap.isSelected()
+    	if ((noobDiff.isSelected() || beginDiff.isSelected() || standDiff.isSelected() || tourDiff.isSelected()
+    		    || legendDiff.isSelected()) && standMap.isSelected()
                 && numOfPlayers.getSelectionModel().getSelectedItem() != null) {
 			startGameButton.setDisable(false);
 			startGameButton2.setDisable(false);
@@ -157,13 +169,17 @@ public final class ConfigureController implements java.io.Serializable{
 				diff = "beginner";
 			} else if (standDiff.isSelected()) {
 				diff = "standard";
-			} else {
+			} else if (tourDiff.isSelected()) {
 				diff = "tournament";
+			} else if (noobDiff.isSelected()) {
+				diff = "noobie";
+			} else {
+				diff = "legendary";
 			}
 
 			//Create new Game with correct number of players
-			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff);
-			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff);
+			Player player1 = new Player(p1Name.getText(), p1Race.getValue(), p1Color.getValue(), diff, 1);
+			Player player2 = new Player(p2Name.getText(), p2Race.getValue(), p2Color.getValue(), diff, 2);
 			playerList.add(player1);
 			playerList.add(player2);
 
@@ -171,12 +187,12 @@ public final class ConfigureController implements java.io.Serializable{
 			Player player4 = null;
 
 			if (numPlayers >= MIN_NUM_PLAYERS + 1) {
-				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff);
+				player3 = new Player(p3Name.getText(), p3Race.getValue(), p3Color.getValue(), diff, 3);
 				playerList.add(player3);
 
 			}
 			if (numPlayers == MAX_NUM_PLAYERS) {
-				player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff);
+				player4 = new Player(p4Name.getText(), p4Race.getValue(), p4Color.getValue(), diff, 4);
 				playerList.add(player4);
 
 			}
@@ -226,12 +242,13 @@ public final class ConfigureController implements java.io.Serializable{
                 player.setColor(player.getNewColor());
             }
 
-    		Parent gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
+    		gameScreenParent = FXMLLoader.load(getClass().getResource("/mule/view/Game.fxml"));
     		gameScene = new Scene(gameScreenParent);
     		gameStage = (Stage) startGameButton.getScene().getWindow();
     		gameStage.setScene(gameScene);
     		gameStage.show();
-    	} catch (IOException | ClassNotFoundException i) {
+            Main.getAudioClip().stop();
+        } catch (IOException | ClassNotFoundException i) {
             Logger logger = Logger.getLogger(ConfigureController.class.getName());
             logger.log(Level.SEVERE, i.toString(), i);
     	}
@@ -267,6 +284,12 @@ public final class ConfigureController implements java.io.Serializable{
 	 */
 	public static Scene getGameScene() { return gameScene;}
 
+    /**
+     * Gets the object used to make the scene
+     * @return Parent gameScreenParent
+     */
+    public static Parent getGameScreenParent() { return gameScreenParent; }
+
 	/**
 	 * Gets the number of players playing
 	 * @return Number of players playing
@@ -279,6 +302,5 @@ public final class ConfigureController implements java.io.Serializable{
 	 *         False if a game wasn't loaded
 	 */
     public static boolean getLoaded() { return loaded; }
-
 
 }

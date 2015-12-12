@@ -1795,6 +1795,10 @@
                   <Label fx:id="player3score" layoutX="131.0" layoutY="72.0" style="-fx-font-size: 15;" text="" />
                   <Label fx:id="player2score" layoutX="131.0" layoutY="52.0" style="-fx-font-size: 15;" text="" />
                   <Label fx:id="player1score" layoutX="131.0" layoutY="32.0" style="-fx-font-size: 15;" text="" />
+                   <Label fx:id="player4winner" layoutX="14.0" layoutY="89.0" style="-fx-font-size: 15;" text="" />
+                   <Label fx:id="player3winner" layoutX="14.0" layoutY="69.0" style="-fx-font-size: 15;" text="" />
+                   <Label fx:id="player2winner" layoutX="14.0" layoutY="49.0" style="-fx-font-size: 15;" text="" />
+                   <Label fx:id="player1winner" layoutX="14.0" layoutY="29.0" style="-fx-font-size: 15;" text="" />
                   <Label fx:id="name4" layoutX="50.0" layoutY="92.0" style="-fx-font-family: Spastic; -fx-font-size: 15;" text="Player 4:">
                      <font>
                         <Font size="14.0" />

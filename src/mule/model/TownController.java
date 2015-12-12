@@ -81,15 +81,15 @@ public class TownController {
 			nameView.get(i).setText(n);
 		}
 
-		food.setText(String.valueOf(GameController.getCurrentPlayer().getFood()));
-		money.setText(String.valueOf(GameController.getCurrentPlayer().getMoney()));
-		energy.setText(String.valueOf(GameController.getCurrentPlayer().getEnergy()));
-		ore.setText(String.valueOf(GameController.getCurrentPlayer().getOre()));
+		food.setText(String.valueOf(GameController.currentPlayer.getFood()));
+		money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
+		energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
+		ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
 
-		round.setText(String.valueOf(GameController.getRoundNumber()));
-		turn.setText(GameController.getCurrentPlayer().getName());
+		round.setText(String.valueOf(GameController.roundNumber));
+		turn.setText(GameController.currentPlayer.getName());
 
-		turnTime = GameController.getTurnTime();
+		turnTime = GameController.turnTime;
 
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -143,6 +143,15 @@ public class TownController {
 		Stage storeStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		storeStage.setScene(storeScene);
 		storeStage.show();
+	}
+	
+	@FXML
+	 private void handleLandOffice(MouseEvent event) throws IOException {
+		Parent landOfficeScreen = FXMLLoader.load(getClass().getResource("/mule/view/LandOffice.fxml"));
+		Scene landOfficeScene = new Scene(landOfficeScreen);
+		Stage landOfficeStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		landOfficeStage.setScene(landOfficeScene);
+		landOfficeStage.show();
 	}
 	
 

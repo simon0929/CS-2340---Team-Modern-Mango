@@ -77,15 +77,15 @@ public class PubController {
             nameView.get(i).setText(n);
         }
 
-        food.setText(String.valueOf(GameController.getCurrentPlayer().getFood()));
-        money.setText(String.valueOf(GameController.getCurrentPlayer().getMoney()));
-        energy.setText(String.valueOf(GameController.getCurrentPlayer().getEnergy()));
-        ore.setText(String.valueOf(GameController.getCurrentPlayer().getOre()));
+        food.setText(String.valueOf(GameController.currentPlayer.getFood()));
+        money.setText(String.valueOf(GameController.currentPlayer.getMoney()));
+        energy.setText(String.valueOf(GameController.currentPlayer.getEnergy()));
+        ore.setText(String.valueOf(GameController.currentPlayer.getOre()));
 
-        round.setText(String.valueOf(GameController.getRoundNumber()));
-        turn.setText(GameController.getCurrentPlayer().getName());
+        round.setText(String.valueOf(GameController.roundNumber));
+        turn.setText(GameController.currentPlayer.getName());
 
-        turnTime = GameController.getTurnTime();
+        turnTime = GameController.turnTime;
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -129,8 +129,8 @@ public class PubController {
             int moneyBonus, timeBonus, roundBonus;
             Random rand = new Random();
 
-            int roundNumber = GameController.getRoundNumber();
-            int turnTime = GameController.getTurnTime();
+            int roundNumber = GameController.roundNumber;
+            int turnTime = GameController.turnTime;
 
             if (roundNumber < 4) {
                 roundBonus = 50;
@@ -158,10 +158,9 @@ public class PubController {
                 moneyBonus = 250;
             }
 
-            GameController.getCurrentPlayer().setMoney(GameController.getCurrentPlayer().getMoney() + moneyBonus);
-            GameController.getCurrentPlayer().setScore(GameController.getCurrentPlayer().getScore() + moneyBonus);
-            GameController.setTurnTime(0);
-
+            GameController.currentPlayer.setMoney(GameController.currentPlayer.getMoney() + moneyBonus);
+            GameController.currentPlayer.setScore(GameController.currentPlayer.getScore() + moneyBonus);
+            GameController.turnTime = 0;
 
             handleEndTurn();
             gameScene = ConfigureController.getGameScene();

@@ -30,7 +30,7 @@ public class OreMule extends Mule implements java.io.Serializable {
      */
     public OreMule(String pType) {
         setPropertyType(pType);
-        setCurrentPlayer(GameController.getCurrentPlayer());
+        setCurrentPlayer(GameController.currentPlayer);
         setMuleType("ore");
     }
 
